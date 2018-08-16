@@ -1,6 +1,6 @@
 ---
 title: "Trust management"
-weight: 3
+weight: 2
 ---
 
 Trust management is an __optional__ process that helps the user to choose reliable information sources and avoid compromised / fake / ... sources.
