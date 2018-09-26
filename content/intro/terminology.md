@@ -19,4 +19,4 @@ A feed refers to the aggregation of articles sent over the Informo network by on
 
 ## Trust authority (TA)
 
-A trust authority refers to an entity, whether it is an individual or a group of people, which role is to build up a list of sources it certifies as legit and worthy of trust. An individual or group of people that interacts over the Informo network as a trust authority can also be an information source, since the trust chain (described in the relevant section of this documentation) makes it so it has to be trusted by an existing TA to be considered a valid TA. The only exception to this rule is the Informo core team, which, therefore, can not act as a source.
+A trust authority refers to an entity, whether it is an individual or a group of people, which role is to build up a list of sources it certifies as legit and worthy of trust.
