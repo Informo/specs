@@ -1,7 +1,0 @@
----
-title: "Informo Project"
----
-
-
-# Welcome !
-
