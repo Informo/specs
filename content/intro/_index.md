@@ -27,6 +27,10 @@ One of the key mission of Informo is building a network of nodes implementing th
 
 Regarding the trust issue described the first section, Informo also involves a trust management mechanism, trying to set the balance between having to blindly trust anyone and having one party telling everyone who to trust. In this mechanism, the Informo core team still has a higher power than other NGO and news sources at some point, as it acts as the initial root authority, so it's not an ideal situation. However, the said team believes it is a step towards a less monolithic trust management.
 
+### The meaning of "Informo"
+
+"Informo" is a word which means "information" in the Esperanto language. Because Informo is all about information, and making it accessible, it was only logical that the name was centered on the word "information". Esperanto fits perfectly with Informo's universal mission and needs for openness, as a language that was designed to be universal and usable by anyone to communicate with everyone. On top of that, the word itself sounded nice to the project's authors, thus was chosen as the project's name.
+
 ## About this documentation
 
 This documentation is built with [Hugo](https://gohugo.io/), using [Mathieu Cornic's "learn" theme](https://github.com/matcornic/hugo-theme-learn). It is distributed under the [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html).
