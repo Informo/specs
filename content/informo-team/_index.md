@@ -3,7 +3,9 @@ title: "Informo core team"
 weight: 4
 ---
 
-This section describes relevant information regarding the Informo core team. Bellow is a list of the current members of the Informo core team, along with their Matrix device keys for E2E encryption.
+This section describes relevant information regarding the Informo core team.
+
+Bellow is a list of the current members of the Informo core team, along with their Matrix device keys for E2E encryption.
 
 * **Vabd**
   + Matrix ID: `@vabd:weu.informo.network`
