@@ -29,7 +29,7 @@ Regarding the trust issue described the first section, Informo also involves a t
 
 ## About this documentation
 
-This documentation is built with [Hugo](https://gohugo.io/), using [Mathieu Cornic's "learn" theme](https://github.com/matcornic/hugo-theme-learn).
+This documentation is built with [Hugo](https://gohugo.io/), using [Mathieu Cornic's "learn" theme](https://github.com/matcornic/hugo-theme-learn). It is distributed under the [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html).
 
 ### Emoji markers
 
