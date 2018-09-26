@@ -29,6 +29,8 @@ Regarding the trust issue described the first section, Informo also involves a t
 
 ## About this documentation
 
+This documentation is built with [Hugo](https://gohugo.io/), using [Mathieu Cornic's "learn" theme](https://github.com/matcornic/hugo-theme-learn).
+
 ### Emoji markers
 
 This some parts of this documentation are marked with an emoji, indicating a special status that will require the attention of an Informo core team member or specifications contributor in the future. They are mostly there to remind the relevant people of works in progress, and informing readers that the said people know there's work to do here (so there's no need to open a ticket about it). These are:
