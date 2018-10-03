@@ -18,6 +18,55 @@ State event containing the list of available sources
 - `location` (`string`): Location of the source agency / reporters / main information subjects. Can be a precise address, a city, a country, ...
 
 
+### Issues
+
+Having a single `network.informo.sources` state event is problematic since Matrix does not allow a user to modify specific fields in the event data without allowing the user to modify the entire event.
+
+If a user was granted full control over the source list, he would be able to impersonate other sources and send fake events.
+
+#### Membership event unsigned field solution
+
+The `m.room.membership` event has an `unsigned` field that can contains source / TA information.
+
+> Membership event example:
+> ```json
+{
+  "type": "m.room.member",
+  "sender": "@acmenews:weu.informo.network",
+  "state_key": "@acmenews:weu.informo.network",
+  "content": {
+    "membership": "join"
+  },
+  "unsigned": {
+    "source": {
+       "name": "ACME news",
+       "description": "This is a dummy source",
+       // ...
+    }
+  },
+}
+```
+
+To modify the source / TA data, the users would need to quit and join back the room with the new `unsigned` field in the membership event.
+
+Cons:
+
+- To list all existing informo sources, the user will need to query and parse every user's membership event.
+
+#### Community based solution
+
+Any user that joins a specific community can act as a source.
+
+Cons:
+
+- Communities are currently not decentralized
+
+#### Other future solutions requiring Matrix specs proposals
+
+- Store source information as extended user profile information
+- Allow specific state event types to be managed by specific users
+
+
 
 ## `network.informo.news.*`
 
@@ -34,8 +83,6 @@ Timeline event containing a single article.
 
 
 ## Draft
-- We need to allow any user to add his own custom source
-- How can we allow only one user to modify the source he created? (using state events: I don't know, using source users: with account data)
 - Can We can get rid of `Source.publishers` if events are signed ?
 - Should we have one source per language or one source containing multiple languages?
 - Handle article translations in a rss-friendly way
@@ -43,4 +90,3 @@ Timeline event containing a single article.
 - Multiple keys per source?
 - s/headline/title/ ?
 - s/description/introduction/ ?
-- What are the advantages of using a state event for network.informo.sources, over a simple timeline event?
