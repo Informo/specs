@@ -43,6 +43,7 @@ This some parts of this documentation are marked with an emoji, indicating a spe
 * 📝 (`:memo:`) This is a reference to a non existing resource that must be added in the future.
 * 👀 (`:eyes:`) The author of this part of the documentation is aware that, although they believe the information given here to be correct, they might not get the full picture, therefore give incomplete or incorrect information, and wishes to encourage discussions around this point (TL;DR: "imho, please correct if wrong").
 * 🕐 (`:clock1:`) This part of the documentation is only here temporarily for clarity purposes, and will be removed in a fixed point in the future.
+* 2️⃣ (`:two:`) This part of the documentation is incomplete, however the rest of it is to be added only uring phase 2 of the specifications' development.
 
 ### Specifications development 🕐
 
