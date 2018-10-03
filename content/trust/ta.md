@@ -1,40 +1,22 @@
 ---
-title: "Trust Authority"
+title: "Trust authority"
 weight: 1
 ---
 
-User can chose to trust specific TAs (Trust Authority), so that any sources trusted by this TA can be marked as trusted as well. A TA can also trust other TAs, so they can promote a list of reliable TAs.
+One key party of Informo's trust management mechanisms is called "trust authorities", sometimes also referred as "TA". As defined in [this documentation's terminology](/intro/terminology/#trust-authority-ta), a trust authority is an entity that asserts the trustworthiness of another entity, whether this entity is an information source or another trust authority.
 
-This model works a bit like [Delegative Democracy](https://en.wikipedia.org/wiki/Delegative_democracy): it allows users to either do their own research to determine if a source is trustable, or delegate this work to an entity that he trusts.
+A user **must** be able to chose which trust authority they want to give their absolute trust to, whether that trust authority is itself trusted by another TA or not. This model follows the outlines of [Delegative Democracy](https://en.wikipedia.org/wiki/Delegative_democracy), as it allows a user to either trust a source based on their own research and criteria, or delegate the determination of a source's trustworthiness to another party.
 
-The goal is to permit the user to build his own trusted network of sources, that will help him select legit information sources.
+If a user choses to trust a specific trust authority, all sources and trust authorities that have been determined as trustworthy **must** be considered as trustworthy by clients in accordance with the chosen TA's trust level (documented in [the related section](/trust/trust-level/)).
 
-# Trust level / depth
+A trust authority's main responsibility is to assert the trustworthiness of a source or of another TA. This means that the TA **must** publish a list of all of the sources and trust authorities it trusts and keep it up to date, and give the information needed to certify the sources' and trust authorities' authenticity. 2️⃣
 
-A TA can be trusted at different levels:
-- Level 0: Trust only this TA sources
-- Level 1: Trust this TA sources and all sources trusted by any TA this TA trusts
-- Level 2: ...
+A trust authority **must** also be able to list sources that it explicitly blacklists for being compromised or ethical reasons, along with the reasons for each addition to the blacklist (2️⃣: identification on MXID, reasons identifier).
 
+## Client implementations
 
-### Example
-```text
-        -------->           ACME.org(TA)             ----> JohnDoeNews.org(Source)
-       |            Trusted through Informo, level 0   |    Trusted by ACME.org
-InformoTeam(TA)                                         -> SomeGuyNews.org(Source)
- Trust level 1                                              Trusted by ACME.org
-       |                  Reporters.org(TA)          ----> SomeCountryNews.org(Source)
-        -------->   Trusted through Informo, level 0        Reporters.org
-```
+In the event of a source being trusted by a trust authority A and blacklisted by a trust authority B, given that both A and B are being trusted by the user, clients **must** display a warning message to users, indicating that, although some of the user's trusted trust authorities are still asserting the source as being trustworthy, some others explicitly stated that the source should not be trusted anymore, with a hint at the reason specified in the blacklist entry.
 
-In this example, the user choses to trust _InformoTeam_ with a trust level of 1, which causes _ACME.org_ and _Reporters.org_ to be trusted TAs, and makes _JohnDoeNews.org_, _SomeGuyNews.org_ and _SomeCountryNews.org_ to be trusted sources.
+In order to help its users assert the trustworthiness of a source, a client **might** include the display of a graph showing the location of the source in Informo's trust network. It **might** also include a view promoting sources that have been certified as trustworthy by several trust authorities that the user trusts.
 
-### Page example
-![](/images/design-page-trustring.svg)
-
-# Going further
-
-- Let a TA flag a source / TA to be explicitly untrusted (for compromised or unethical source)
-- Display a graph for a single source, to see who trust the source and at which level
-- Promote sources that are trusted by many TAs trusted by the user
-- We are able to calculate the "trust distance", ie the shortest path to a trusted TA. Sources or TAs that has a long "trust distance" will be more likely to be unreliable and should be promoted.
+In order to try to give the same level of exposure between all existing parties taking part in Informo, a client **might** also include a view showing sources or trust authorities that are less likely to be promoted. This can be done by computing the "trust distance", i.e. the shortest path in Informo's trust network's graph, to each source and trust authority, and promoting the sources and trust authorities with the longest one.
