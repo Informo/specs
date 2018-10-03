@@ -2,21 +2,20 @@ baseURL = "/"
 languageCode = "en-US"
 defaultContentLanguage = "en"
 
-title = "Informo specs"
+title = "Informo specifications"
 theme = "hugo-theme-learn"
 themesdir = "themes"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir = false
 
 [params]
-  editURL = "https://github.com/Informo/specs/"
-  description = "Informo specs documentation"
-  author = "Informo team"
-  showVisitedLinks = true
+  editURL = "https://github.com/Informo/specs/edit/master/src/content/"
+  description = "Informo specifications"
+  author = "Informo core team and contributors"
+  showVisitedLinks = false
   disableBreadcrumb = true
   disableNextPrev = true
   themeVariant = "informo"
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
-
