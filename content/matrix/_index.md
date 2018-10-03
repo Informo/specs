@@ -3,6 +3,7 @@ title: "Matrix network"
 weight: 3
 ---
 
+2️⃣ (whole section)
 
 Informo uses the [Matrix](https://matrix.org) network to store, synchronize and redistribute news.
 
