@@ -6,6 +6,8 @@ weight: 1
 
 ## State events
 
+State events provides an easy way to retrieve the history of every state change.
+
 ## Timeline events
 
 
@@ -26,3 +28,4 @@ weight: 1
 ## Draft
 
 - being able to aggregate news from different rooms using a single client would be nice.
+- AFAIK we can't set modification rights to specific values in a state events, it's all or nothing.

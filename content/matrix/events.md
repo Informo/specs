@@ -35,6 +35,7 @@ Timeline event containing a single article.
 
 ## Draft
 - We need to allow any user to add his own custom source
+- How can we allow only one user to modify the source he created? (using state events: I don't know, using source users: with account data)
 - Can We can get rid of `Source.publishers` if events are signed ?
 - Should we have one source per language or one source containing multiple languages?
 - Handle article translations in a rss-friendly way
@@ -42,3 +43,4 @@ Timeline event containing a single article.
 - Multiple keys per source?
 - s/headline/title/ ?
 - s/description/introduction/ ?
+- What are the advantages of using a state event for network.informo.sources, over a simple timeline event?
