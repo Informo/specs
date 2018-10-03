@@ -1,6 +1,6 @@
 ---
 title: "Trusting sources"
-weight: 2
+weight: 3
 ---
 
 A source cannot be directly trusted by the user: he must trust a TA that also trusts the source.

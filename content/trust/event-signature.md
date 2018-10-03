@@ -1,16 +1,16 @@
 ---
 title: "Event signature"
-weight: 3
+weight: 4
 ---
 
 
 Ideally every Informo-related Matrix events should be signed with some keys.
 
-## Article 
+## Article
 
 An article can be optionnaly signed by the Informo-feeder bot with a RSA private key, which public key must match one provided by the associated source.
 
-We allow unsigned articles, but only if the source does not provide any public key. 
+We allow unsigned articles, but only if the source does not provide any public key.
 
 
 ## Source
