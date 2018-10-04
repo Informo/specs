@@ -3,15 +3,21 @@ title: "Trust authority"
 weight: 1
 ---
 
-One key party of Informo's trust management mechanisms is called "trust authorities", sometimes also referred as "TA". As defined in [this documentation's terminology](/intro/terminology/#trust-authority-ta), a trust authority is an entity that asserts the trustworthiness of another entity, whether this entity is an information source or another trust authority.
+One key party of Informo's trust management mechanisms is called "trust authorities", sometimes also referred as "TA". As defined in [this documentation's terminology](/introduction/terminology/#trust-authority-ta), a trust authority is an entity that asserts the trustworthiness of another entity, whether this entity is an information source or another trust authority. It does so by using asymmetric cryptographic signatures.
 
 A user **must** be able to chose which trust authority they want to give their absolute trust to, whether that trust authority is itself trusted by another TA or not. This model follows the outlines of [Delegative Democracy](https://en.wikipedia.org/wiki/Delegative_democracy), as it allows a user to either trust a source based on their own research and criteria, or delegate the determination of a source's trustworthiness to another party.
 
-If a user choses to trust a specific trust authority, all sources and trust authorities that have been determined as trustworthy **must** be considered as trustworthy by clients in accordance with the chosen TA's trust level (documented in [the related section](/trust/trust-level/)).
+If a user chooses to trust a specific trust authority, all sources and trust authorities that have been determined as trustworthy **must** be considered as trustworthy by clients in accordance with the chosen TA's trust level (documented in [the related section](/trust-management/trust-level/)).
 
 A trust authority's main responsibility is to assert the trustworthiness of a source or of another TA. This means that the TA **must** publish a list of all of the sources and trust authorities it trusts and keep it up to date, and give the information needed to certify the sources' and trust authorities' authenticity. 2️⃣
 
 A trust authority **must** also be able to list sources that it explicitly blacklists for being compromised or ethical reasons, along with the reasons for each addition to the blacklist (2️⃣: identification on MXID, reasons identifier).
+
+## Suggested trust authority
+
+In order to guide a new user through its first steps into a Matrix room (i.e. an Informo federation), the room's administrator **can** add a list of suggested trust authorities to the Matrix room state. The trust authorities the user then chooses to trust then act as roots for the user's trust network.
+
+As an additional security step, and because they are the foundations of the user's trust network, the client implementation maintainer **should** add the suggested trust authorities' public signing keys to the implementation's code base, so the user doesn't retrieve these keys through a potential insecure network.
 
 ## Client implementations
 
