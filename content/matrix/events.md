@@ -81,6 +81,10 @@ Timeline event containing a single article.
 - `signature`: Article cryptographic signature, with the source's key. Can be null if the article's source has no registered keys.
 
 
+## `network.informo.advised_sources`
+
+State event containing the list of TAs that the client is advised to trust if they don't know who to trust.
+
 
 ## Draft
 - Can We can get rid of `Source.publishers` if events are signed ?
