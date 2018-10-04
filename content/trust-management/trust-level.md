@@ -23,20 +23,20 @@ If a user chooses to trust a trust authority, and then to trust another trust au
 Let's consider the example below.
 
 ```text
-                          ACME.org (TA)
-      -------->        Trusted by Informo        -----> JohnDoeNews.org (Source)
-      |                Level 0 (assumed 0)         |    Trusted by ACME.org
-      |                                            |
-Informo (TA)                                       +--> SomeGuyNews.org (Source)
-Level 1                                                 Trusted by ACME.org
+                     ACME.org (TA)
+      -------->   Trusted by Informo   -----> JohnDoeNews.org (Source)
+      |           Level 0 (assumed 0)    |    Trusted by ACME.org
+      |                                  |
+Informo (TA)                             +--> SomeGuyNews.org (Source)
+Level 1                                       Trusted by ACME.org
       |
-      |                Reporters.org (TA)
-      -------->        Trusted by Informo        -----> SomeCountryNews.org (Source)
-                       Level 1 (assumed 0)         |    Trusted by Reporters.org
-                                                   |
-                                                   +xx> SomeNGO.org (TA)             xxxxx> ...
-                                                        Trusted by Reporters.org
-                                                        Level 1
+      |           Reporters.org (TA)
+      -------->   Trusted by Informo   -----> SomeCountryNews.org (Source)
+                  Level 1 (assumed 0)    |    Trusted by Reporters.org
+                                         |
+                                         +xx> SomeNGO.org (TA)             xxxxx> ...
+                                              Trusted by Reporters.org
+                                              Level 1
 
 --> trusted
 xx> not trusted
