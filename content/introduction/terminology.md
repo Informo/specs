@@ -23,4 +23,4 @@ A trust authority refers to an entity, whether it is an individual or a group of
 
 ## Trust network, Trust chain
 
-A user's trust network, also referred to as their trust chain, is the network formed by the trust authorities and sources they trust, either directly or indirectly. If explicitly specified as such, these expressions can also refer to the network formed by all of the trust authorities and sources known withing Informo's federated network.
+A user's trust network, also referred to as their trust chain, is the network formed by the trust authorities and sources they trust, either directly or indirectly. If explicitly specified as such, these expressions can also refer to the network formed by all of the trust authorities and sources known within Informo's federated network.
