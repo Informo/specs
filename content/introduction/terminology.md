@@ -1,6 +1,6 @@
 ---
 title: "Terminology"
-weight: 1
+weight: 4
 ---
 
 The current section defines fixed definitions for words or expressions that are used over this documentation.
