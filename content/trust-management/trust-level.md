@@ -3,7 +3,6 @@ title: "Trust level"
 weight: 2
 ---
 
-
 A trust authority **should** declare its own trust level. One TA's trust level is the depth in the trust management chain which trustworthiness is asserted by this TA.
 
 A trust authority's trust level is to be understood as follows:
@@ -16,7 +15,6 @@ A trust authority's trust level is to be understood as follows:
 The default trust level is 1 👀. A client **might** allow its users to force the trust level of each trust authority to give them more control over the articles and sources defined as trustworthy.
 
 If a user chooses to trust a trust authority, and then to trust another trust authority that's already trusted by the first TA, the second TA's declared trust level (or 1 if there is no declared trust level for this TA) **must** takes precedence over the trust level that was assumed from the first TA's trust level.
-
 
 ## Example
 
