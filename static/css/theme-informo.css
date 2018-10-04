@@ -103,7 +103,10 @@ a:hover {
 
 
 
-
+#body-inner {
+    max-width: 800px;
+    margin: auto;
+}
 
 
 
