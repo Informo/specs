@@ -3,6 +3,8 @@ title: "Event signature"
 weight: 4
 ---
 
+2️⃣ (whole page)
+
 
 Ideally every Informo-related Matrix events should be signed with some keys.
 
