@@ -52,4 +52,4 @@ In such an event, the trusted TA `A`'s effective trust level **must** equal to i
 
 If the trusted TA `A` doesn't trust any TA, its effective trust level **must** be considered equal to the default value 0. If it does, but doesn't define trust levels for any of the other TAs it trusts, its effective trust level **must** be considered equal to 1, since we previously stated that the value to use in the event of the lack of a TA-defined trust level **must** be considered equal to the default value 0.
 
-## Example 🔧
+## Examples 🔧
