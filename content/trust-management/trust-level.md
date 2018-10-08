@@ -3,54 +3,53 @@ title: "Trust level"
 weight: 2
 ---
 
-A trust authority **should** declare its own trust level. One TA's trust level is the depth in the trust management chain which trustworthiness is asserted by this TA.
+A TA's trust level is a relative integer which represents the depth in the trust management chain which trustworthiness is asserted by this TA.
+
+This page mentions several kinds of trust levels, which are:
+
+* TA-defined trust level, which is a value a TA can define as the trust level with which to trust another given TA with.
+* user-defined trust level, which is a value the user forces for a given TA, if the client implementation allows it.
+* effective trust level, which is the final value the client **must** use as the TA's trust level, whether it is the value defined for one of the above, or the result of a computation involving either (or several) of these.
 
 A trust authority's trust level is to be understood as follows:
 
-* A trust level of 0 means that all of the sources certified by this trust authority as trustworthy **must** be considered as trustworthy according to this TA.
-* A trust level of 1 means that both the sources and the trust authorities certified by this trust authority as trustworthy **must** be considered as trustworthy according to this TA (which means all of the trust authorities trusted by this TA **must** be considered as if their own trust level was 0).
-* A trust level of 2 means that all of the sources this TA certifies to be trustworthy **must** be considered as trustworthy according to this TA, and all of the trust authorities this TA certifies as trustworthy **must** be considered as if their own trust level was 1.
+* A trust level of 0 means that only the sources certified by this trust authority as trustworthy **must** be considered trustworthy according to this TA.
+* A trust level of 1 means that both the sources and the trust authorities certified by this TA as trustworthy **must** be considered trustworthy according to this TA (which means all of the trust authorities trusted by this TA **must** be considered with an effective trust level of 1).
+* A trust level of 2 means that all of the sources this TA certifies to be trustworthy **must** be considered trustworthy according to this TA, and all of the trust authorities this TA certifies as trustworthy **must** be considered with an effective trust level of 1.
 * *Et cetera*...
 
-If a trust authority doesn't declare its own trust level, clients **should** use the default value for trust level, which is 1 (👀: maybe not the best value, can be too restrictive).
+A trust authority holding a negative trust level means that this TA **must not** be trusted. The absolute value of a negative effective trust level **can**, however, be used by a client implementation in order to compute the distance in the user's trust network between the trust authority and the closest trusted TA and estimate the likelihood of the TA being trustworthy based on that distance, in order to make suggestions on TAs and sources to trust to the user.
 
-A client **might** allow its users to force the trust level of each trust authority to give them more control over the articles and sources defined as trustworthy. A trust authority **can** also force the trust level to trust another TA with. If a TA *A* trusts another TA *B* without declaring a specific trust level, and a user decides to trust *A* (and not *B*), then *B* **must** be considered as trusted with a trust level `TL(B)=TL(A)-1`, where `TL(x)` is a function returning the trust level of the TA `x`.
+## TA-defined & user-defined trust level
 
-If a user chooses to trust a trust authority, and then to trust another trust authority that's already trusted by the first TA, the second TA's declared trust level (or 1 if there is no declared trust level for this TA) **must** takes precedence over the trust level that was assumed from the first TA's trust level.
+Let's consider:
 
-## Example
+* `TL(x)` a function returning the effective trust level for the TA `x`.
+* `TATL(x,y)` a function returning the TA-defined trust level that the TA `x` defines for the TA `y`.
+* `A` an example TA trusted by the user.
+* `B` an example TA not trusted by the user at first, then trusted by the user.
+* `C` an example TA trusted by `A` and `B`, such as `TATL(B,C)>TATL(A,C)`, but not by the user.
 
-Let's consider the example below.
+A trust authority `A` **can** define a trust level to trust another TA `C` with, which is named "TA-defined trust level". If that trust level is higher or equal to `TL(A)`, `TL(C)` **must** equal to `TL(A)-1`, as `TL(C)<TL(A)` as long as `B` isn't directly trusted by the user. This comparison **must** only feature the TA targeted by the TA-defined trust level and the TA with the highest TA-defined trust level for it (considering that `TATL(x,y)<TL(x)`, and any case not filling this condition **must** be considered as if `TATL(x,y)=TL(x)-1`). This means that, if the user chooses to trust another TA `B`, such as `TL(B)>TL(A)`, which also trusts the TA `C` such as `TATL(B,C)>TATL(A,C)`, then `TL(C)=TL(B)-1`.
 
-```text
-                     ACME.org (TA)
-      -------->   Trusted by Informo   -----> JohnDoeNews.org (Source)
-      |           Level 0 (assumed 0)    |    Trusted by ACME.org
-      |                                  |
-Informo (TA)                             +--> SomeGuyNews.org (Source)
-Level 1                                       Trusted by ACME.org
-      |
-      |           Reporters.org (TA)
-      -------->   Trusted by Informo   -----> SomeCountryNews.org (Source)
-                  Level 1 (assumed 0)    |    Trusted by Reporters.org
-                                         |
-                                         +xx> SomeNGO.org (TA)             xxxxx> ...
-                                              Trusted by Reporters.org
-                                              Level 1
+A client implementation **should** also allow its users to define the trust level of a given TA, in order to give them more control over the articles and sources defined as trustworthy. This user-defined trust level differs from a TA-defined trust level only in that it is not constrained to a maximum value.
 
---> trusted
-xx> not trusted
+If a trust authority `A` (trusted by the user) doesn't define a trust level for a TA `C`, and the current user has no user-defined value for `C`, `TL(C)` **must** be considered equal to the default value 0.
 
-(TA): Trust authority
-(Source): Information source
-```
+## Effective trust level
 
-Here, the user chooses to trust the *Informo* trust authority, which has a trust level of 1. This means that *ACME.org* and *Reporters.org*, which are two trust authorities trusted by *Informo*, are to be trusted too, along with the sources they trust themselves. *SomeNGO.org*, along with all of the sources and trust authorities it certifies as trustworthy, is not to be trusted as *Informo*'s trust level makes it too far in the trust management chain.
+Let's consider
 
-However, if the user chooses to trust *Reporters.org* by itself (on top of trusting *Informo*), *Reporters.org*'s initial trust level (which is 1) takes precedence, which means that *SomeNGO.org* and all of the sources and trust authorities it certifies as trustworthy are to be considered as such. The same result could be reached if the Informo TA declares trusting *Reporters.org* with a trust level of 2.
+* `TL(x)` a function returning the effective trust level for the TA `x`.
+* `TATL(x,y)` a function returning the TA-defined trust level that the TA `x` defines for the TA `y`.
+* `max(x,y,z)` a function returning the highest value between the integers `x`, `y` and `z`.
+* `A` an example TA trusted by the user.
+* `B`, `C` and `D` three example TAs trusted by `A`.
 
-## Page example 🔧
+As defined above, a TA's effective trust level is the value a client implementation **must** use as the final trust level for this TA. While computing it is already defined in the previous paragraph, it does not describe how to compute the effective trust level of a TA `A` that's directly trusted by the user, and not the target of a TA-defined trust level.
 
-*TODO: Determine what to do with this section*
+In such an event, the trusted TA `A`'s effective trust level **must** equal to its highest TA-defined trust level plus 1, which can be expressed as `TL(A)=1+max(TATL(A,B),TATL(A,C),TATL(A,D))`.
 
-![](/images/design-page-trustring.svg)
+If the trusted TA `A` doesn't trust any TA, its effective trust level **must** be considered equal to the default value 0. If it does, but doesn't define trust levels for any of the other TAs it trusts, its effective trust level **must** be considered equal to 1, since we previously stated that the value to use in the event of the lack of a TA-defined trust level **must** be considered equal to the default value 0.
+
+## Example 🔧
