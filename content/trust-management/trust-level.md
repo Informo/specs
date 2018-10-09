@@ -72,7 +72,8 @@ Let's consider:
 In this example, and because of the rules stated above, it is interesting to note that:
 
 - `B` trusts `C` with a trust level of 1 (i.e. `LTL(B,C)=1`). However, `TL(B)=1` in the user's trust network, and `TL(C) < TL(B)`, so `TL(C)` is brought down to 0.
-- `LTL(A,D) = TL(E) = 0`, which means that `A` explicitly states not to trust any TA trusted by `E`. This means that `F` isn't trusted.
+- `LTL(A,E) = TL(E) = 0`, which means that `A` explicitly states not to trust any TA trusted by `E`. This means that `F` isn't trusted.
+- `LTL(C,D) < 0`, so `D` isn't trusted.
 
 Let's consider the user trusting `E`:
 
