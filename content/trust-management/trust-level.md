@@ -37,7 +37,7 @@ A trust authority `A` **can** define a trust level to trust another TA `C` with,
 * In the event of `B` being trusted (either by another TA trusted by the user or by the user themselves), then `TL(C) < max(TATL(A,C),TATL(B,C))` **must** be fulfilled. Explained differently, if `TATL(B,C) > TATL(A,C)`, and the user's trust in `B` doesn't come from trusting `A`, then `TL(C)` **must** be limited to a maximum value of `TL(B)-1`.
 * In the absence of any TA-defined trust level for `C`, client implementations **must** consider `TL(C)=0`.
 
-A client implementation **should** also allow its users to define the trust level of a given TA, in order to give them more control over the articles and sources defined as trustworthy. This user-defined trust level differs from a TA-defined trust level only in that it is not constrained to a maximum value.
+A client implementation **should** also allow its users to define the trust level of a given TA, in order to give them more control over the articles and sources defined as trustworthy. This user-defined trust level differs from a TA-defined trust level only in that it is not constrained to a maximum value. If defined, the user-defined trust level for a TA **must** always be considered as the effective trust level for that TA, overriding all other values (either computed or TA-defined).
 
 ## Effective trust level
 
