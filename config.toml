@@ -19,6 +19,7 @@ ignorefiles = [ "matrix", "trust-management/event-signature.md" ]
   disableBreadcrumb = true
   disableNextPrev = true
   themeVariant = "informo"
+  disableInlineCopyToClipBoard = true
 
 [outputs]
 home = [ "HTML", "RSS", "JSON"]
