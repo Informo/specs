@@ -13,6 +13,8 @@ id="@acmenews:weu.informo.network"&type="source"&name="ACME News"&keys=["somekey
 
 In the example string above, the target entity is a source using the identifier `@acmenews:weu.informo.network`, the public name `ACME News` and `somekey` and `someotherkey` as its public signature verification keys.
 
+In the event of one of a TA's private keys being compromised, it **must** update its list of public signature verification keys by removing the compromised key (and adding one new key or more to the said list), and the other trust authorities trusting this TA **must** compute and issue a new signature taking the updated list of keys into account.
+
 A user **must** be able to chose which TA they want to give their absolute trust to, whether that TA is itself trusted by another TA or not. This model follows the outlines of [Delegative Democracy](https://en.wikipedia.org/wiki/Delegative_democracy), as it allows a user to either trust a source based on their own research and criteria, or delegate the assertion of a source's trustworthiness to another party.
 
 A trust authority's main responsibility is to assert the trustworthiness of a source or of another TA. This means that the TA **must** publish a list of all of the sources and TAs it trusts, keep it up to date, and give the information needed to certify the sources' and TAs' authenticity.
@@ -25,7 +27,7 @@ A trust authority **must** also be able to list sources that it explicitly black
 
 In order to guide a new user through building his trusted network when they enters a Matrix room (i.e. an Informo federation), the room's administrator **can** provide a list of suggested TAs (2️⃣: stored in Matrix room state). These TAs will be proposed to the users if they doesn't know which TA they should trust first.
 
-As an additional security step, the client implementation maintainer **should** add the suggested trust authorities' public signing keys to the implementation's code base, so the user doesn't retrieve these keys through a potentially insecure network. This is an important step because these TAs represent the foundations of the user's trust network.
+As an additional security step, the client implementation maintainer **should** add the suggested trust authorities' public signature verification keys to the implementation's code base, so the user doesn't retrieve these keys through a potentially insecure network. This is an important step because these TAs represent the foundations of the user's trust network. In the event of an embedded public key getting compromised, trust authorities **must** make implementation maintainers aware of it, and implementation maintainers **must** release another version of their implementation which **must not** include the compromised key.
 
 ## Client implementations
 
