@@ -23,6 +23,8 @@ A trust authority holding a negative trust level means that this TA **must not**
 
 Let's consider:
 
+![](/images/trust-level-simple.svg)
+
 * `TL(x)` a function returning the effective trust level for the TA `x`.
 * `LTL(x,y)` a function returning the trust level of the link between `x` (being either a TA or the user) and the TA `y`.
 * `max(x,y)` a function returning the highest value between the integers `x` and `y`.
@@ -56,4 +58,16 @@ In such an event, the trusted TA `A`'s effective trust level **must** equal to i
 
 If the trusted TA `A` doesn't trust any TA, its effective trust level **must** be considered equal to the default value 0. If it does, but doesn't define trust levels for any of the other TAs it trusts, its effective trust level **must** be considered equal to 1, since we previously stated that the value to use in the event of the lack of a TA-defined trust level **must** be considered equal to the default value 0.
 
-## Examples 🔧
+## Examples
+
+![](/images/trust-level-graph.svg?width=100%)
+
+- `B` trusts `C` with a trust level of 1. `TL(C) = min(TL(B) - 1, TL(B,C)) = min(1 - 1, 1) = 0`.
+- `A` trusts `E` with a trust level of 0. `TL(E) = min(TL(A) - 1, TL(A,E)) = min(2 - 1, 0) = 0`.
+- `TL(D) < 0`, meaning TA and its sources are not trusted.
+
+This is what happens if the user decides to trusts `E`:
+![](/images/trust-level-graph-userdef2.svg?width=100%)
+
+- `TL(E)` is overridden unconditionally by the `TL(user,E)` value.
+- `F` is now trusted.
