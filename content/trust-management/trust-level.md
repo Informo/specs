@@ -8,14 +8,14 @@ A TA's trust level is a relative integer which represents the depth in the trust
 This page mentions several kinds of trust levels, which are:
 
 * TA-defined trust level, which is a value a TA can define as the trust level with which to trust another given TA with.
-* user-defined trust level, which is a value the user forces for a given TA, if the client implementation allows it.
-* effective trust level, which is the final value the client **must** use as the TA's trust level, whether it is the value defined for one of the above, or the result of a computation involving either (or several) of these.
+* User-defined trust level, which is a value the user forces when they chose to explicitly trust a TA.
+* Effective trust level, which is the final value the client **must** use as the TA's trust level, whether it is the value defined for one of the above, or the result of a computation involving either (or several) of these.
 
 A trust authority's trust level is to be understood as follows:
 
-* A trust level of 0 means that only the sources certified by this trust authority as trustworthy **must** be considered trustworthy according to this TA.
-* A trust level of 1 means that both the sources and the trust authorities certified by this TA as trustworthy **must** be considered trustworthy according to this TA (which means all of the trust authorities trusted by this TA **must** be considered with an effective trust level of 1).
-* A trust level of 2 means that all of the sources this TA certifies to be trustworthy **must** be considered trustworthy according to this TA, and all of the trust authorities this TA certifies as trustworthy **must** be considered with an effective trust level of 1.
+* A trust level of 0 means that only the sources trusted by this TA **must** be considered trustworthy by the client.
+* A trust level of 1 means that both the sources **and the trust authorities** trusted by this TA **must** be considered trustworthy by the client (which means all trust authorities trusted by this TA **must** be considered with an effective trust level of 0).
+* A trust level of 2 means that all of the sources this TA certifies to be trustworthy **must** be considered trustworthy by the client, and all of the trust authorities this TA certifies as trustworthy **must** be considered with an effective trust level of 1.
 * *Et cetera*...
 
 A trust authority holding a negative trust level means that this TA **must not** be trusted. The absolute value of a negative effective trust level **can**, however, be used by a client implementation in order to compute the distance in the user's trust network between the trust authority and the closest trusted TA and estimate the likelihood of the TA being trustworthy based on that distance, in order to make suggestions on TAs and sources to trust to the user.
