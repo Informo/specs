@@ -65,15 +65,16 @@ Let's consider:
 
 * `TL(x)` a function returning the effective trust level for the TA `x`.
 * `LTL(x,y)` a function returning the trust level of the link between `x` (being either a TA or the user) and the TA `y`.
+* `min(x,y)` a function returning the lowest value between the integers `x` and `y`.
 * the schema below:
 
 ![](/images/trust-level-graph.svg?width=100%)
 
 In this example, and because of the rules stated above, it is interesting to note that:
 
-- `B` trusts `C` with a trust level of 1 (i.e. `LTL(B,C) = 1`). However, `TL(B) = 1` in the user's trust network, and `TL(C) < TL(B)`, so `TL(C)` is brought down to 0, which can be expressed by `TL(C) = min(TL(B) - 1, TL(B,C)) = min(1 - 1, 1) = 0`. The same rule applies to `TL(D)`.
-- `TL(D) < 0`, so `D` isn't trusted.
-- `LTL(A,E) = 0`, which means that `A` explicitly states not to trust any TA trusted by `E`, causing `F` to be untrusted. `TL(E)` can be expressed by `TL(E) = min(TL(A) - 1 , LTL(A,E)) = min(2 - 1 , 0) = 0`.
+- `B` trusts `C` with a trust level of 1 (i.e. `LTL(B,C) = 1`). However, `TL(B) = 1` in the user's trust network, and `TL(C) < TL(B)`, so `TL(C)` is brought down to 0. This can also be expressed as `TL(C) = min(TL(B)-1, TL(B,C)) = min(1-1, 1) = 0`.
+- The same rule applies to `TL(D)`. This means that `TL(D) < 0`, so `D` isn't trusted.
+- `LTL(A,E) = 0`, which means that `A` explicitly states not to trust any TA trusted by `E`, causing `F` to be untrusted. `TL(E)` can also be expressed as `TL(E) = min(TL(A)-1, LTL(A,E)) = min(2-1, 0) = 0`.
 
 Let's consider the user trusting `E`:
 
