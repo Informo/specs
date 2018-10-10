@@ -63,14 +63,27 @@ If the trusted TA `A` doesn't trust any TA, its effective trust level **must** b
 
 ## Examples
 
+Let's consider:
+
+* `TL(x)` a function returning the effective trust level for the TA `x`.
+* `LTL(x,y)` a function returning the trust level of the link between `x` (being either a TA or the user) and the TA `y`.
+* `min(x,y)` a function returning the lowest value between the integers `x` and `y`.
+* the schema below:
+
 ![](/images/trust-level-graph.svg?width=100%)
 
-- `B` trusts `C` with a trust level of 1. `TL(C) = min(TL(B) - 1, TL(B,C)) = min(1 - 1, 1) = 0`.
-- `A` trusts `E` with a trust level of 0. `TL(E) = min(TL(A) - 1, TL(A,E)) = min(2 - 1, 0) = 0`.
-- `TL(D) < 0`, meaning TA and its sources are not trusted.
+In this example, and because of the rules stated above, it is interesting to note that:
 
-This is what happens if the user decides to trusts `E`:
+- `B` trusts `C` with a trust level of 1 (i.e. `LTL(B,C) = 1`). However, `TL(B) = 1` in the user's trust network, and `TL(C) < TL(B)`, so `TL(C)` is brought down to 0. This can also be expressed as `TL(C) = min(TL(B)-1, TL(B,C)) = min(1-1, 1) = 0`.
+- The same rule applies to `TL(D)`. This means that `TL(D) < 0`, so `D` isn't trusted.
+- `LTL(A,E) = 0`, which means that `A` explicitly states not to trust any TA trusted by `E`, causing `F` to be untrusted. `TL(E)` can also be expressed as `TL(E) = min(TL(A)-1, LTL(A,E)) = min(2-1, 0) = 0`.
+
+Let's consider the user trusting `E`:
+
 ![](/images/trust-level-graph-userdef2.svg?width=100%)
 
-- `TL(E)` is overridden unconditionally by the `TL(user,E)` value.
-- `F` is now trusted.
+In the schema above, it is interesting to note that, now:
+
+- `LTL(user,E)` is being overridden by a user-defined value of 1 (we know it because it would otherwise equal `LTL(E,F)+1 = 2`).
+- Because there's now a trust link between the user and `E` and it takes precedence over any other trust link targeting `E`, `TL(E) = 1`
+- `F` is now trusted because `min(TL(E) - 1 , LTL(E,F)) = 0`.
