@@ -71,9 +71,9 @@ Let's consider:
 
 In this example, and because of the rules stated above, it is interesting to note that:
 
-- `B` trusts `C` with a trust level of 1 (i.e. `LTL(B,C)=1`). However, `TL(B)=1` in the user's trust network, and `TL(C) < TL(B)`, so `TL(C)` is brought down to 0.
-- `LTL(A,E) = TL(E) = 0`, which means that `A` explicitly states not to trust any TA trusted by `E`. This means that `F` isn't trusted.
-- `LTL(C,D) < 0`, so `D` isn't trusted.
+- `B` trusts `C` with a trust level of 1 (i.e. `LTL(B,C) = 1`). However, `TL(B) = 1` in the user's trust network, and `TL(C) < TL(B)`, so `TL(C)` is brought down to 0, which can be expressed by `TL(C) = min(TL(B) - 1, TL(B,C)) = min(1 - 1, 1) = 0`. The same rule applies to `TL(D)`.
+- `TL(D) < 0`, so `D` isn't trusted.
+- `LTL(A,E) = 0`, which means that `A` explicitly states not to trust any TA trusted by `E`, causing `F` to be untrusted. `TL(E)` can be expressed by `TL(E) = min(TL(A) - 1 , LTL(A,E)) = min(2 - 1 , 0) = 0`.
 
 Let's consider the user trusting `E`:
 
@@ -83,4 +83,4 @@ In the schema above, it is interesting to note that, now:
 
 - `LTL(user,E)` is being overridden by a user-defined value of 1 (we know it because it would otherwise equal `LTL(E,F)+1 = 2`).
 - Because there's now a trust link between the user and `E` and it takes precedence over any other trust link targeting `E`, `TL(E) = 1`
-- `F` is now trusted because `LTL(E,F) >= 0` is now possible.
+- `F` is now trusted because `min(TL(E) - 1 , LTL(E,F)) = 0`.
