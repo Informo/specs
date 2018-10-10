@@ -55,7 +55,7 @@ Let's consider:
 
 As defined above, a TA's effective trust level is the value a client implementation **must** use as the final trust level for this TA. While computing it is already defined in the previous paragraph, it does not describe how to compute the effective trust level of a TA `A` that's directly trusted by the user (i.e. `TL(A) = LTL(user,A)`).
 
-In such an event, the trusted TA `A`'s effective trust level **must** equal to its highest link trust level plus 1, which can be expressed as `TL(A) = 1+max(LTL(A,B),LTL(A,C),LTL(A,D))`.
+In such an event, the trusted TA `A`'s effective trust level **must** equal to its highest link trust level plus 1, which can be expressed as `TL(A) = 1+max(LTL(A,B), LTL(A,C), LTL(A,D))`.
 
 If the trusted TA `A` doesn't trust any TA, its effective trust level **must** be considered equal to the default value 0. If it does, but doesn't define trust levels for any of the other TAs it trusts, its effective trust level **must** be considered equal to 1, since we previously stated that the value to use in the event of the lack of a TA-defined trust level **must** be considered equal to the default value 0.
 
