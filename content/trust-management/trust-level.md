@@ -3,7 +3,7 @@ title: "Trust level"
 weight: 2
 ---
 
-A TA's trust level is a relative integer which represents the depth in the trust management chain which trustworthiness is asserted by this TA.
+A TA's trust level is a relative integer which represents the depth in the trust management chain which trustworthiness is asserted by this TA. Every TA included in the user's trust network **must** be associated with a trust level.
 
 This page mentions two kinds of trust levels, which are:
 
