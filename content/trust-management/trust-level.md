@@ -23,29 +23,31 @@ A trust authority holding a negative trust level means that this TA **must not**
 
 Let's consider:
 
-![](/images/trust-level-simple.svg)
+![](/images/trust-level-ltl.svg)
 
 * `TL(x)` a function returning the effective trust level for the TA `x`.
 * `LTL(x,y)` a function returning the trust level of the link between `x` (being either a TA or the user) and the TA `y`.
 * `max(x,y)` a function returning the highest value between the integers `x` and `y`.
 * `A` an example TA trusted by the user.
 * `B` an example TA not trusted by the user at first, then trusted by the user.
-* `C` an example TA trusted by `A` and `B`, but not by the user at first.
+* `C` an example TA trusted by `A` and `B`, but not explicitly by the user.
 
 Both TAs and the user can list the TAs they trust, therefore creating trust links between them and the TAs they trust. These trust links can hold a specific trust level that is used to compute the effective trust level of the link's target.
 
 A link's trust level, expressed `LTL(A,C)` in this documentation, **must** be subject to the following constraints, as long as `C` isn't directly trusted by the user:
 
-* `LTL(A,C) < TL(A)`, which means that `TL(C)` **must** be limited to a maximum value of `TL(A)-1`.
-* In the event of `B` being trusted (either by another TA trusted by the user or by the user themselves), then `TL(C) < max(LTL(A,C),LTL(B,C))` **must** be fulfilled. Explained differently, if `LTL(B,C) > LTL(A,C)`, and the user's trust in `B` doesn't come from trusting `A`, then `TL(C)` **must** be limited to a maximum value of `TL(B)-1`.
-* In the absence of any defined link trust level for `C`, client implementations **must** consider `TL(C)=0`.
-* In the event of `C` being also trusted by the user (along with the user), then `TL(C)` **must** only be constrained by `LTL(user,C)` and all trust links between `C` and another TA **must not** be taken into account when computing `TL(C)`.
+* `LTL(A,C) < TL(A)`, which means that `TL(C)` **must** be limited to a maximum value of `TL(A) - 1`.
+* In the event of `B` being trusted (either by another TA trusted by the user or by the user themselves), then `TL(C) < max(LTL(A,C),LTL(B,C))` **must** be fulfilled. Explained differently, if `LTL(B,C) > LTL(A,C)`, and the user's trust in `B` doesn't come from trusting `A`, then `TL(C)` **must** be limited to a maximum value of `TL(B) - 1`.
+* In the absence of any defined link trust level for `C`, client implementations **must** consider `TL(C) = 0`.
+* In the event of `C` being also explicitly trusted by the user (in addition of being trusted by `A` and `B`), then `TL(C)` **must** only be constrained by `LTL(user,C)` and all trust links between `C` and another TA **must not** be taken into account when computing `TL(C)`.
 
 A client implementation **should** also allow its users to define the trust level of a given TA they directly trust (i.e. `LTL(user,A)`), in order to give them more control over the articles and sources defined as trustworthy. This user-defined trust level differs from one defined by a TA only in that it is not constrained to a maximum value. If defined, this user-defined trust level **must** always be considered as the effective trust level for that TA, overriding all other values (either computed or defined by a TA). If not defined, the value of `LTL(user,A)` **must** be considered as the value for `TL(A)`, which computation is described below.
 
 ## Effective trust level
 
 Let's consider:
+
+![](/images/trust-level-etl.svg)
 
 * `TL(x)` a function returning the effective trust level for the TA `x`.
 * `LTL(x,y)` a function returning the trust level of the link between `x` (being either a TA or the user) and the TA `y`.
