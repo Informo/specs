@@ -1,6 +1,6 @@
 ---
 title: "About this documentation"
-weight: 3
+weight: 1
 ---
 
 This documentation is built with [Hugo](https://gohugo.io/), using [Mathieu Cornic's "learn" theme](https://github.com/matcornic/hugo-theme-learn). It is distributed under the [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html).
