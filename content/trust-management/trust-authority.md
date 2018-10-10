@@ -21,7 +21,7 @@ A trust authority's main responsibility is to assert the trustworthiness of a so
 
 If a user chooses to trust a specific TA, let's name it *SomeNGO.org* here for the sake of simplicity, all sources and TAs trusted by *SomeNGO.org* **must** be considered as trustworthy by clients in accordance with their chosen trust level (documented in [the related section](/trust-management/trust-level/)).
 
-A trust authority **must** also be able to list sources that it explicitly blacklists for being compromised or ethical reasons, along with the reasons for each addition to the blacklist (2️⃣: identification on MXID, reasons identifier).
+A trust authority **must** also be able to list sources and trust authorities that it explicitly blacklists for being compromised or ethical reasons, along with the reasons for each addition to the blacklist (2️⃣: identification on MXID, reasons identifier).
 
 ## Suggested trust authority
 
