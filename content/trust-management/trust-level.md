@@ -23,9 +23,11 @@ A trust authority holding a negative trust level means that this TA **must not**
 
 Let's consider:
 
+* the situation described by the schema below:
+
 ![](/images/trust-level-calc.svg)
 
-* `A`, `B`, `C`, `D` four example TAs.
+* `A`, `B`, `C` and `D` four example TAs.
 * `TL(x)` a function returning the effective trust level for the TA `x`.
 * `LTL(x,y)` a function returning the trust level of the link between `x` (being either a TA or the user) and the TA `y`.
 * `max(x,y)` a function returning the highest value between the integers `x` and `y`.
@@ -33,13 +35,13 @@ Let's consider:
 * `C` trusted by both `A` and `B`.
 * `D` trusted by `C`.
 
-The trust level of `D` **must** be both inferior to `TL(C)` and inferior or equal to `LTL(C,D)`, i.e. `TL(D) <= min(TL(C)-1, LTL(C,D))`. Clients **should** generally use the highest possible value, but clients **can** also use lower values in order to provide stricter trust management.
+In this situation, the effective trust level of `D` **must** be both inferior to `TL(C)` and inferior or equal to `LTL(C,D)`, i.e. `TL(D) <= min(TL(C)-1, LTL(C,D))`. Client implementations **should** generally use the highest possible value, but they **can** also use lower values in order to provide stricter trust management.
 
-The trust level of `C` **must** be the highest trust level value calculated for each link (`AC` and `BC`) using the rule above.
+The effective trust level of `C` **must** be the highest trust level value calculated for each link (`A➡️C` and `B➡️C`) using the rule above.
 
-#### Generalized rule
+#### General rule
 
-More generally to compute the effective trust level of any TA named `𝑋` that is trusted by multiple TAs named `A`, `B`, `C`, ... :
+In a general manner, the effective trust level of any TA named `𝑋` that is trusted by multiple TAs named `A`, `B`, `C`, ... can be expressed as :
 
 ```
 TL(𝑋) <= max(
@@ -50,15 +52,13 @@ TL(𝑋) <= max(
 )
 ```
 
-
 #### User trusting a TA
 
-A user can choose to trust a specific TA, by overriding the TL value of this TA, thus ignoring any value calculated using the above rule.
+A user can choose to trust a specific TA, which overrides the computed value for this TA's effective trust level, thus ignores any value calculated using the general rule above.
 
-If the user trusts a TA **with a specific TL value**, the TA's trust level **must** be equal to the user's TL value. This lets the user limit the propagation of trust across multiple linked TAs.
+If the user trusts a TA with a specific trust level, the TA's effective trust level **must** be equal to this user-defined value. This lets the user limit the depth of its trust network.
 
-If the user trusts a TA **with no specific TL value**, the TL value for this TA **should** be the highest trust level value of every link of this TA, plus one. This lets the user fully trust both the TA and its trust network. If the TA does not trust any other TA, its TL **should** be 0.
-
+If the user trusts a TA with no specific trust level, the TA's effective trust level **should** be equal to the highest link trust level between every link defined by this TA, plus one. This lets the user fully trust both the TA and its trust network. If the TA does not trust any other TA, its effective trust level **must** be 0.
 
 ## Examples
 
