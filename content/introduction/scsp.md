@@ -11,11 +11,11 @@ Once a pull request is open, a member of the [Informo core team](/informo/inform
 
 If you are unsure about whether changes should be made regarding a specific part of the specifications, or about whether you would have the time and/or resources to issue a SCS, feel free to discuss it with us by either [opening an issue](https://github.com/Informo/specs/issues/new) or joining our discussion room.
 
-Below are described the different types of changes and the steps a submission for each of them has to go through before being merged to this documentation.
+Below are described the different types of changes and the steps a submission matching one of them has to go through before being merged to this documentation.
 
 ## Typo, wording and phrasing
 
-A SCS fixing one or more spelling mistakes, or fixing bad wording and phrasing without altering any behaviour described by the specifications (nor adding any new one), **must** be tagged with the `type:typo` label.
+A SCS fixing one or more spelling mistakes, or fixing bad wording and/or phrasing without altering any behaviour described by the specifications (nor adding any new one), **must** be tagged with the `type:typo` label.
 
 On top of that, it **must** be tagged with only one label describing its state, which **must** be one of:
 
