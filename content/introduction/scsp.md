@@ -38,7 +38,7 @@ On top of that, it **must** be tagged with only one label describing its state, 
 
 * `scsp:wip`: this SCS is a work in progress. This label can either be added by the pull request's author given they have sufficient rights to the repository, or following a request issued from the SCS's author to the Informo core team (either in the pull request's initial comment or in the discussions room).
 * `scsp:review`: this SCS is ready for review. The review process for this type of SCS is described below.
-* `scsp:final review`: a final review of the SCS is underway by one of the Informo core team members. This step is optional and the SCS **must** only go through it if one or more of the Informo core team members strongly disagrees with the current state of the SCS.
+* `scsp:final review`: a final review of the SCS is underway by one of the Informo core team members. This step is optional and the SCS **must** only go through it if one or more of the Informo core team members strongly disagrees with the current state of the SCS. The review process is the same as the standard review process for a SCS tagged `type:typo`, and is described in the paragraph above.
 * `scsp:merged`: the SCS has been accepted and the pull request has been merged.
 * `scsp:won't merge`: an Informo core team member decided this SCS isn't fit for merging, and **must** justify their decision before closing the pull request.
 
