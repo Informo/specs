@@ -32,7 +32,7 @@ Let's consider:
 * `B` an example TA not trusted by the user at first, then trusted by the user.
 * `C` an example TA trusted by `A` and `B`, but not by the user (at first).
 
-Both TAs and the user can list the TAs they trust, therefore creating trust links between them and the TAs they trust. These trust links can hold a specific trust level that is used to compute the effective trust level of the link's target.
+Both TAs and the user **can** list the TAs they trust, therefore creating trust links between them and the TAs they trust. These trust links **can** hold a specific trust level that is used to compute the effective trust level of the link's target.
 
 A link's trust level, expressed `LTL(A,C)` in this documentation, **must** be subject to the following constraints, as long as `C` isn't directly trusted by the user:
 
