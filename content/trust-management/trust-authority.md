@@ -11,9 +11,9 @@ A trust authority's main responsibility is to assert the trustworthiness of a so
 
 If a user chooses to trust a specific TA, let's name it *SomeNGO.org* here for the sake of simplicity, all sources and TAs trusted by *SomeNGO.org* **must** be considered as trustworthy by client implementations in accordance with their chosen trust level (documented in [the related section](/trust-management/trust-level/)).
 
-A trust authority **can** specify a reason for trusting another TA or a source. This reason **must** consist in a custom localised string provided in by the trust authority.
+A trust authority **can** specify a reason for trusting another TA or a source. If specified, this reason **must** consist in a custom localised string provided in by the trust authority.
 
-A trust authority **must** also be able to list sources and trust authorities that it explicitly blacklists for being compromised or ethical reasons. The trust authority **must** specify a reason for blacklisting a source or TA, which consists in a defined reason code (2️⃣). The trust authority **can** also provide additional information to explained the addition to the blacklist, which **must** be contained in a custom localised string.
+A trust authority **must** also be able to list sources and trust authorities that it explicitly blacklists for being compromised or ethical reasons. The trust authority **must** specify a reason for blacklisting a source or TA, which consists in a defined reason code (2️⃣). The trust authority **can** also provide additional information to explain the addition to the blacklist, which if provided **must** be contained in a custom localised string.
 
 ### Trust authority registration
 
