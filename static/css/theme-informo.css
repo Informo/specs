@@ -74,8 +74,11 @@ a:hover {
     border-color: var(--MENU-HEADER-BORDER-color);
 }
 #sidebar .searchbox {
-	border-color: var(--MENU-SEARCH-BOX-color);
+    border-color: var(--MENU-SEARCH-BOX-color);
     background: var(--MENU-SEARCH-BG-color);
+}
+#sidebar .searchbox input::placeholder {
+    color: var(--MENU-SEARCH-BOX-ICONS-color);
 }
 #sidebar ul.topics > li.parent, #sidebar ul.topics > li.active {
     background: var(--MENU-SECTIONS-ACTIVE-BG-color);
