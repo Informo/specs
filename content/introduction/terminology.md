@@ -9,17 +9,17 @@ The current section defines fixed definitions for words or expressions that are 
 
 An article refers to any news item that is sent over the Informo network. It is defined by its content, which, right now, is limited to text and images, and various metadata such as its title, its author(s), its publication date, etc..
 
+#### Client implementation
+
+A client implementation is a piece of software implementing the related parts of the Informo specifications in order to allow users to connect to a federation and retrieve information from it.
+
 #### Federation
 
-An federation is a Matrix room that is shared and synchronized across multiple nodes.
-
-#### Feed
-
-A feed refers to the aggregation of articles sent over the Informo network by one or more source(s). It usually, but not always, refers to the aggregation of the *n* latest articles sent by all of the sources a user is subscribed to.
+A federation is a set of nodes that are able to communicate with each other, similar to a mesh network. In this specifications, Matrix rooms are sometimes referred to as federations, as they can be broadly considered as federations with state machines.
 
 #### Node
 
-A node is a piece of software implementing both the [client-server specification](https://matrix.org/docs/spec/client_server/r0.4.0.html) and the [federation specification](https://matrix.org/docs/spec/server_server/unstable.html) of the [Matrix protocol](https://matrix.org), and connected to one or more Informo federations. Typically it can be a server running [Synapse](https://github.com/matrix-org/synapse).
+A node is a piece of software implementing both the [client-server specification](https://matrix.org/docs/spec/client_server/r0.4.0.html) and the [federation specification](https://matrix.org/docs/spec/server_server/unstable.html) of the [Matrix protocol](https://matrix.org), and connected to one or more Informo federations.
 
 #### Source, Information source
 
@@ -31,11 +31,11 @@ A trust authority refers to an entity, whether it is an individual or a group of
 
 #### Trust Level
 
-The trust level is a representation of how much a user or a trust authority is trusting other trust authorities, affecting how far a user or trust authority can delegate the verification of sources and trust authorities.
+The trust level is an indication on how much a client implementation trusts a trust authority. It is a relative integer representing the maximum depth in the user's trust network that can be reached from the said trust authority. It can be either defined by the user (to control what its client must trust as precisely as possible) or by a trust authority for another trust authority (to delegate the certification of trustworthiness).
 
 #### Trust Link
 
-A trust link is an unidirectional connection between a user or trust authority and another trust authority they trust. The concept is similar to the edges in [graph theory](https://en.wikipedia.org/wiki/Graph_theory). 
+A trust link is an unidirectional connection between a user or trust authority and another trust authority they trust. The concept is similar to the edges in [graph theory](https://en.wikipedia.org/wiki/Graph_theory).
 
 #### Trust network, Trust chain
 
