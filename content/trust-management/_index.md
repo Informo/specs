@@ -1,6 +1,6 @@
 ---
 title: "Trust management"
-weight: 2
+weight: 4
 ---
 
 One of Informo's key issues is to allow as much information as possible through the federated network, with some level of mitigation against intentional disinformation or propaganda. The set of mechanisms used to address this is called "trust management" in this documentation.

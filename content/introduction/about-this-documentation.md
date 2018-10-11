@@ -1,11 +1,21 @@
 ---
 title: "About this documentation"
-weight: 3
+weight: 1
 ---
 
 This documentation is built with [Hugo](https://gohugo.io/), using [Mathieu Cornic's "learn" theme](https://github.com/matcornic/hugo-theme-learn). It is distributed under the [GNU Free Documentation License](https://www.gnu.org/licenses/fdl-1.3.html).
 
-### Emoji markers
+## Key words
+
+This documentation includes key words which represent either an obligation, and interdiction, a possibility or a suggestion (depending on the word) directed to implementation maintainers. They are made recognisable by their use of a bold font style (e.g. "**must**"), and are listed below along with their meaning:
+
+* **must**: instruction, obligation
+* **should**: strong suggestion
+* **might**: slight suggestion
+* **can**: possibility
+* **must not**: interdiction
+
+## Emoji markers
 
 Some parts of this documentation are marked with an emoji, indicating a special status that will require the attention of an Informo core team member or specifications contributor in the future. They are mostly there to remind the relevant people of works in progress, and informing readers that the said people know there's work to do here (so there's no need to open a ticket about it). These are:
 
@@ -15,7 +25,7 @@ Some parts of this documentation are marked with an emoji, indicating a special 
 * 🕐 (`:clock1:`) This part of the documentation is only here temporarily for clarity purposes, and will be removed in a fixed point in the future.
 * 2️⃣ (`:two:`) This part of the documentation is incomplete, however the rest of it is to be added only uring phase 2 of the specifications' development.
 
-### Specifications development 🕐
+## Specifications development 🕐
 
 This part will be removed once a complete version of this documentation has been reached.
 
