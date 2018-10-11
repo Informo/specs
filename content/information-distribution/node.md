@@ -19,7 +19,7 @@ An entry node is a node that allows client implementations to connect to the fed
 
 Client implementations **must** provide users with an updated list of entry nodes with their addresses and the aliases to use to join the federation the node is in. Clients implementations **must** also provide users with a way to input custom values for the address of the entry node to use and the alias of the Matrix room to join.
 
-Once a Matrix room is joined, client implementations **must** retrieve and save the [list of aliases](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-aliases) for this room. In the event of an entry node that's currently being used being unreachable, clients implementations and **must** use this list to provide users with an updated list of alternative entry nodes and aliases to use. The address of the node managing a given alias can be retrieved through a [DNS query](https://github.com/matrix-org/synapse/#setting-up-federation).
+Once a Matrix room is joined, client implementations **must** retrieve and save the [list of aliases](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-aliases) for this room. In the event of an entry node that's currently being used being unreachable, clients implementations and **must** use this list to provide users with an updated list of alternative entry nodes and aliases to use. The address of the node managing a given alias can be retrieved through a [DNS query](https://github.com/matrix-org/synapse/#setting-up-federation). Client implementations **can** check for pings in order to filter out the inactive nodes from this list.
 
 {{% notice note %}}
 Nodes that aren't entry nodes are named "relay nodes".
