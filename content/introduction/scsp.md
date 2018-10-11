@@ -1,5 +1,5 @@
 ---
-title: "Specifications change submission protocol"
+title: "Specifications Change Submission Protocol"
 weight: 2
 ---
 
@@ -7,9 +7,9 @@ This page describes the protocol followed regarding the submission of any change
 
 Any SCS **must** be done by opening a [pull request](https://help.github.com/articles/about-pull-requests/) against the specifications' GitHub repository (located [here](https://github.com/Informo/specs)). This can be done by either creating a fork of the repository and opening a pull request, or using the "Edit this page" button located on the top right corner of every page. The pull request's initial comment **must** include a brief description of the changes involved in this SCS, and a description of the issue it addresses. If the SCS addresses an issue that's already the target of an issue on the GitHub repository, the pull request's initial comment **must** also mention it.
 
-Once a pull request is open, a member of the [Informo core team](/informo/informo-core-team) will tag it using labels describing the type of the changes submitted and the current stage (pending, merged, ...) of the SCS. The Informo core team members are volunteers, and most of them have an occupation besides working on Informo-related projects, which means your submission might not be tagged as soon as you send it. Please keep that in mind when submitting your changes, and wait at least a week before complaining (politely) about it in our [discussion room](https://matrix.to/#/#discuss:weu.informo.network).
+Once a pull request is open, a member of the [Informo core team](/informo/informo-core-team) will tag it using labels describing the type of the changes submitted and the current stage of the SCS (e.g. pending, merged, etc.). The Informo core team members are volunteers, and most of them have an occupation besides working on Informo-related projects, which means your submission might not be tagged as soon as you send it. Please keep that in mind when submitting your changes, and wait at least a week before complaining (politely) about it in our [discussions room](https://matrix.to/#/#discuss:weu.informo.network).
 
-If you are unsure about whether changes should be made regarding a specific part of the specifications, or about whether you would have the time and/or resources to issue a SCS, feel free to discuss it with us by either [opening an issue](https://github.com/Informo/specs/issues/new) or joining our [discussion room](https://matrix.to/#/#discuss:weu.informo.network).
+If you are unsure about whether changes should be made regarding a specific part of the specifications, or about whether you would have the time and/or resources to issue a SCS, feel free to discuss it with us by either [opening an issue](https://github.com/Informo/specs/issues/new) or joining our [discussions room](https://matrix.to/#/#discuss:weu.informo.network).
 
 Below are described the different types of changes and the steps a submission matching one of them has to go through before being merged to this documentation.
 
