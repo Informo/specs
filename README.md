@@ -1,4 +1,4 @@
-# Informo specs
+# Informo specifications
 
 Welcome to Informo's specifications repository. Informo's specifications aim at giving a precise understanding of how Informo works.
 
