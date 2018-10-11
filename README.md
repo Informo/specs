@@ -18,7 +18,7 @@ Then just run `hugo` at the root of the repository. It will generate a static ve
 
 ## Build the schemas
 
-For the sake of simplicity, this documentation uses SVG schemas, located in [/static/images](/static/images), in several locations. To make them render the same way for every platform, text is converted to written text with a given font to paths.
+For the sake of simplicity, this documentation uses SVG schemas, located in [/static/images](/static/images), in several locations. To make them render the same way for every platform, text font is converted to svg paths.
 
 A copy of the version with written text is available for each schema, with its name ending with `.src.svg`. After modifying one of those, text must be converted to paths again, by running `./svg-fonts-to-path.sh` from the root of the repository.
 
@@ -32,7 +32,7 @@ While working on a submission, using hugo's watcher might be easier than manuall
 hugo server
 ```
 
-This command must be run from the root of the repository. Hugo will start a webserver on `http://127.0.0.1:1313` (unless instructed otherwise), and rebuild (and reload) the site on evert change.
+This command must be run from the root of the repository. Hugo will start a webserver on `http://127.0.0.1:1313` (unless instructed otherwise), and rebuild (and reload) the site on every change.
 
 ## Get in touch
 
