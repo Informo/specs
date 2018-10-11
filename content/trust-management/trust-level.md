@@ -58,7 +58,8 @@ A user can choose to trust a specific TA, which overrides the computed value for
 
 If the user trusts a TA with a specific trust level, the TA's effective trust level **must** be equal to this user-defined value. This lets the user limit the depth of its trust network.
 
-If the user trusts a TA with no specific trust level, the TA's effective trust level **should** be equal to the highest link trust level between every link defined by this TA, plus one. This lets the user fully trust both the TA and its trust network. If the TA does not trust any other TA, its effective trust level **should** be 0.
+If the user trusts a TA `A` with no specific trust level, a TA `B` trusted by `A` **should** be trusted by the user with an effective trust level equal to the link trust level `A` defines for `B`. This lets the user fully trust both the TA and its trust network. Client implementation **can** do this by using an infinite value for `A`'s effective trust level.
+
 
 ## Examples
 
