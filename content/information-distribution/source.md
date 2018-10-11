@@ -1,6 +1,6 @@
 ---
 title: "Source"
-weight: 1
+weight: 2
 ---
 
 A source is an entity holding the responsibility of publishing information through the Matrix room. Before publishing any information, a source **must** register itself as such on the room, including data on the organism or individual operating the source, the publication language and the publication name space (2️⃣: a Matrix event type), along with one or more public signature verification keys that will be used to assert the integrity of the information it publishes, and the signing algorithm used to generate the signature of its articles (`ed25519`, `hmac-sha256`, `hmac-sha512`, etc.).
