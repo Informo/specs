@@ -12,7 +12,7 @@ defaultContentLanguageInSubdir = false
 ignorefiles = [ "matrix/" ]
 
 [params]
-  editURL = "https://github.com/Informo/specs/edit/master/src/content/"
+  editURL = "https://github.com/Informo/specs/edit/master/content/"
   description = "Informo specifications"
   author = "Informo core team and contributors"
   showVisitedLinks = false
