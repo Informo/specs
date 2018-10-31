@@ -78,14 +78,14 @@ provide for this room.
 ### Reaching an entry node
 
 Because the list of aliases only list the nodes' server names, and not their
-FQDN, a node might not be reachable at the address  In order to find the
-effective FQDN and port to reach a node at, client implementations **must**
-perform a DNS query on an `SRV` record for the `_matrix._tcp` sub-domain of the
-server's name which, in the example above, would look like
-`_matrix._tcp.example.com`. If such a record doesn't exist, client
-implementations **shoud** consider that the node is reachable using its server
-name as its FQDN, and the default Matrix encrypted federation port, `8448`, as
-its port.
+FQDN, a node might not be reachable at the address defined by its server name.
+In order to find the effective FQDN and port to reach a node at, client
+implementations **must** perform a DNS query on an `SRV` record for the
+`_matrix._tcp` sub-domain of the server's name which, in the example above,
+would look like `_matrix._tcp.example.com`. If such a record doesn't exist,
+client implementations **shoud** consider that the node is reachable using its
+server name as its FQDN, and the default Matrix encrypted federation port,
+`8448`, as its port.
 
 {{% notice note %}}
 Because most Matrix homeservers can also be reached through the standard `443`
@@ -98,8 +98,8 @@ to detect and filter on.
 
 {{% notice tip %}}
 Web-based client implementations **can** use the [DNS over
-HTTPS](https://tools.ietf.org/html/rfc8484) standard to perform DNS queries
-instead of standard DNS queries which they might not be able to perform.
+HTTPS](https://tools.ietf.org/html/rfc8484) standard to perform DNS queries over
+HTTPS instead of standard DNS queries which they might not be able to perform.
 {{% /notice %}}
 
 In the event of an entry node that's currently being used becoming unreachable,
