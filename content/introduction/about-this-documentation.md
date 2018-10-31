@@ -8,6 +8,18 @@ Cornic's "learn" theme](https://github.com/matcornic/hugo-theme-learn). It is
 distributed under the [GNU Free Documentation
 License](https://www.gnu.org/licenses/fdl-1.3.html).
 
+{{% notice info %}}
+Please note that, because Informo is built around [Matrix](https://matrix.org),
+it relies on some of its core features, such as rooms, room state, events, etc..
+However, even though this documentation includes a few Matrix-specific
+examples and references to Matrix-specific features for the sake of clarity, it
+does not include enough information on how Matrix actually works to offer a
+complete technical overview of the whole system. It is therefore recommended to
+consider it as a plug-in to the existing [Matrix
+specifications](https://matrix.org/docs/spec/) rather than an independent
+document.
+{{% /notice %}}
+
 ## Key words
 
 This documentation includes key words which represent either an obligation, and
@@ -49,17 +61,17 @@ of it is to be added only during phase 2 of the specifications' development.
 This part will be removed once a complete version of this documentation has been
 reached.
 
-The Informo specifications' development will take place in two phases:
+The Informo specifications' development takes place in two phases:
 
 * **phase 1** is building the overall documentation architecture. It focuses on
 getting the general outlines of the project written down, with the aim of
 getting it out as soon as possible so people can have a less vague idea of
-what Informo is about.
+what Informo is about. This phase is now complete.
 * **phase 2** is adding in-depth documentation about Informo's inner mechanisms.
 It focuses on writing down the technical details of Informo, with the aim of
 enabling a future client implementation built from it.
 
-While phase 1 will mainly be done by the Informo core team, everyone is welcome
-to get involved in phase 2 and further, either by submitting changes or taking
-part in the discussions taking place in the discussion channels mentioned at the
-top of this page.
+While phase 1 was done by the Informo core team, everyone is welcome to get
+involved in phase 2 and further, either by submitting changes or taking part in
+the discussions taking place in the discussion channels mentioned at the top of
+this page.
