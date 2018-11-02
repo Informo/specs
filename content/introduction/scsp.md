@@ -99,6 +99,5 @@ the situation) be representative of the SCS's life cycle.
 
 The review process starts as soon as the `scsp:review` label is added to the
 SCS's pull request. From then on, the SCS is available for public review for a
-total of 7 days (one weeks). During this period, anyone **can** issue a
-review on the SCS or comment and discuss it, preferably in the pull request's
-comments.
+total of 7 days (one week). During this period, anyone **can** issue a review on
+the SCS or comment and discuss it, preferably in the pull request's comments.
