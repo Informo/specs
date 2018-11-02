@@ -69,7 +69,12 @@ aliases defined for a given node. The content for such an event looks like this:
 ```
 
 The example above shows the content of the `m.room.aliases` state event for the
-node which uses `example.com` as its server name.
+node which uses `example.com` as its server name. Please note that an instance
+of a `m.room.aliases` state event only lists the aliases created by a single
+node (hence both aliases using the same server name in the example), which means
+that the complete list of aliases for the Matrix room can only be retrieved by
+processing every `m.room.aliases` state event that hasn't been made obsolete by
+a more recent `m.room.aliases` state event for the same node.
 
 Client implementations **must** process these lists of aliases to generate a map
 associating all of the entry nodes for this Matrix room with the aliases they
