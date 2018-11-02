@@ -72,7 +72,7 @@ The example above shows the content of the `m.room.aliases` state event for the
 node which uses `example.com` as its server name.
 
 Client implementations **must** process these lists of aliases to generate a map
-mapping all of the entry nodes for this Matrix room with the aliases they
+associating all of the entry nodes for this Matrix room with the aliases they
 provide for this room.
 
 ### Reaching an entry node
