@@ -147,4 +147,9 @@ to the selected node using the selected alias.
 
 ## Other types of nodes
 
-Nodes that aren't entry nodes are named "relay nodes".
+Nodes that aren't entry nodes are named "relay nodes". Although they cannot be
+used by client implementations in order to retrieve articles from the Matrix
+room, they are still useful as they can relay articles to other nodes that are
+out of reach from the articles' emitter(s). For example, if a node `A` can't
+reach a node `B` but can reach a node `C`, even if `C` isn't an entry node,
+`A`'s information will eventually manage to reach `B` via `C` thanks to pings.
