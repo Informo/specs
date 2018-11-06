@@ -12,22 +12,15 @@ signature coming from its source, and be published on the publication name space
 that has been declared by its source. The article **can** also include optional
 properties, such as the item's description, read duration, NSFW marker, etc..
 
-The signature **must** be generated from one of the source's public signature
-verification keys (using the source's declared signing algorithm), and a string
-containing all of the item's information, and **must** be formatted the same way
-as follows:
+If the source has one or more signature keys, the article JSON object **must**
+be signed with one of the source's keys, using the [Canonical JSON
+method](/information-distribution/signature/#signing-json-data)
 
-```
-title=Lorem ipsum&author=Cicero&date=2006-01-06T15:04-07:00&url=https://lipsum.com/&content=Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-```
-
-In the example string above, the target article is titled "Lorem ipsum", was
-written by "Cicero" on January 1st 2006 and can be found at
-"[https://lipsum.com/](https://lipsum.com/)" with the content "Lorem ipsum dolor
-sit amet, consectetur adipiscing elit.".
+If the source has no signature keys, then signing the article is recommended but
+optional.
 
 If the original news item contains media, these media **should** be uploaded to
 the node using [Matrix's content repository
 module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
+🔧: Media signature
 
-2️⃣: rest of the page
