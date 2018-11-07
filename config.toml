@@ -8,8 +8,7 @@ themesdir = "themes"
 metaDataFormat = "yaml"
 defaultContentLanguageInSubdir = false
 
-# Ignore the directory containing notes for phase 2
-ignorefiles = [ "matrix/" ]
+ignorefiles = [ ]
 
 [params]
   editURL = "https://github.com/Informo/specs/edit/master/content/"
