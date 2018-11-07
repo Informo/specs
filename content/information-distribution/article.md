@@ -30,4 +30,48 @@ If the original news item contains media, these media **should** be uploaded to
 the node using [Matrix's content repository
 module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
 
-2️⃣: rest of the page
+## Matrix event `network.informo.article`
+
+This message event is meant to be sent by a source Matrix user. If the article
+is signed, it **must** be wrapped into a [Signed Matrix
+event](/information-distribution/signature/#signed-matrix-event).
+
+If the sender is not a source user, the article **should** be ignored. If the
+source registers itself afterwards, its previously sent articles **should**
+become visible.
+
+
+### Event data
+
+|      Parameter      |   Type   | Req. |                                                                            Description                                                                            |
+| ------------------- | -------- | :--: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`             | `string` |  x   | Article's headline                                                                                                                                                |
+| `href`              | `string` |      | Link to the article's original post (in case the article was sent to informo from an existing website)                                                            |
+| `short_description` | `string` |      | Short description or introduction to the article.                                                                                                                 |
+| `author`            | `string` |      | Full name of the article's author (when a single Informo source aggregates multiple writers).                                                                     |
+| `thumbnail`         | `string` |      | Preview image for the article. Must be a `mxc://` url.                                                                                                            |
+| `date`              | `int`    |      | Timestamp in milliseconds when the article was published. If not provided clients should fall-back to the timestamp when the matrix event was sent.               |
+| `content`           | `string` |  x   | Article HTML content. The HTML **must** be sanitized before being displayed in a client.                                                                          |
+| `custom`            | `object` |      | Additional information for custom client implementations.                                                                                                         |
+
+Additional information:
+
+- Articles having a `date` field in the future **should** be ignored.
+- The `date` field uses the same timestamps as in the Matrix protocol, i.e. milliseconds since epoch.
+
+
+### Example
+
+```json
+{
+    "content": {
+        "algorithm": "ed25519"
+        "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
+        "signature": "0a1df56f1c3ab5b1"
+        "signed": {
+            "title": "Lorem ipsum",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+    }
+}
+```
