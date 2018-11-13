@@ -85,7 +85,7 @@ provide for this room.
 Because the list of aliases only list the nodes' server names, and not their
 FQDN, a node might not be reachable at the address defined by its server name.
 In order to find the effective FQDN and port to reach a node at, client
-implementations **must** perform a DNS query on an `SRV` record for the
+implementations **must** perform a DNS query on a `SRV` record for the
 `_matrix._tcp` sub-domain of the server's name which, in the example above,
 would look like `_matrix._tcp.example.com`. If such a record doesn't exist,
 client implementations **should** consider that the node is reachable using its
