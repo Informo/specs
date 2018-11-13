@@ -160,3 +160,5 @@ room, they are still useful as they can relay articles to other nodes that are
 out of reach from the articles' emitter(s). For example, if a node `A` can't
 reach a node `B` but can reach a node `C`, even if `C` isn't an entry node,
 `A`'s information will eventually manage to reach `B` via `C` thanks to pings.
+This is done through [Matrix's `get_missing_events` federation
+endpoint](https://matrix.org/docs/spec/server_server/unstable.html#post-matrix-federation-v1-get-missing-events-roomid).
