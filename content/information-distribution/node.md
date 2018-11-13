@@ -137,9 +137,10 @@ HTTPS instead of standard DNS queries which they might not be able to perform.
 {{% /notice %}}
 
 In the event of an entry node that's currently being used becoming unreachable,
-clients implementations **must** use the generated map to provide its user(s)
-with alternative entry nodes and aliases to use. Client implementations **can**
-use received pings in order to filter out the inactive nodes from this list.
+clients implementations **should** use the map generated from the room aliases
+list to provide its user(s) with alternative entry nodes and aliases to use.
+Client implementations **can** use received pings in order to filter out the
+inactive nodes from this list.
 
 ### Joining a federation
 
