@@ -12,8 +12,9 @@ signature coming from its source, and be published on the publication name space
 that has been declared by its source. The article **can** also include optional
 properties, such as the item's description, read duration, NSFW marker, etc..
 
-The article JSON object **must** be encapsulated in a [signed matrix
-event](/information-distribution/signature), using one of the source's keys.
+The article JSON object **must** be encapsulated in a [signed Matrix
+event](/information-distribution/signature), with its signature generated with
+one of the source's keys.
 
 If the original news item contains media, these media **should** be uploaded to
 the node using [Matrix's content repository
