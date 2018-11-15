@@ -15,7 +15,7 @@ which private key solely owned by the end user.
 
 Informo signed events are built using a common structure, inspired from [Matrix
 `m.room.encrypted`
-events](https://matrix.org/speculator/spec/HEAD/client_server/unstable.html#m-room-encrypted):
+events](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-encrypted):
 
 |    Field     |   Type   |                                    Description                                    |
 | ------------ | -------- | --------------------------------------------------------------------------------- |
@@ -24,19 +24,19 @@ events](https://matrix.org/speculator/spec/HEAD/client_server/unstable.html#m-ro
 | `device_id`  | `string` | 🔧 Optional, ID of the sending device, may be used for Megolm                      |
 | `session_id` | `string` | 🔧 Optional, ID of the session used to encrypt the message, may be used for Megolm |
 | `signature`  | `string` | Generated signature                                                               |
-| `signed`     | `object` | Event signed content                                                              |
+| `signed`     | `object` | Content that has been signed                                                      |
 
-🔧: Need to do some research on Megolm and Matrix APIs around encryption and key
-management
+<!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption and key
+management -->
 
 Example:
 
 ```json
 {
     "content": {
-        "algorithm": "ed25519"
-        "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-        "signature": "0a1df56f1c3ab5b1"
+        "algorithm": "ed25519",
+        "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "signature": "0a1df56f1c3ab5b1",
         "signed": {
             // Event signed JSON data
         }
@@ -56,5 +56,5 @@ as separators.
 
 In order to produce consistent JSON strings, clients **must** convert the JSON
 data into a [Canonical JSON
-string](https://matrix.org/speculator/spec/HEAD/appendices.html#canonical-json),
-before signing it and setting the event's `content.signature` field.
+string](https://matrix.org/docs/spec/appendices.html#canonical-json), before
+signing it and setting the event's `content.signature` field.

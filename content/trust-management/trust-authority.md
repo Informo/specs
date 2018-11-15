@@ -46,9 +46,9 @@ registration **must** include data on the organism operating the TA, along with
 the list of its public signature verification keys and the list of all of the
 sources and trust authorities it trusts. This list **must** include, for each
 trusted source and TA, a signature generated from one of the TA's public keys.
-This signature **must** be generated from the source's Matrix event content
-using the [Canonical JSON
-method](/information-distribution/signature/#signing-json-data).
+This signature **must** be generated from the source's Matrix event content as
+described in the [Signature
+section](/information-distribution/signature/#signing-json-data).
 
 A TA's registration **must** associate each signature with the identifier of the
 trusted source or TA, and with the signing algorithm used to generate it

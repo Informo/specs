@@ -13,8 +13,8 @@ that has been declared by its source. The article **can** also include optional
 properties, such as the item's description, read duration, NSFW marker, etc..
 
 If the source has one or more signature keys, the article JSON object **must**
-be signed with one of the source's keys, using the [Canonical JSON
-method](/information-distribution/signature/#signing-json-data)
+be signed with one of the source's keys, as described in the [Signature
+section](/information-distribution/signature/#signing-json-data).
 
 If the source has no signature keys, then signing the article is recommended but
 optional.
@@ -24,3 +24,5 @@ the node using [Matrix's content repository
 module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
 🔧: Media signature
 
+
+2️⃣: rest of the page
