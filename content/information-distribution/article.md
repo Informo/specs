@@ -32,9 +32,9 @@ module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
 
 ## Matrix event `network.informo.article`
 
-This message event **must** be sent and signed by a source Matrix user. See
+This message event **must** be sent and signed by a source Matrix user. See the
 [signed Matrix event](/information-distribution/signature/#signed-matrix-event)
-for more information about signing.
+for more information.
 
 If the sender is not a source user, the article **should** be ignored. If the
 source registers itself afterwards, its previously sent articles **should**
@@ -43,16 +43,16 @@ become visible.
 
 ### Event data
 
-|      Parameter      |   Type   | Req. |                                                                     Description                                                                     |
-| ------------------- | -------- | :--: | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`             | `string` |  x   | Article's headline.                                                                                                                                 |
-| `href`              | `string` |      | URL of the article's original post (in case the article was sent to Informo from an existing website).                                              |
-| `short_description` | `string` |      | Short description or introduction to the article.                                                                                                   |
-| `author`            | `string` |      | Full name of the article's author (when a single Informo source aggregates multiple writers).                                                       |
-| `thumbnail`         | `string` |      | Preview image for the article. Must be a [`mxc://` url](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                                                                                              |
-| `date`              | `int`    |      | Timestamp in milliseconds when the article was published. If not provided clients should fall-back to the timestamp when the matrix event was sent. |
-| `content`           | `string` |  x   | Article HTML content. The HTML **must** be sanitized before being displayed in a client.                                                            |
-| `custom`            | `object` |      | Additional information for custom client implementations.                                                                                           |
+|      Parameter      |   Type   | Req. |                                                                Description                                                                 |
+| ------------------- | -------- | :--: | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `title`             | `string` |  x   | Article's headline.                                                                                                                        |
+| `href`              | `string` |      | URL of the article's original post (in case the article was sent to Informo from an existing website).                                     |
+| `short_description` | `string` |      | Short description or introduction to the article.                                                                                          |
+| `author`            | `string` |      | Full name of the article's author (when a single Informo source aggregates multiple writers).                                              |
+| `thumbnail`         | `string` |      | Preview image for the article. Must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                     |
+| `date`              | `int`    |      | Timestamp in milliseconds of the article's publication. If not provided clients should fall back to the Matrix event's creation timestamp. |
+| `content`           | `string` |  x   | Article HTML content. The HTML **must** be sanitized before being displayed in a client.                                                   |
+| `custom`            | `object` |      | Additional information for custom client implementations.                                                                                  |
 
 Additional information:
 
@@ -64,14 +64,12 @@ Additional information:
 
 ```json
 {
-    "content": {
-        "algorithm": "ed25519",
-        "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
-        "signature": "0a1df56f1c3ab5b1",
-        "signed": {
-            "title": "Lorem ipsum",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        }
+    "algorithm": "ed25519",
+    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+    "signature": "0a1df56f1c3ab5b1",
+    "signed": {
+        "title": "Lorem ipsum",
+        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     }
 }
 ```
