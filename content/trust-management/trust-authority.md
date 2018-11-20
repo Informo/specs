@@ -46,18 +46,9 @@ registration **must** include data on the organism operating the TA, along with
 the list of its public signature verification keys and the list of all of the
 sources and trust authorities it trusts. This list **must** include, for each
 trusted source and TA, a signature generated from one of the TA's public keys.
-This signature **must** be generated from a string containing the identifier
-(2️⃣: MXID), type (either "source" or "trust_authority") public name and list of
-public keys of the specific source or TA, and **must** be formatted the same way
-as follows:
-
-```
-id=@acmenews:weu.informo.network&type=source&name=ACME News&keys=[somekey,someotherkey]
-```
-
-In the example string above, the target entity is a source using the identifier
-`@acmenews:weu.informo.network`, the public name `ACME News` and `somekey` and
-`someotherkey` as its public signature verification keys.
+This signature **must** be generated from the source's Matrix event content as
+described in the [Signature
+section](/information-distribution/signature/#signing-json-data).
 
 A TA's registration **must** associate each signature with the identifier of the
 trusted source or TA, and with the signing algorithm used to generate it
