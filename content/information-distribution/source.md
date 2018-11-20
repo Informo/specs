@@ -137,7 +137,6 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ----------------------- | ----------------------- |
 | `@acmenews:example.com` | `@acmenews:example.com` |
 
-
 ```
 {
     "name": "ACME News",
@@ -168,10 +167,11 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ------------------------- | ------------------------- |
 | `@acmenewsen:example.com` | `@acmenewsen:example.com` |
 
-<!-- TODO: Generate signature -->
-
 ```
 {
+    "algorithm": "ed25519",
+    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+    "signature": "54ab6f6f18d63ef1",
     "signed": {
         "website": "https://www.example.com/en",
         "description": "This is the English source for ACME News.",
@@ -189,10 +189,11 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ------------------------- | ------------------------- |
 | `@acmenewsfr:example.com` | `@acmenewsfr:example.com` |
 
-<!-- TODO: Generate signature -->
-
 ```
 {
+    "algorithm": "ed25519",
+    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+    "signature": "0a1df56f18d63ef1",
     "signed": {
         "website": "https://www.example.com/fr",
         "description": "Ceci est la source française d'ACME News.",
@@ -213,9 +214,65 @@ publishing articles in French.
 Let's consider a news website, named "ACME News", publishing news in both
 English and French, each on a localised website. We'll also consider
 `@acmenews:example.com` its main Informo source, and `@acmenewsfr:example.com`
-its sub-sources, handling the publications of articles in French. The publication of articles in English is done by ACME News's main source, `@acmenews:example.com`
+its sub-sources, handling the publications of articles in French. The
+publication of articles in English is done by ACME News's main source,
+`@acmenews:example.com`.
 
 Here are the state events it needs to emit to properly register all of its
 sources.
 
-<!-- TODO: Sub-sources -->
+#### `network.informo.source`
+
+|         Emitter         |        State key        |
+| ----------------------- | ----------------------- |
+| `@acmenews:example.com` | `@acmenews:example.com` |
+
+```
+{
+    "name": "ACME News",
+    "origin": "ACME News Group",
+    "website": "https://www.example.com",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
+    "sig_algo": "ed25519",
+    "sig_keys": [
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
+    ],
+    "lang": [
+        {
+            "locale": "en",
+            "mxid": "@acmenews:example.com"
+        },
+        {
+            "locale": "fr",
+            "mxid": "@acmenewsfr:example.com"
+        }
+    ]
+}
+```
+
+#### `network.informo.subsource`
+
+|          Emitter          |         State key         |
+| ------------------------- | ------------------------- |
+| `@acmenewsfr:example.com` | `@acmenewsfr:example.com` |
+
+```
+{
+    "algorithm": "ed25519",
+    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+    "signature": "0a1df56f18d63ef1",
+    "signed": {
+        "website": "https://www.example.com/fr",
+        "description": "Ceci est la source française d'ACME News.",
+        "sig_algo": "ed25519",
+        "sig_keys": [
+            "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
+        ]
+    }
+}
+```
+
+Once both of these events have been published, `@acmenews:example.com` can
+start publishing articles in English, and `@acmenewsfr:example.com` can start
+publishing articles in French.
