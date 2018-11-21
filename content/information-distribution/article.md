@@ -5,12 +5,9 @@ weight: 3
 
 An article is a news item published by a
 [source](/information-distribution/sources) to the Matrix room. It **must**
-include the item's content, title, author, date (formatted following the
-[ISO8601](https://tools.ietf.org/html/rfc3339) standard) and original URL (or an
-empty string if the item was only published through Informo), along with a
-signature coming from its source, and be published on the publication name space
-that has been declared by its source. The article **can** also include optional
-properties, such as the item's description, read duration, NSFW marker, etc..
+include the item's content and title. The article **can** also include optional
+properties, such as the item's author, date (in milliseconds since epoch),
+original URL, description, read duration, NSFW marker, etc..
 
 The article JSON object **must** be encapsulated in a [signed Matrix
 event](/information-distribution/signature), with its signature generated with
