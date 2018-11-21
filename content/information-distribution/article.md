@@ -25,7 +25,7 @@ module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
 
 This message event **must** be sent and signed by a source Matrix user. See the
 [signed Matrix event](/information-distribution/signature/#signed-matrix-event)
-for more information.
+page for more information.
 
 If the sender is not a source user, the article **should** be ignored. If the
 source registers itself afterwards, its previously sent articles **should**
@@ -48,7 +48,8 @@ become visible.
 Additional information:
 
 - Articles having a `date` field in the future **should** be ignored.
-- The `date` field uses the same timestamps as in the Matrix protocol, i.e. milliseconds since epoch.
+- The `date` field uses the same timestamps as in the Matrix protocol, i.e.
+  milliseconds since epoch.
 
 
 ### Example
