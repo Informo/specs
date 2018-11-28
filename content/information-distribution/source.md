@@ -43,9 +43,10 @@ Where:
   contain at least one element. More information on localised sub-sources and
   examples are available [below](#localisation).
 
-Each time one of the source's properties changes, a new registration event
-**must** be published, and every trust authority certifying the trustworthiness
-of this source **must** update their signatures accordingly.
+Each time one of the source's properties changes, it **must** publish a new
+registration event, and every trust authority certifying the trustworthiness of
+this source **must** update their signature by basing it on the new event. This
+signature lives in a TA's registration event 📝.
 
 If a source doesn't provide a logo, client implementations **can** use the
 [avatar](https://matrix.org/docs/spec/client_server/r0.4.0.html#get-matrix-client-r0-profile-userid-avatar-url)
