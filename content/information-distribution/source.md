@@ -112,6 +112,10 @@ If set, client implemetations **must** use the value for the `description` and
 description and the website provided in the parent source's
 `network.informo.source` event.
 
+Client implementations **must** consider a sub-source as holding the same [trust
+level](/trust-management/trust-level) as its parent source, and therefore
+**must** consider it at the same location in trust networks as its parent.
+
 ### Example
 
 Considering the example of an example website publishing news only in English,
