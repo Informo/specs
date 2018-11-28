@@ -7,55 +7,56 @@ A source is an entity holding the responsibility of publishing information
 through the Matrix room. Each source **must** be a registered Matrix user. A
 Matrix user **must not** register more than one source.
 
-Before publishing any information, a source **must** register itself as such on
-the room. This **must** be done through the publication of a state event of the
-`network.informo.source` type. The event's state key **must** be the ID of the
-source's Matrix user. The content of this event **must** be provided using the
-following model:
+A source **must** register itself as such on the room. This **must** be done
+through the publication of a `network.informo.source` state event. The event's
+state key **must** be the ID of the source's Matrix user. The content of this
+event **must** be provided using the following model:
 
-|      Parameter      |    Type    | Req. |                                                        Description                                                       |
-| ------------------- | ---------- | :--: | ------------------------------------------------------------------------------------------------------------------------ |
-| `name`              | `string`   |  x   | Name of the source.                                                                                                      |
-| `origin`            | `string`   |  x   | The company or individual maintaining this source.                                                                       |
-| `langs`             | `[lang]`   |  x   | Languages of the source's publications.                                                                                  |
-| `sig_algo`          | `string`   |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                  |
-| `sig_keys`          | `[string]` |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                |
-| `website`           | `string`   |      | URL of the source's website, if there's one.                                                                             |
-| `description`       | `string`   |      | Short description of the source and its publications.                                                                    |
-| `logo`              | `string`   |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112). |
-| `custom`            | `object`   |      | Additional information for custom client implementations.                                                                |
+## `network.informo.source`
+
+|      Parameter      |    Type    | Req. |                                                              Description                                                            |
+| ------------------- | ---------- | :--: | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `name`              | `string`   |  x   | Name of the source.                                                                                                                 |
+| `owner`             | `string`   |  x   | The company or individual maintaining this source.                                                                                  |
+| `l10n`              | `lang`     |  x   | Languages of the source's publications.                                                                                             |
+| `sig_algo`          | `string`   |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                             |
+| `sig_keys`          | `[string]` |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                           |
+| `website`           | `string`   |      | URL of the source's website, if there's one.                                                                                        |
+| `description`       | `string`   |      | Short description of the source and its publications.                                                                               |
+| `logo`              | `string`   |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
+| `country`           | `string`   |      | Country of the source's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
+| `custom`            | `object`   |      | Additional information for custom client implementations.                                                                           |
 
  <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
  and key management -->
 
-Where `lang` is an object using the following model:
+Where `lang` is a map associating a [RFC
+5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
+identifier to the Matrix user ID of the sub-source that handles the publication
+of articles in this language (and variant). This map **must** contain at least
+one element. More information on localised sub-sources and examples are
+available [below](#localisation).
 
-|      Parameter      |    Type    | Req. |                                                                       Description                                                                        |
-| ------------------- | ---------- | :--: | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `locale`            | `string`   |  x   | Identifier of the language (and variant) in which the articles are written. **Must** be compliant with [RFC 5646](https://tools.ietf.org/html/rfc5646).  |
-| `mxid`              | `string`   |  x   | The Matrix identifier of the sub-source publishing the articles. **Can** be the current source.                                                          |
+Each time one of the source's properties changes, a new registration event
+**must** be published, and every trust authority certifying the trustworthiness
+of this source **must** update their signatures accordingly.
 
-The array of `lang` objects within the source's registration **must** contain at
-least one element. More information on localisation is available
-[below](#localisation).
-
-The registration event is the one being signed by [trust
-authorities](/trust-management/trust-authority). Each time one of the source's
-properties changes, a new registration event **must** be published, and a new
-signature **must** be generated by each of the trust authorities certifying the
-trustworthiness of this source.
+If a source doesn't provide a logo, client implementations **can** use the
+[avatar](https://matrix.org/docs/spec/client_server/r0.4.0.html#get-matrix-client-r0-profile-userid-avatar-url)
+of its Matrix user in lieu of it if its avatar has been set.
 
 ## Compromission of cryptographic private keys
 
-A source **must** be trusted by trust authorities operated by organisms it
-trusts and is in contact with outside of Informo. If at least one of a source's
-private keys gets compromised, the source **must** update its list of public
-signature verification keys, and every trust authority trusting the source
-**must** compute and issue a new signature taking the updated list of keys into
-account. The reason behind this is to encourage trust authorities to communicate
-with their trusted sources, estimate how much compromised the source is (i.e.
-one key vs all of the keys vs the source's entire Matrix account), and take the
-actions it deems necessary.
+Every trust authority certifying a source's trustworthiness **must** be
+operating by an organism or individual the source trusts and is in contact with
+outside of Informo. If at least one of a source's private keys gets compromised,
+the source **must** update its list of public signature verification keys by
+publishing a new registration event containing the updated list, and every trust
+authority trusting the source **must** compute and issue a new signature taking
+the updated list of keys into account. The reason behind this is to encourage
+trust authorities to communicate with their trusted sources, estimate how much
+compromised the source is (i.e. one key vs all of the keys vs the source's
+entire Matrix account), and take the actions it deems necessary.
 
 In such an event, client implementations **should** consider articles posted
 prior to the key being declared as compromised as possibly, but not surely
@@ -69,13 +70,15 @@ publication of its articles in one language. A source, regardless of whether it
 is a sub-source or not, **must not** publish articles in more than one language.
 
 A sub-source is an entity similar to a source, with the exception that it
-**must** be related to a source. Each sub-source **must** be a registered Matrix
-user, and **must** register itself on the Matrix room through the publication of
-a state event of the `network.informo.subsource` type, with the Matrix user's ID
-as the event's state key. The event's content **must** be embedded in a [signed
-Matrix event](/information-distribution/signature/#signed-matrix-event), signed
-by one of the parent source's public keys, with its `signed` object using the
-following model:
+**must** be referenced to by a source. Each sub-source **must** be a registered
+Matrix user, and **must** register itself on the Matrix room through the
+publication of a `network.informo.subsource` state event, with the Matrix user's
+ID as the event's state key. The event's content **must** be embedded in a
+[signed Matrix event](/information-distribution/signature/#signed-matrix-event),
+signed by one of the parent source's public keys, with its `signed` object using
+the following model:
+
+### `network.informo.subsource`
 
 |      Parameter      |    Type    | Req. |                                  Description                                   |
 | ------------------- | ---------- | :--: | ------------------------------------------------------------------------------ |
@@ -92,27 +95,29 @@ referenced more than once in a source registration's whole array of `lang`
 objects.
 
 {{% notice info %}}
-If a source decides to register itself as one if its own sub-sources, it doesn't
-need to emit any `network.informo.subsource` event for this specific sub-source.
-The articles published by the source acting as one of its sub-sources **must**
-then be signed using the one of the source's public keys.
+A source **can** register itself as one if its own sub-sources. In this case, it
+doesn't need to emit any `network.informo.subsource` event for this specific
+sub-source. The articles published by the source acting as one of its
+sub-sources **must** then be signed using the one of the source's public keys.
 {{% /notice %}}
 
 ### Example
 
-Considering the example of an example website publishing news
-only in English, and registering itself as a source with the Matrix user id
-`@acmenews:example.com`, and not registering any sub-source, the array of `lang`
-objects would look like this:
+Considering the example of an example website publishing news only in English,
+and registering itself as a source with the Matrix user id
+`@acmenews:example.com`, and not registering any sub-source, the `lang` object
+would look like this:
 
 ```
-[
-    {
-        "locale": "en",
-        "mxid": "@acmenews:example.com"
-    }
-]
+{
+    "en": "@acmenews:example.com"
+}
 ```
+
+{{% notice tip %}}
+In this example, `en-US`, `en-GB`, etc. can be used instead of `en` if the
+source wants to explicitely specify language variants.
+{{% /notice %}}
 
 ## Full example
 
@@ -214,7 +219,7 @@ publishing articles in French.
 Let's consider a news website, named "ACME News", publishing news in both
 English and French, each on a localised website. We'll also consider
 `@acmenews:example.com` its main Informo source, and `@acmenewsfr:example.com`
-its sub-sources, handling the publications of articles in French. The
+its sub-source handling the publications of articles in French. The
 publication of articles in English is done by ACME News's main source,
 `@acmenews:example.com`.
 
