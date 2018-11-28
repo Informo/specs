@@ -14,28 +14,34 @@ event **must** be provided using the following model:
 
 ## `network.informo.source`
 
-|      Parameter      |    Type    | Req. |                                                              Description                                                            |
-| ------------------- | ---------- | :--: | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `name`              | `string`   |  x   | Name of the source.                                                                                                                 |
-| `owner`             | `string`   |  x   | The company or individual maintaining this source.                                                                                  |
-| `l10n`              | `lang`     |  x   | Languages of the source's publications.                                                                                             |
-| `sig_algo`          | `string`   |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                             |
-| `sig_keys`          | `[string]` |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                           |
-| `website`           | `string`   |      | URL of the source's website, if there's one.                                                                                        |
-| `description`       | `string`   |      | Short description of the source and its publications.                                                                               |
-| `logo`              | `string`   |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
-| `country`           | `string`   |      | Country of the source's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
-| `custom`            | `object`   |      | Additional information for custom client implementations.                                                                           |
+|      Parameter      |        Type       | Req. |                                                              Description                                                            |
+| ------------------- | ----------------- | :--: | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `name`              | `localisedString` |  x   | Name of the source.                                                                                                                 |
+| `owner`             | `string`          |  x   | The company or individual maintaining this source.                                                                                  |
+| `l10n`              | `lang`            |  x   | Languages of the source's publications.                                                                                             |
+| `sig_algo`          | `string`          |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                             |
+| `sig_keys`          | `[string]`        |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                           |
+| `website`           | `string`          |      | URL of the source's website, if there's one.                                                                                        |
+| `description`       | `localisedString` |      | Short description of the source and its publications.                                                                               |
+| `logo`              | `string`          |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
+| `country`           | `string`          |      | Country of the source's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
+| `custom`            | `object`          |      | Additional information for custom client implementations.                                                                           |
 
  <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
  and key management -->
 
-Where `lang` is a map associating a [RFC
-5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
-identifier to the Matrix user ID of the sub-source that handles the publication
-of articles in this language (and variant). This map **must** contain at least
-one element. More information on localised sub-sources and examples are
-available [below](#localisation).
+Where:
+
+* `localisedString` is a map associating a [RFC
+  5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
+  identifier to a localisation of the string in the language the identifier
+  refers to.
+* `lang` is a map associating a [RFC
+  5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
+  identifier to the Matrix user ID of the sub-source that handles the
+  publication of articles in this language (and variant). This map **must**
+  contain at least one element. More information on localised sub-sources and
+  examples are available [below](#localisation).
 
 Each time one of the source's properties changes, a new registration event
 **must** be published, and every trust authority certifying the trustworthiness
@@ -89,7 +95,7 @@ the following model:
 | `custom`            | `object`   |      | Additional information for custom client implementations.                      |
 
 The parent source **must** then reference the sub-source in its own registration
-event, as a `lang` object. A `lang` object **can** reference the source that
+event, as a `lang` object. The `lang` object **can** reference the source that
 emitted the `network.informo.source` event, but a Matrix user ID **must not** be
 referenced more than once in a source registration's whole array of `lang`
 objects.
@@ -100,6 +106,11 @@ doesn't need to emit any `network.informo.subsource` event for this specific
 sub-source. The articles published by the source acting as one of its
 sub-sources **must** then be signed using the one of the source's public keys.
 {{% /notice %}}
+
+If set, client implemetations **must** use the value for the `description` and
+`website` keys of the `network.informo.subsource` event instead of the localised
+description and the website provided in the parent source's
+`network.informo.source` event.
 
 ### Example
 
