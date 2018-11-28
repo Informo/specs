@@ -168,16 +168,10 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "sig_keys": [
         "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
     ],
-    "lang": [
-        {
-            "locale": "en",
-            "mxid": "@acmenewsen:example.com"
-        },
-        {
-            "locale": "fr",
-            "mxid": "@acmenewsfr:example.com"
-        }
-    ]
+    "lang": {
+        "en": "@acmenewsen:example.com",
+        "fr": "@acmenewsfr:example.com"
+    }
 }
 ```
 
@@ -258,16 +252,10 @@ sources.
     "sig_keys": [
         "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
     ],
-    "lang": [
-        {
-            "locale": "en",
-            "mxid": "@acmenews:example.com"
-        },
-        {
-            "locale": "fr",
-            "mxid": "@acmenewsfr:example.com"
-        }
-    ]
+    "lang": {
+        "en": "@acmenews:example.com",
+		"fr": "@acmenewsfr:example.com"
+    }
 }
 ```
 
