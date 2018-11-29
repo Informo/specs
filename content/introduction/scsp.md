@@ -48,9 +48,8 @@ adding any new one), **must** be tagged with the `type:typo` label.
 On top of that, it **must** be tagged with only one label describing its state,
 which **must** be one of:
 
-* `scsp:pending`: this SCS is pending review.
-* `scsp:review`: a review of this SCS is under way by one of the Informo core
-team members. The review process for this type of SCS is described below.
+* `scsp:pending`: this SCS is pending review. The review process for this type
+of SCS is described below.
 * `scsp:merged`: the SCS has been accepted and the pull request has been merged.
 * `scsp:won't merge`: the reviewer decided this SCS isn't fit for merging, and
 **must** justify their decision before closing the pull request.
