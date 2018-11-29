@@ -135,6 +135,23 @@ In this example, `en-US`, `en-GB`, etc. can be used instead of `en` if the
 source wants to explicitely specify language variants.
 {{% /notice %}}
 
+## Client implemetations behaviours regarding sources
+
+Client implementations **must** allow users to subscribe to all of the articles
+published by a specific source.
+
+Client implemetations **can** display a source and all of its sub-sources as a
+single entity with several languages available.
+
+Client implemetations **should** allow users to set at least one preferred
+language and use it to select the corresponding name and description for sources
+that offer a name or a description in this language. If a source doesn't offer
+either a name or a description in the user's preferred language, client
+implementations **can** select another language to fall back to by allowing the
+user to set a weighted list of preferred languages. If a source only provide its
+name or description in one language, client implemetations **must** use that
+value.
+
 ## Full example
 
 Let's consider a news website, named "ACME News", publishing news in both
