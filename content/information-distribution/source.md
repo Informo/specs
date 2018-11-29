@@ -12,7 +12,7 @@ through the publication of a `network.informo.source` state event. The event's
 state key **must** be the ID of the source's Matrix user. The content of this
 event **must** be provided using the following model:
 
-## `network.informo.source`
+## Matrix event `network.informo.source`
 
 |      Parameter      |        Type       | Req. |                                                              Description                                                            |
 | ------------------- | ----------------- | :--: | ----------------------------------------------------------------------------------------------------------------------------------- |
@@ -85,7 +85,7 @@ ID as the event's state key. The event's content **must** be embedded in a
 signed by one of the parent source's public keys, with its `signed` object using
 the following model:
 
-### `network.informo.subsource`
+### Matrix event `network.informo.subsource`
 
 |      Parameter      |    Type    | Req. |                                  Description                                   |
 | ------------------- | ---------- | :--: | ------------------------------------------------------------------------------ |
