@@ -169,7 +169,7 @@ it can easily be automated using one of the existing [SDKs for
 Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 {{% /notice %}}
 
-#### `network.informo.source`
+#### `network.informo.source` event
 
 |         Emitter         |        State key        |
 | ----------------------- | ----------------------- |
@@ -193,7 +193,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 }
 ```
 
-#### `network.informo.subsource`
+#### `network.informo.subsource` event
 
 |          Emitter          |         State key         |
 | ------------------------- | ------------------------- |
@@ -215,7 +215,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 }
 ```
 
-#### `network.informo.subsource`
+#### `network.informo.subsource` event
 
 |          Emitter          |         State key         |
 | ------------------------- | ------------------------- |
@@ -253,7 +253,7 @@ publication of articles in English is done by ACME News's main source,
 Here are the state events it needs to emit to properly register all of its
 sources.
 
-#### `network.informo.source`
+#### `network.informo.source` event
 
 |         Emitter         |        State key        |
 | ----------------------- | ----------------------- |
@@ -277,7 +277,7 @@ sources.
 }
 ```
 
-#### `network.informo.subsource`
+#### `network.informo.subsource` event
 
 |          Emitter          |         State key         |
 | ------------------------- | ------------------------- |
