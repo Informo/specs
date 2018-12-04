@@ -4,8 +4,9 @@ weight: 2
 ---
 
 A source is an entity holding the responsibility of publishing information
-through the Matrix room. Each source **must** be a registered Matrix user. A
-Matrix user **must not** register more than one source.
+through the Matrix room. Each source **must** be a registered Matrix user, and a
+Matrix user **must not** register more than one source, which means there is a
+one to one correspondence between a source and its Matrix user.
 
 A source **must** register itself as such on the room. This **must** be done
 through the publication of a `network.informo.source` state event. The event's
@@ -17,7 +18,7 @@ event **must** be provided using the following model:
 |      Parameter      |        Type       | Req. |                                                              Description                                                            |
 | ------------------- | ----------------- | :--: | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `name`              | `localisedString` |  x   | Name of the source.                                                                                                                 |
-| `owner`             | `string`          |  x   | The company or individual maintaining this source.                                                                                  |
+| `owner`             | `localisedString` |  x   | The company or individual maintaining this source.                                                                                  |
 | `l10n`              | `lang`            |  x   | Languages of the source's publications.                                                                                             |
 | `sig_algo`          | `string`          |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                             |
 | `sig_keys`          | `[string]`        |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                           |
@@ -45,29 +46,29 @@ Where:
 
 Each time one of the source's properties changes, it **must** publish a new
 registration event, and every trust authority certifying the trustworthiness of
-this source **must** update their signature by basing it on the new event. This
-signature lives in a TA's registration event 📝.
+this source **must** generate a new signature from the new event. This signature
+lives in a TA's registration event 📝.
 
 If a source doesn't provide a logo, client implementations **can** use the
 [avatar](https://matrix.org/docs/spec/client_server/r0.4.0.html#get-matrix-client-r0-profile-userid-avatar-url)
-of its Matrix user in lieu of it if its avatar has been set.
+of its Matrix user instead.
 
 ## Compromission of cryptographic private keys
 
-Every trust authority certifying a source's trustworthiness **must** be
-operating by an organism or individual the source trusts and is in contact with
-outside of Informo. If at least one of a source's private keys gets compromised,
-the source **must** update its list of public signature verification keys by
-publishing a new registration event containing the updated list, and every trust
-authority trusting the source **must** compute and issue a new signature taking
-the updated list of keys into account. The reason behind this is to encourage
-trust authorities to communicate with their trusted sources, estimate how much
+Every trust authority certifying a source's trustworthiness **must** be operated
+by an organism or individual the source trusts and is in contact with outside of
+Informo. If at least one of a source's private keys gets compromised, the source
+**must** update its list of public signature verification keys by publishing a
+new registration event containing the updated list, and every trust authority
+trusting the source **must** compute and issue a new signature taking the
+updated list of keys into account. The reason behind this is to encourage trust
+authorities to communicate with their trusted sources, estimate how much
 compromised the source is (i.e. one key vs all of the keys vs the source's
 entire Matrix account), and take the actions it deems necessary.
 
 In such an event, client implementations **should** consider articles posted
-prior to the key being declared as compromised as possibly, but not surely
-trustworthy.
+prior to the key being declared as compromised as probably not having been
+tampered with, with no way to be 100% sure about it.
 
 ## Localisation
 
@@ -89,6 +90,7 @@ the following model:
 
 |      Parameter      |    Type    | Req. |                                  Description                                   |
 | ------------------- | ---------- | :--: | ------------------------------------------------------------------------------ |
+| `parent`            | `string`   |  x   | Matrix user ID of the sub-source's parent.                                     |
 | `sig_algo`          | `string`   |  x   | Algorithm the sub-source will use to cryptographically sign its articles. 🔧    |
 | `sig_keys`          | `[string]` |  x   | Public keys the sub-source will use to cryptographically sign its articles. 🔧  |
 | `website`           | `string`   |      | URL of the source's website in this language, if there's one.                  |
@@ -98,17 +100,16 @@ the following model:
 The parent source **must** then reference the sub-source in its own registration
 event, as a `lang` object. The `lang` object **can** reference the source that
 emitted the `network.informo.source` event, but a Matrix user ID **must not** be
-referenced more than once in a source registration's whole array of `lang`
-objects.
+referenced more than once in a source registration's `lang` object.
 
 {{% notice info %}}
 A source **can** register itself as one if its own sub-sources. In this case, it
 doesn't need to emit any `network.informo.subsource` event for this specific
 sub-source. The articles published by the source acting as one of its
-sub-sources **must** then be signed using the one of the source's public keys.
+sub-sources **must** be signed using one of the source's public keys.
 {{% /notice %}}
 
-If set, client implemetations **must** use the value for the `description` and
+If set, client implementations **must** use the value for the `description` and
 `website` keys of the `network.informo.subsource` event instead of the localised
 description and the website provided in the parent source's
 `network.informo.source` event.
@@ -119,8 +120,8 @@ level](/trust-management/trust-level) as its parent source, and therefore
 
 ### Example
 
-Considering the example of an example website publishing news only in English,
-and registering itself as a source with the Matrix user id
+Let's consider the example of an example website publishing news only in
+English, and registering itself as a source with the Matrix user id
 `@acmenews:example.com`, and not registering any sub-source, the `lang` object
 would look like this:
 
@@ -135,21 +136,21 @@ In this example, `en-US`, `en-GB`, etc. can be used instead of `en` if the
 source wants to explicitely specify language variants.
 {{% /notice %}}
 
-## Client implemetations behaviours regarding sources
+## Client implementations behaviours regarding sources
 
-Client implementations **must** allow users to subscribe to all of the articles
-published by a specific source.
+Client implementations **should** allow users to subscribe to all of the
+articles published by a specific source.
 
-Client implemetations **can** display a source and all of its sub-sources as a
+client implementations **can** display a source and all of its sub-sources as a
 single entity with several languages available.
 
-Client implemetations **should** allow users to set at least one preferred
+client implementations **should** allow users to set at least one preferred
 language and use it to select the corresponding name and description for sources
 that offer a name or a description in this language. If a source doesn't offer
 either a name or a description in the user's preferred language, client
-implementations **can** select another language to fall back to by allowing the
+implementations **can** select another language to fall back to, by allowing the
 user to set a weighted list of preferred languages. If a source only provide its
-name or description in one language, client implemetations **must** use that
+name or description in one language, client implementations **must** use that
 value.
 
 ## Full example
@@ -157,7 +158,7 @@ value.
 Let's consider a news website, named "ACME News", publishing news in both
 English and French, each on a localised website. We'll also consider
 `@acmenews:example.com` its main Informo source, and `@acmenewsen:example.com`
-and `@acmenewsfr:example.com` its sub-sources, handling the publications of
+and `@acmenewsfr:example.com` its sub-sources, handling the publication of
 articles, respectively in English and in French.
 
 Here are the state events it needs to emit to properly register all of its
@@ -272,7 +273,7 @@ sources.
     ],
     "lang": {
         "en": "@acmenews:example.com",
-		"fr": "@acmenewsfr:example.com"
+        "fr": "@acmenewsfr:example.com"
     }
 }
 ```
