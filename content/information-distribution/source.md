@@ -206,7 +206,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "54ab6f6f18d63ef1",
     "signed": {
-		"parent": "@acmenews:example.com",
+        "parent": "@acmenews:example.com",
         "website": "https://www.example.com/en",
         "description": "This is the English source for ACME News.",
         "sig_algo": "ed25519",
@@ -229,7 +229,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-		"parent": "@acmenews:example.com",
+        "parent": "@acmenews:example.com",
         "website": "https://www.example.com/fr",
         "description": "Ceci est la source française d'ACME News.",
         "sig_algo": "ed25519",
@@ -292,7 +292,7 @@ sources.
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-		"parent": "@acmenews:example.com",
+        "parent": "@acmenews:example.com",
         "website": "https://www.example.com/fr",
         "description": "Ceci est la source française d'ACME News.",
         "sig_algo": "ed25519",
