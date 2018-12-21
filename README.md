@@ -1,5 +1,7 @@
 # Informo specifications
 
+[![https://specs.informo.network](https://img.shields.io/badge/specs-specs.informo.network-brightgreen.svg?style=flat-square)](https://specs.informo.network) [![FDL-1.3](https://img.shields.io/badge/license-FDL--1.3-blue.svg?style=flat-square)](/LICENSE) [![#discuss:weu.informo.network](https://img.shields.io/matrix/discuss:weu.informo.network.svg?server_fqdn=fr-02.nodes.informo.network&logo=matrix&style=flat-square)](https://matrix.to/#/#discuss:weu.informo.network)
+
 Welcome to Informo's specifications repository. Informo's specifications aim at
 giving a precise understanding of how Informo works.
 
