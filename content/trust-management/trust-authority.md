@@ -60,6 +60,57 @@ its list of public signature verification keys by removing the compromised key
 authorities trusting this TA **must** compute and issue a new signature taking
 the updated list of keys into account.
 
+#### Matrix event `network.informo.trust_authority`
+
+|      Parameter      |        Type       | Req. |                                                                   Description                                                                |
+| ------------------- | ----------------- | :--: | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`              | `localisedString` |  x   | Name of the trust authority.                                                                                                                 |
+| `sig_algo`          | `string`          |  x   | Algorithm the trust authority will use to generate cryptographic signatures. 🔧                                                               |
+| `sig_keys`          | `[string]`        |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                             |
+| `website`           | `string`          |      | URL of the trust authority's website, if there's one.                                                                                        |
+| `description`       | `localisedString` |      | Short description of the trust authority and its publications.                                                                               |
+| `logo`              | `string`          |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
+| `country`           | `string`          |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
+| `trusted`           | `trustedEntities` |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                               |
+| `custom`            | `object`          |      | Additional information for custom client implementations.                                                                                    |
+
+<!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
+and key management -->
+
+Where:
+
+<!--
+   The definition of `localisedString` here is the same than in source.md.
+   People changing it might want to also change it there (or remove this
+   warning).
+-->
+* `localisedString` is a map associating a [RFC
+  5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
+  identifier to a localisation of the string in the language the identifier
+  refers to.
+* `trustedEntities` is a map associating a Matrix user ID to a cryptographic
+  signature generated from the entity's registration event and one of the trust
+  authority's public keys, using the
+
+#### Example
+
+```
+{
+   "name": "Some NGO",
+   "sig_algo": "ed25519",
+   "sig_keys": [
+      "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
+   ],
+   "website": "https://www.somengo.org",
+   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+   "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
+   "trusted": {
+      "@acmenews:example.com": "0a1df56f1c3ab5b1",
+      "@someothersource:example2.com": "daiRanaiy1be7pe"
+   }
+}
+```
+
 ## Suggested trust authority
 
 In order to guide a new user through building his trusted network when they
