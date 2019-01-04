@@ -35,9 +35,24 @@ in by the trust authority.
 A trust authority **must** also be able to list sources and trust authorities
 that it explicitly blacklists for being compromised or ethical reasons. The
 trust authority **must** specify a reason for blacklisting a source or TA, which
-consists in a defined reason code (2️⃣). The trust authority **can** also
+consists in a defined reason code that client implementations **can** use in
+order to warn users about a specific source. The trust authority **can** also
 provide additional information to explain the addition to the blacklist, which,
-if provided, **must** be contained in a custom localised string.
+if provided, **must** be contained in a custom localised string. Client
+implementations **can** also use this string to provide the users with more
+information on why a specific source was blacklisted by the trust authority.
+
+### Blacklist reason codes
+
+As defined above, a trust authority **must** provide a reason for blacklisting a
+source or another trust authority. This **must** be done using at least a reason
+code, which **must** be one of the following:
+
+|        Code        |            Meaning             |
+| ------------------ | ------------------------------ |
+| `B_COMPROMISED`    | One of the public keys of the source or trust authority has been compromised. |
+| `B_MISINFORMATION` | If the blacklisted entity is a source, it has been publishing false or unverified information intentionnally. If it's a trust authority, it has been certifying sources publishing false or unverified information as trustworthy intentionnally. |
+| `B_ABANDONNED`     | The source or trust authority has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the entity's keys and tokens and impersonate its former owner. |
 
 ### Trust authority registration
 
@@ -62,17 +77,18 @@ the updated list of keys into account.
 
 #### Matrix event `network.informo.trust_authority`
 
-|      Parameter      |        Type       | Req. |                                                                   Description                                                                |
-| ------------------- | ----------------- | :--: | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`              | `localisedString` |  x   | Name of the trust authority.                                                                                                                 |
-| `sig_algo`          | `string`          |  x   | Algorithm the trust authority will use to generate cryptographic signatures. 🔧                                                               |
-| `sig_keys`          | `[string]`        |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                             |
-| `website`           | `string`          |      | URL of the trust authority's website, if there's one.                                                                                        |
-| `description`       | `localisedString` |      | Short description of the trust authority and its publications.                                                                               |
-| `logo`              | `string`          |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
-| `country`           | `string`          |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
-| `trusted`           | `trustedEntities` |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                               |
-| `custom`            | `object`          |      | Additional information for custom client implementations.                                                                                    |
+|      Parameter      |          Type         | Req. |                                                                   Description                                                                |
+| ------------------- | --------------------- | :--: | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`              | `localisedString`     |  x   | Name of the trust authority.                                                                                                                 |
+| `sig_algo`          | `string`              |  x   | Algorithm the trust authority will use to generate cryptographic signatures. 🔧                                                               |
+| `sig_keys`          | `[string]`            |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                             |
+| `website`           | `string`              |      | URL of the trust authority's website, if there's one.                                                                                        |
+| `description`       | `localisedString`     |      | Short description of the trust authority and its publications.                                                                               |
+| `logo`              | `string`              |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
+| `country`           | `string`              |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
+| `trusted`           | `trustedEntities`     |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                               |
+| `blacklist`         | `blacklistedEntities` |      | Entities (sources and other trust authorities) blacklisted by the trust authority.                                                           |
+| `custom`            | `object`              |      | Additional information for custom client implementations.                                                                                    |
 
 <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
 and key management -->
@@ -88,26 +104,66 @@ Where:
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
   identifier to a localisation of the string in the language the identifier
   refers to.
-* `trustedEntities` is a map associating a Matrix user ID to a cryptographic
-  signature generated from the entity's registration event and one of the trust
-  authority's public keys, using one of the algorithm provided under `sig_algo`.
+* `trustedEntities` is a map associating a Matrix user ID to a JSON object using
+  the following structure:
+
+|    Parameter    |   Type   | Req. |                                                                       Description                                                                            |
+| ----------------| -------- | :--: | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `signature`     | `string` |  x   | Signature generated from the entity's registration event and one of the trust authority's public keys, using one of the algorithm provided under `sig_algo`. |
+| `type`          | `string` |  x   | Type of the entity. **Must** be one of `source` or `trust_authority`.                                                                                        |
+
+
+* `blacklistedEntities` is a map associating a Matrix user ID to a JSON object
+  using the following structure:
+
+|      Parameter      |        Type       | Req. |                                                 Description                                                 |
+| ------------------- | ----------------- | :--: | ----------------------------------------------------------------------------------------------------------- |
+| `reason_code`       | `string`          |  x   | One of the reason codes defined [above](#blacklist-reason-codes).                                           |
+| `after`             | `string`          |  x   | ID of the latest trustworthy event sent by the entity. Empty string if none (e.g. with `B_MISINFORMATION`). |
+| `additional_info`   | `localisedString` |      | More information on the blacklist.                                                                          |
 
 #### Example
 
-```
+```json
 {
-   "name": "Some NGO",
-   "sig_algo": "ed25519",
-   "sig_keys": [
-      "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-   ],
-   "website": "https://www.somengo.org",
-   "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-   "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
-   "trusted": {
-      "@acmenews:example.com": "0a1df56f1c3ab5b1",
-      "@someothersource:example2.com": "daiRanaiy1be7pe"
-   }
+    "name": {
+        "en": "Some NGO",
+        "fr": "Une ONG"
+    },
+    "sig_algo": "ed25519",
+    "sig_keys": [
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
+    ],
+    "website": "https://www.somengo.org",
+    "description": {
+        "en": "We do activism for freedom of the press.",
+        "fr": "Nous sommes des activistes en faveur de la liberté de la presse."
+    },
+    "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
+    "trusted": {
+        "@acmenews:example.com": {
+            "signature": "0a1df56f1c3ab5b1",
+            "type": "source"
+        },
+        "@someothersource:example2.com": {
+            "signature": "daiRanaiy1be7pe",
+            "type": "source"
+        }
+    },
+    "blacklist": {
+        "@sadsource:example.com": {
+            "reason_code": "B_COMPROMISED",
+            "since": "!someEvent:example.com"
+        },
+        "@badsource:example.com": {
+            "reason_code": "B_MISINFORMATION",
+            "since": "",
+            "additional_info": {
+                "en": "This source actually belongs to the Tomainian government which uses it for propaganda.",
+                "fr": "Cette source appartient au gouvernement Tomanien qui l'utilise à des fins de propagande."
+            }
+        }
+    }
 }
 ```
 
