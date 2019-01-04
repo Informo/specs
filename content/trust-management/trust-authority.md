@@ -90,7 +90,7 @@ Where:
   refers to.
 * `trustedEntities` is a map associating a Matrix user ID to a cryptographic
   signature generated from the entity's registration event and one of the trust
-  authority's public keys, using the
+  authority's public keys, using one of the algorithm provided under `sig_algo`.
 
 #### Example
 
