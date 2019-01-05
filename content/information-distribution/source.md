@@ -176,12 +176,18 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ----------------------- | ----------------------- |
 | `@acmenews:example.com` | `@acmenews:example.com` |
 
-```
+```json
 {
-    "name": "ACME News",
-    "origin": "ACME News Group",
+    "name": {
+        "en": "ACME News"
+    },
+    "owner": {
+        "en": "ACME News Group"
+    },
     "website": "https://www.example.com",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "description": {
+        "en": "ACME News is the most amazing dummy news outlet."
+    },
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
     "sig_algo": "ed25519",
     "sig_keys": [
@@ -200,7 +206,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ------------------------- | ------------------------- |
 | `@acmenewsen:example.com` | `@acmenewsen:example.com` |
 
-```
+```json
 {
     "algorithm": "ed25519",
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
@@ -223,7 +229,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ------------------------- | ------------------------- |
 | `@acmenewsfr:example.com` | `@acmenewsfr:example.com` |
 
-```
+```json
 {
     "algorithm": "ed25519",
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
@@ -262,12 +268,18 @@ sources.
 | ----------------------- | ----------------------- |
 | `@acmenews:example.com` | `@acmenews:example.com` |
 
-```
+```json
 {
-    "name": "ACME News",
-    "origin": "ACME News Group",
+    "name": {
+        "en": "ACME News"
+    },
+    "owner": {
+        "en": "ACME News Group"
+    },
     "website": "https://www.example.com",
-    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "description": {
+        "en": "ACME News is the most amazing dummy news outlet. This is also its English source."
+    },
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
     "sig_algo": "ed25519",
     "sig_keys": [
@@ -286,7 +298,7 @@ sources.
 | ------------------------- | ------------------------- |
 | `@acmenewsfr:example.com` | `@acmenewsfr:example.com` |
 
-```
+```json
 {
     "algorithm": "ed25519",
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
