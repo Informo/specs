@@ -179,7 +179,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 ```
 {
     "name": "ACME News",
-    "origin": "ACME News Group",
+    "owner": "ACME News Group",
     "website": "https://www.example.com",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
@@ -265,7 +265,7 @@ sources.
 ```
 {
     "name": "ACME News",
-    "origin": "ACME News Group",
+    "owner": "ACME News Group",
     "website": "https://www.example.com",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
