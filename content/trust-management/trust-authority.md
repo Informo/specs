@@ -195,12 +195,13 @@ to trust to users who don't know which TA they should trust first.
 As an additional security step, client implementations maintainers **should**
 add the suggested trust authorities' public signature verification keys to the
 implementation's code base, so the user doesn't retrieve these keys through a
-potentially insecure network. This is an important step because these TAs
-represent the foundations of the user's trust network. In the event of an
-embedded public key getting compromised, trust authorities **must** make
-implementation maintainers aware of it, and implementation maintainers **must**
-release another version of their implementation which **must not** include the
-compromised key.
+potentially insecure network. This is an important step because these TAs are
+likely to represent the foundations of the user's trust network. In the event of
+an embedded public key getting compromised, trust authorities **must** make
+implementation maintainers aware of it, either directly or via an administrator
+of the Matrix room, in a reliable way outside of Informo, and implementation
+maintainers **must** release a new version of their implementation which **must
+not** include the compromised key.
 
 ## Client implementations
 
