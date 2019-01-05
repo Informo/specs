@@ -203,6 +203,17 @@ of the Matrix room, in a reliable way outside of Informo, and implementation
 maintainers **must** release a new version of their implementation which **must
 not** include the compromised key.
 
+### Example
+
+```json
+{
+    "trust_authorities": [
+        "@somengo:example.com",
+        "@someotherngo:someotherngo.org"
+    ]
+}
+```
+
 ## Client implementations
 
 In the event of a source being trusted by a TA *A* and blacklisted by a TA *B*,
