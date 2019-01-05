@@ -57,13 +57,16 @@ code, which **must** be one of the following:
 ### Trust authority registration
 
 A trust authority **must** register itself as such on the Matrix room. This
-registration **must** include data on the organism operating the TA, along with
-the list of its public signature verification keys and the list of all of the
-sources and trust authorities it trusts. This list **must** include, for each
-trusted source and TA, a signature generated from one of the TA's public keys.
-This signature **must** be generated from the source's Matrix event content as
-described in the [Signature
-section](/information-distribution/signature/#signing-json-data).
+registration **must** be done through the publication of a
+`network.informo.trust_authority` state event. The event's state key **must** be
+the ID of the trust authority's Matrix user, and its content **must** include
+data on the organism operating the TA, along with the list of its public
+signature verification keys and the list of all of the sources and trust
+authorities it trusts. This list **must** include, for each trusted source and
+TA, a signature generated from one of the TA's public keys. This signature
+**must** be generated from the source's [registration
+event](/information-distribution/source/#matrix-event-network-informo-source)
+content as described below.
 
 A TA's registration **must** associate each signature with the identifier of the
 trusted source or TA, and with the signing algorithm used to generate it
