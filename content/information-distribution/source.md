@@ -176,7 +176,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ----------------------- | ----------------------- |
 | `@acmenews:example.com` | `@acmenews:example.com` |
 
-```
+```json
 {
     "name": "ACME News",
     "owner": "ACME News Group",
@@ -200,7 +200,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ------------------------- | ------------------------- |
 | `@acmenewsen:example.com` | `@acmenewsen:example.com` |
 
-```
+```json
 {
     "algorithm": "ed25519",
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
@@ -223,7 +223,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 | ------------------------- | ------------------------- |
 | `@acmenewsfr:example.com` | `@acmenewsfr:example.com` |
 
-```
+```json
 {
     "algorithm": "ed25519",
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
@@ -262,7 +262,7 @@ sources.
 | ----------------------- | ----------------------- |
 | `@acmenews:example.com` | `@acmenews:example.com` |
 
-```
+```json
 {
     "name": "ACME News",
     "owner": "ACME News Group",
@@ -286,7 +286,7 @@ sources.
 | ------------------------- | ------------------------- |
 | `@acmenewsfr:example.com` | `@acmenewsfr:example.com` |
 
-```
+```json
 {
     "algorithm": "ed25519",
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
