@@ -212,6 +212,7 @@ trustworthy, some others explicitly stated that the source should not be trusted
 anymore, mentioning the reasons specified in the corresponding blacklist entry.
 
 In order to help its users assert the trustworthiness of a source, a client
-**might** include the display of a graph showing the location of the source in
-Informo's trust network. It **might** also include a view promoting sources that
-have been certified as trustworthy by several TAs that the user trusts.
+implementation **might** include the display of a graph showing the location of
+the source in Informo's trust network. It **might** also include a view
+promoting sources that have been certified as trustworthy by several TAs that
+the user trusts.
