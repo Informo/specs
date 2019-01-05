@@ -32,29 +32,7 @@ A trust authority **can** specify a reason for trusting another TA or a source.
 If specified, this reason **must** consist in a custom localised string provided
 in by the trust authority.
 
-A trust authority **must** also be able to list sources and trust authorities
-that it explicitly blacklists for being compromised or ethical reasons. The
-trust authority **must** specify a reason for blacklisting a source or TA, which
-consists in a defined reason code that client implementations **can** use in
-order to warn users about a specific source. The trust authority **can** also
-provide additional information to explain the addition to the blacklist, which,
-if provided, **must** be contained in a custom localised string. Client
-implementations **can** also use this string to provide the users with more
-information on why a specific source was blacklisted by the trust authority.
-
-### Blacklist reason codes
-
-As defined above, a trust authority **must** provide a reason for blacklisting a
-source or another trust authority. This **must** be done using at least a reason
-code, which **must** be one of the following:
-
-|        Code        |            Meaning             |
-| ------------------ | ------------------------------ |
-| `B_COMPROMISED`    | One of the public keys of the source or trust authority has been compromised. |
-| `B_MISINFORMATION` | If the blacklisted entity is a source, it has been publishing false or unverified information intentionnally. If it's a trust authority, it has been certifying sources publishing false or unverified information as trustworthy intentionnally. |
-| `B_ABANDONNED`     | The source or trust authority has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the entity's keys and tokens and impersonate its former owner. |
-
-### Trust authority registration
+## Trust authority registration
 
 A trust authority **must** register itself as such on the Matrix room. This
 registration **must** be done through the publication of a
@@ -170,6 +148,30 @@ Where:
     }
 }
 ```
+
+## Blacklisting
+
+A trust authority **can** list sources and trust authorities that it explicitly
+blacklists for being compromised or ethical reasons. The trust authority
+**must** specify a reason for blacklisting a source or TA, which consists in a
+defined reason code that client implementations **can** use in order to warn
+users about a specific source. The trust authority **can** also provide
+additional information to explain the addition to the blacklist, which, if
+provided, **must** be contained in a custom localised string. Client
+implementations **can** also use this string to provide the users with more
+information on why a specific source was blacklisted by the trust authority.
+
+### Blacklist reason codes
+
+As defined above, a trust authority **must** provide a reason for blacklisting a
+source or another trust authority. This **must** be done using at least a reason
+code, which **must** be one of the following:
+
+|        Code        |            Meaning             |
+| ------------------ | ------------------------------ |
+| `B_COMPROMISED`    | One of the public keys of the source or trust authority has been compromised. |
+| `B_MISINFORMATION` | If the blacklisted entity is a source, it has been publishing false or unverified information intentionnally. If it's a trust authority, it has been certifying sources publishing false or unverified information as trustworthy intentionnally. |
+| `B_ABANDONNED`     | The source or trust authority has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the entity's keys and tokens and impersonate its former owner. |
 
 ## Suggested trust authority
 
