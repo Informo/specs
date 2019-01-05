@@ -171,7 +171,7 @@ code, which **must** be one of the following:
 | ------------------ | ------------------------------ |
 | `B_COMPROMISED`    | One of the public keys of the source or trust authority has been compromised. |
 | `B_MISINFORMATION` | If the blacklisted entity is a source, it has been publishing false or unverified information intentionnally. If it's a trust authority, it has been certifying sources publishing false or unverified information as trustworthy intentionnally. |
-| `B_ABANDONNED`     | The source or trust authority has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the entity's keys and tokens and impersonate its former owner. |
+| `B_ABANDONED`      | The source or trust authority has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the entity's keys and tokens and impersonate its former owner. |
 
 ## Suggested trust authority
 
