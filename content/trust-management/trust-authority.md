@@ -173,15 +173,26 @@ code, which **must** be one of the following:
 | `B_MISINFORMATION` | If the blacklisted entity is a source, it has been publishing false or unverified information intentionnally. If it's a trust authority, it has been certifying sources publishing false or unverified information as trustworthy intentionnally. |
 | `B_ABANDONED`      | The source or trust authority has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the entity's keys and tokens and impersonate its former owner. |
 
-## Suggested trust authority
+## Suggested trust authorities
 
 In order to guide a new user through building his trusted network when they
 enters a Matrix room (i.e. an Informo federation), the room's administrator
-**can** provide a list of suggested TAs (2️⃣: stored in Matrix room state).
-These TAs will be proposed to the users if they doesn't know which TA they
-should trust first.
+**can** provide a list of suggested TAs through the publication of a
+`network.informo.suggested_trust_authorities` state event. The event's state key
+**must** be an empty string. The Matrix room's [power
+levels](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-power-levels)
+**must** be set so only its administrator can emit a
+`network.informo.suggested_trust_authorities` event. The event's content
+**must** use the following structure:
 
-As an additional security step, the client implementation maintainer **should**
+|      Parameter      |    Type    | Req. |                     Description                     |
+| ------------------- | -----------| :--: | --------------------------------------------------- |
+| `trust_authorities` | `[string]` |  x   | Matrix user IDs of the suggested trust authorities. |
+
+Client implementations **can** use this list of trust authorities to suggest TAs
+to trust to users who don't know which TA they should trust first.
+
+As an additional security step, client implementations maintainers **should**
 add the suggested trust authorities' public signature verification keys to the
 implementation's code base, so the user doesn't retrieve these keys through a
 potentially insecure network. This is an important step because these TAs
