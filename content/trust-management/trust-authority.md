@@ -110,10 +110,11 @@ Where:
 * `trustedEntities` is a map associating a Matrix user ID to a JSON object using
   the following structure:
 
-|    Parameter    |   Type   | Req. |                                                                       Description                                                                            |
-| ----------------| -------- | :--: | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `signature`     | `string` |  x   | Signature generated from the entity's registration event and one of the trust authority's public keys, using one of the algorithm provided under `sig_algo`. |
-| `type`          | `string` |  x   | Type of the entity. **Must** be one of `source` or `trust_authority`.                                                                                        |
+|    Parameter    |       Type        | Req. |                                                                       Description                                                                            |
+| ----------------| ----------------- | :--: | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `signature`     | `string`          |  x   | Signature generated from the entity's registration event and one of the trust authority's public keys, using one of the algorithm provided under `sig_algo`. |
+| `type`          | `string`          |  x   | Type of the entity. **Must** be one of `source` or `trust_authority`.                                                                                        |
+| `reason`        | `localisedString` |      | Reason to trust the entity.                                                                                                                                  |
 
 
 * `blacklistedEntities` is a map associating a Matrix user ID to a JSON object
