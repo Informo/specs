@@ -34,7 +34,7 @@ event **must** be provided using the following model:
 Where:
 
 <!--
-   The definition of `localisedString` here is the same than in
+   The definition of `localisedString` here is the same as in
    trust-authority.md. People changing it might want to also change it there (or
    remove this warning).
 -->
