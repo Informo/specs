@@ -186,9 +186,8 @@ enter a Matrix room (i.e. an Informo federation), the room's administrator
 `network.informo.suggested_trust_authorities` state event. The event's state key
 **must** be an empty string. The Matrix room's [power
 levels](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-power-levels)
-**must** be set so only its administrator can emit a
-`network.informo.suggested_trust_authorities` event. The event's content
-**must** use the following structure:
+**must** be set to a non-zero value. The event's content **must** use the
+following structure:
 
 |      Parameter      |    Type    | Req. |                     Description                     |
 | ------------------- | -----------| :--: | --------------------------------------------------- |
