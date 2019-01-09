@@ -136,13 +136,16 @@ Where:
     },
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
     "trusted": {
-        "@acmenews:example.com": {
-            "signature": "0a1df56f1c3ab5b1",
-            "type": "source"
+        "sources": {
+            "@acmenews:example.com": {
+                "signature": "0a1df56f1c3ab5b1"
+            }
         },
-        "@someothersource:example2.com": {
-            "signature": "daiRanaiy1be7pe",
-            "type": "source"
+        "trust_authorities": {
+            "@someotherngo:example2.com": {
+                "signature": "daiRanaiy1be7pe",
+                "level": 2
+            }
         }
     },
     "blacklist": {
