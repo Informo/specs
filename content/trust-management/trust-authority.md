@@ -85,18 +85,26 @@ Where:
   refers to.
 * `trustedEntities` is a map using the following structure:
 
-|      Parameter      |        Type          | Req. |          Description            |
-| ------------------- | -------------------- | :--: | ------------------------------- |
-| `sources`           | `trustedEntitiesMap` |      | The sources trusted by this TA. |
-| `trust_authorities` | `trustedEntitiesMap` |      | The TAs trusted by this TA.     |
+|      Parameter      |       Type       | Req. |          Description            |
+| ------------------- | ---------------- | :--: | ------------------------------- |
+| `sources`           | `trustedSources` |      | The sources trusted by this TA. |
+| `trust_authorities` | `trustedTAs`     |      | The TAs trusted by this TA.     |
 
-* `trustedEntitiesMap` is a map associating a Matrix user ID to a JSON object
-  using the following structure:
+* `trustedSources` is a map associating a Matrix user ID to a JSON object using
+  the following structure:
 
 |    Parameter    |       Type        | Req. |                                                                                    Description                                                                                     |
 | ----------------| ----------------- | :--: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `signature`     | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`. |
-| `level`         | `integer`         |      | The trust level the TA trusts the entity with. Only valid when the entity is another TA.                                                                                           |
+| `reason`        | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                          |
+
+* `trustedTAs` is a map associating a Matrix user ID to a JSON object using the
+  following structure:
+
+|    Parameter    |       Type        | Req. |                                                                                    Description                                                                                     |
+| ----------------| ----------------- | :--: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `signature`     | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`. |
+| `level`         | `integer`         |      | The trust level the TA trusts the entity with.                                                                                                                                     |
 | `reason`        | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                          |
 
 * `signedObject` is a map using the following structure:
@@ -105,8 +113,6 @@ Where:
 | -------------- | --------- | :--: | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `registration` | `object`  |  x   | The content of latest version of the entity's registration event.                                                                                        |
 | `level`        | `integer` |      | The level the TA trusts the entity with. This value **must** match the level provided alongside the signature. Only valid when the entity is another TA. |
-
-
 
 * `blacklistedEntities` is a map associating a Matrix user ID to a JSON object
   using the following structure:
