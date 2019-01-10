@@ -41,6 +41,9 @@ This significantly hampers censorship because:
 You can learn more about Informo's approach on [this dedicated
 page](/informo/what-is-informo/).
 
+The technical details for the distribution of information through the federation
+are described in [their own section](/information-distribution).
+
 On top of that, Informo also provides trust management mechanisms which are
 designed to let readers have a reliable idea of who an information source really
 is without having to rely on a potentially insecure network. This set of
