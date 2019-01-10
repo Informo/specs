@@ -77,11 +77,11 @@ another node and plug it to the existing network for access to be restored.
 Regarding the trust issue described the first section, Informo also introduces a
 trust management mechanism, trying to set the balance between having to manually
 manage every person you trust, and having one person deciding for everyone who
-is trustworthy. In the current configuration, the Informo core team has slightly
-more privileges than other parties, since new users will be advised (but not
-forced) to start building their trust network by trusting Informo. While it's
-not an ideal situation, the Informo core team believes it is a step towards a
-less monolithic trust control.
+is trustworthy. In the current configuration, the administrators of a federation
+have slightly more privileges than other parties, since new users will be
+advised (but not forced) to start building their trust network by trusting a set
+of suggested entities. While it's not an ideal situation, we believes it is a
+step towards a less monolithic trust control.
 
 ### The meaning of "Informo"
 
