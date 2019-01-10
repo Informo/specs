@@ -109,10 +109,11 @@ Where:
 
 * `signedObject` is a map using the following structure:
 
-|    Parameter   |    Type   | Req. |                                                                  Description                                                                             |
-| -------------- | --------- | :--: | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `registration` | `object`  |  x   | The content of latest version of the entity's registration event.                                                                                        |
-| `level`        | `integer` |      | The level the TA trusts the entity with. This value **must** match the level provided alongside the signature. Only valid when the entity is another TA. |
+|    Parameter   |        Type       | Req. |                                                                  Description                                                                             |
+| -------------- | ----------------- | :--: | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `registration` | `object`          |  x   | The content of latest version of the entity's registration event.                                                                                        |
+| `level`        | `integer`         |      | The level the TA trusts the entity with. This value **must** match the level provided alongside the signature. Only valid when the entity is another TA. |
+| `reason`       | `localisedString` |      | Reason given by the TA explaining why they trust this entity. This value **must** match the reason provided alongside the signature.                     |
 
 * `blacklistedEntities` is a map associating a Matrix user ID to a JSON object
   using the following structure:
