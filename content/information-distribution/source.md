@@ -193,7 +193,9 @@ Let's consider a news website, named "ACME News", publishing news in both
 English and French, each on a localised website. We'll also consider
 `@acmenews:example.com` its main Informo source, and `@acmenewsen:example.com`
 and `@acmenewsfr:example.com` its sub-sources, handling the publication of
-articles, respectively in English and in French.
+articles, respectively in English and in French. This news website just migrated
+from the homeserver `badserver.com` to the `example.com` one, because the former
+was managed by people they don't consider as trustworthy.
 
 Here are the state events it needs to emit to properly register all of its
 sources.
@@ -218,6 +220,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "owner": {
         "en": "ACME News Group"
     },
+	"prev_id": "@acmenews:badserver.com",
     "website": "https://www.example.com",
     "description": {
         "en": "ACME News is the most amazing dummy news outlet."
@@ -247,6 +250,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "signature": "54ab6f6f18d63ef1",
     "signed": {
         "parent": "@acmenews:example.com",
+		"prev_id": "@acmenewsen:badserver.com",
         "website": "https://www.example.com/en",
         "description": "This is the English source for ACME News.",
         "sig_algo": "ed25519",
@@ -270,6 +274,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "signature": "0a1df56f18d63ef1",
     "signed": {
         "parent": "@acmenews:example.com",
+		"prev_id": "@acmenewsfr:badserver.com",
         "website": "https://www.example.com/fr",
         "description": "Ceci est la source française d'ACME News.",
         "sig_algo": "ed25519",
