@@ -15,19 +15,19 @@ event **must** be provided using the following model:
 
 ## Matrix event `network.informo.source`
 
-| Parameter     | Type              | Req. | Description                                                                                                                                      |
-|:--------------|:------------------|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`        | `localisedString` |  x   | Name of the source.                                                                                                                              |
-| `owner`       | `localisedString` |  x   | The company or individual maintaining this source.                                                                                               |
-| `l10n`        | `lang`            |  x   | Languages of the source's publications.                                                                                                          |
-| `sig_algo`    | `string`          |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                                         |
-| `sig_keys`    | `[string]`        |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                                       |
-| `prev_id`     | `string`          |      | Matrix user ID of the Matrix user this source previously used to publish information. Empty string if none. See [below](#change-of-matrix-user). |
-| `website`     | `string`          |      | URL of the source's website, if there's one.                                                                                                     |
-| `description` | `localisedString` |      | Short description of the source and its publications.                                                                                            |
-| `logo`        | `string`          |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                         |
-| `country`     | `string`          |      | Country of the source's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html).              |
-| `custom`      | `object`          |      | Additional information for custom client implementations.                                                                                        |
+| Parameter     | Type              | Req. | Description                                                                                                                         |
+|:--------------|:------------------|:----:|:------------------------------------------------------------------------------------------------------------------------------------|
+| `name`        | `localisedString` |  x   | Name of the source.                                                                                                                 |
+| `owner`       | `localisedString` |  x   | The company or individual maintaining this source.                                                                                  |
+| `l10n`        | `lang`            |  x   | Languages of the source's publications.                                                                                             |
+| `sig_algo`    | `string`          |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                            |
+| `sig_keys`    | `[string]`        |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                          |
+| `prev_id`     | `string`          |      | Matrix user ID of the Matrix user this source previously used to publish information. See [below](#change-of-matrix-user).          |
+| `website`     | `string`          |      | URL of the source's website, if there's one.                                                                                        |
+| `description` | `localisedString` |      | Short description of the source and its publications.                                                                               |
+| `logo`        | `string`          |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
+| `country`     | `string`          |      | Country of the source's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
+| `custom`      | `object`          |      | Additional information for custom client implementations.                                                                           |
 
  <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
  and key management -->
@@ -78,30 +78,30 @@ tampered with, with no way to be 100% sure about it.
 
 ## Change of Matrix user
 
-A source might have to change the Matrix user it uses to publish information at
-some points in its life time. This can happen for many reason: the homeserver it
-was registered on went down, or got compromised, or got isolated from the rest
-of the federation...
+A source or subsource might have to change the Matrix user it uses to publish
+information at some points in its life time. This can happen for many reason:
+the homeserver it was registered on went down, or got compromised, or got
+isolated from the rest of the federation...
 
-In such an event, the source **must** publish a new registration event from its
-new Matrix user with the `prev_id` key having its previous user's ID as its
-value.
+In such an event, the source or subsource **must** publish a new registration
+event from its new Matrix user with the `prev_id` key having its previous user's
+ID as its value.
 
 This key **must** be used by client implementations to link the previous user to
-the new one, considering both as the same entity. An empty string simply means
-that the source didn't previously use another Matrix account to publish
-information.
+the new one, considering both as the same entity. A missing `prev_id` key or an
+empty string simply means that the source or subsource didn't previously use
+another Matrix account to publish information.
 
-Trust authorities certifying the source as trustworthy **must** update their
-list of trusted entity by removing the previous user from it, and adding the new
-one to it. The signature associated with the new user **must** be generated from
-the new user's registration event. Client implementations **should** consider a
-trust authority not updating its list with the source's new user as if it
-stopped trusting it.
+If the entity is a source (and not a subsource), trust authorities certifying it
+as trustworthy **must** update their list of trusted entities by removing the
+previous user from it, and adding the new one to it. The signature associated
+with the new user **must** be generated from the new user's registration event.
+Client implementations **should** consider a trust authority not updating its
+list with the source's new user as if it stopped trusting it.
 
 Client implementations **can** warn users reading articles published by a
-source's previous user that this user isn't active anymore, and might get
-compromised at some point.
+source's or subsource's previous user that this user isn't active anymore, and
+might get compromised at some point.
 
 ## Localisation
 
@@ -121,14 +121,15 @@ the following model:
 
 ### Matrix event `network.informo.subsource`
 
-| Parameter     | Type       | Req. | Description                                                                    |
-|:--------------|:-----------|:----:|:-------------------------------------------------------------------------------|
-| `parent`      | `string`   |  x   | Matrix user ID of the sub-source's parent.                                     |
-| `sig_algo`    | `string`   |  x   | Algorithm the sub-source will use to cryptographically sign its articles. 🔧   |
-| `sig_keys`    | `[string]` |  x   | Public keys the sub-source will use to cryptographically sign its articles. 🔧 |
-| `website`     | `string`   |      | URL of the source's website in this language, if there's one.                  |
-| `description` | `string`   |      | Short localised description of the source and its publications.                |
-| `custom`      | `object`   |      | Additional information for custom client implementations.                      |
+| Parameter     | Type       | Req. | Description                                                                                                                |
+|:--------------|:-----------|:----:|:---------------------------------------------------------------------------------------------------------------------------|
+| `parent`      | `string`   |  x   | Matrix user ID of the sub-source's parent.                                                                                 |
+| `sig_algo`    | `string`   |  x   | Algorithm the sub-source will use to cryptographically sign its articles. 🔧                                               |
+| `sig_keys`    | `[string]` |  x   | Public keys the sub-source will use to cryptographically sign its articles. 🔧                                             |
+| `prev_id`     | `string`   |      | Matrix user ID of the Matrix user this source previously used to publish information. See [above](#change-of-matrix-user). |
+| `website`     | `string`   |      | URL of the source's website in this language, if there's one.                                                              |
+| `description` | `string`   |      | Short localised description of the source and its publications.                                                            |
+| `custom`      | `object`   |      | Additional information for custom client implementations.                                                                  |
 
 The parent source **must** then reference the sub-source in its own registration
 event, as a `lang` object. The `lang` object **can** reference the source that
