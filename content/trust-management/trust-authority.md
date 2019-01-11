@@ -32,23 +32,17 @@ A trust authority **can** specify a reason for trusting another TA or a source.
 If specified, this reason **must** consist in a custom localised string provided
 in by the trust authority.
 
-A trust authority **must** also be able to list sources and trust authorities
-that it explicitly blacklists for being compromised or ethical reasons. The
-trust authority **must** specify a reason for blacklisting a source or TA, which
-consists in a defined reason code (2️⃣). The trust authority **can** also
-provide additional information to explain the addition to the blacklist, which,
-if provided, **must** be contained in a custom localised string.
-
-### Trust authority registration
+## Trust authority registration
 
 A trust authority **must** register itself as such on the Matrix room. This
-registration **must** include data on the organism operating the TA, along with
-the list of its public signature verification keys and the list of all of the
-sources and trust authorities it trusts. This list **must** include, for each
-trusted source and TA, a signature generated from one of the TA's public keys.
-This signature **must** be generated from the source's Matrix event content as
-described in the [Signature
-section](/information-distribution/signature/#signing-json-data).
+registration **must** be done through the publication of a
+`network.informo.trust_authority` state event. The event's state key **must** be
+the ID of the trust authority's Matrix user, and its content **must** include
+data on the organism operating the TA, along with the list of its public
+signature verification keys and the list of all of the sources and trust
+authorities it trusts. This list **must** include, for each trusted source and
+TA, a signature generated from their registration event content by using one of
+the TA's public keys, as described below.
 
 A TA's registration **must** associate each signature with the identifier of the
 trusted source or TA, and with the signing algorithm used to generate it
@@ -60,23 +54,188 @@ its list of public signature verification keys by removing the compromised key
 authorities trusting this TA **must** compute and issue a new signature taking
 the updated list of keys into account.
 
-## Suggested trust authority
+#### Matrix event `network.informo.trust_authority`
+
+| Parameter     | Type                  | Req. | Description                                                                                                                                  |
+|:--------------|:----------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------|
+| `name`        | `localisedString`     |  x   | Name of the trust authority.                                                                                                                 |
+| `sig_algo`    | `string`              |  x   | Algorithm the trust authority will use to generate cryptographic signatures. 🔧                                                              |
+| `sig_keys`    | `[string]`            |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                            |
+| `website`     | `string`              |      | URL of the trust authority's website, if there's one.                                                                                        |
+| `description` | `localisedString`     |      | Short description of the trust authority and its publications.                                                                               |
+| `logo`        | `string`              |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
+| `country`     | `string`              |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
+| `trusted`     | `trustedEntities`     |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                               |
+| `blacklist`   | `blacklistedEntities` |      | Entities (sources and other trust authorities) blacklisted by the trust authority.                                                           |
+| `custom`      | `object`              |      | Additional information for custom client implementations.                                                                                    |
+
+<!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
+and key management -->
+
+Where:
+
+<!--
+   The definition of `localisedString` here is the same as in source.md.
+   People changing it might want to also change it there (or remove this
+   warning).
+-->
+* `localisedString` is a map associating a [RFC
+  5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
+  identifier to a localisation of the string in the language the identifier
+  refers to.
+* `trustedEntities` is a map using the following structure:
+
+| Parameter           | Type             | Req. | Description                     |
+|:--------------------|:-----------------|:----:|:--------------------------------|
+| `sources`           | `trustedSources` |      | The sources trusted by this TA. |
+| `trust_authorities` | `trustedTAs`     |      | The TAs trusted by this TA.     |
+
+* `trustedSources` is a map associating a Matrix user ID to a JSON object using
+  the following structure:
+
+| Parameter   | Type              | Req. | Description                                                                                                                                                                        |
+|:------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`. |
+| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                          |
+
+* `trustedTAs` is a map associating a Matrix user ID to a JSON object using the
+  following structure:
+
+| Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                                 |
+|:------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here](/information-distribution/signature/#signing-json-data). |
+| `level`     | `integer`         |      | The trust level the TA trusts the entity with.                                                                                                                                                                                                                                              |
+| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                                                                                                                                   |
+
+* `signedObject` is a map using the following structure:
+
+| Parameter      | Type              | Req. | Description                                                                                                                                              |
+|:---------------|:------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `registration` | `object`          |  x   | The content of latest version of the entity's registration event.                                                                                        |
+| `level`        | `integer`         |      | The level the TA trusts the entity with. This value **must** match the level provided alongside the signature. Only valid when the entity is another TA. |
+| `reason`       | `localisedString` |      | Reason given by the TA explaining why they trust this entity. This value **must** match the reason provided alongside the signature.                     |
+
+* `blacklistedEntities` is a map associating a Matrix user ID to a JSON object
+  using the following structure:
+
+| Parameter     | Type              | Req. | Description                                                                                                 |
+|:--------------|:------------------|:----:|:------------------------------------------------------------------------------------------------------------|
+| `reason_code` | `string`          |  x   | One of the reason codes defined [above](#blacklist-reason-codes).                                           |
+| `after`       | `string`          |  x   | ID of the latest trustworthy event sent by the entity. Empty string if none (e.g. with `B_MISINFORMATION`). |
+| `reason`      | `localisedString` |      | More information on the reason the TA blacklisted this entity for.                                          |
+
+#### Example
+
+```json
+{
+    "name": {
+        "en": "Some NGO",
+        "fr": "Une ONG"
+    },
+    "sig_algo": "ed25519",
+    "sig_keys": [
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
+    ],
+    "website": "https://www.somengo.org",
+    "description": {
+        "en": "We do activism for freedom of the press.",
+        "fr": "Nous sommes des activistes en faveur de la liberté de la presse."
+    },
+    "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
+    "trusted": {
+        "sources": {
+            "@acmenews:example.com": {
+                "signature": "0a1df56f1c3ab5b1"
+            }
+        },
+        "trust_authorities": {
+            "@someotherngo:example2.com": {
+                "signature": "daiRanaiy1be7pe",
+                "level": 2
+            }
+        }
+    },
+    "blacklist": {
+        "@sadsource:example.com": {
+            "reason_code": "B_COMPROMISED",
+            "since": "!someEvent:example.com"
+        },
+        "@badsource:example.com": {
+            "reason_code": "B_MISINFORMATION",
+            "since": "",
+            "additional_info": {
+                "en": "This source actually belongs to the Tomainian government which uses it for propaganda.",
+                "fr": "Cette source appartient au gouvernement Tomanien qui l'utilise à des fins de propagande."
+            }
+        }
+    }
+}
+```
+
+## Blacklisting
+
+A trust authority **can** list sources and trust authorities that it explicitly
+blacklists for being compromised or ethical reasons. The trust authority
+**must** specify a reason for blacklisting a source or TA, which consists in a
+defined reason code that client implementations **should** use in order to warn
+users about a specific Matrix user (representing either a source or another TA).
+The trust authority **can** also provide additional information to explain the
+addition to the blacklist, which, if provided, **must** take the form of a
+custom localised string. Client implementations **should** also use this string
+to provide the users with more information on why a specific source was
+blacklisted by the trust authority.
+
+### Blacklist reason codes
+
+As defined above, a trust authority **must** provide a reason for blacklisting a
+source or another trust authority. This **must** be done using at least a reason
+code, which **must** be one of the following:
+
+| Code               | Meaning                                                                                                                                                                                                                                                                                                                          |
+|:-------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `B_COMPROMISED`    | One of the public keys of the source or trust authority has been compromised.                                                                                                                                                                                                                                                    |
+| `B_MISINFORMATION` | If the blacklisted entity is a source, it has been publishing false or unverified information intentionnally. If it's a trust authority, it has been certifying sources publishing false or unverified information as trustworthy intentionnally.                                                                                |
+| `B_ABANDONED`      | The source or trust authority has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the entity's keys and tokens and impersonate its former owner. |
+
+## Suggested trust authorities
 
 In order to guide a new user through building his trusted network when they
-enters a Matrix room (i.e. an Informo federation), the room's administrator
-**can** provide a list of suggested TAs (2️⃣: stored in Matrix room state).
-These TAs will be proposed to the users if they doesn't know which TA they
-should trust first.
+enter a Matrix room (i.e. an Informo federation), the room's administrator
+**can** provide a list of suggested TAs through the publication of a
+`network.informo.suggested_trust_authorities` state event. The event's state key
+**must** be an empty string. The Matrix room's [power
+levels](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-power-levels)
+**must** be set to a non-zero value. The event's content **must** use the
+following structure:
 
-As an additional security step, the client implementation maintainer **should**
+| Parameter           | Type       | Req. | Description                                         |
+|:--------------------|:-----------|:----:|:----------------------------------------------------|
+| `trust_authorities` | `[string]` |  x   | Matrix user IDs of the suggested trust authorities. |
+
+Client implementations **can** use this list of trust authorities to suggest TAs
+to trust to users who don't know which TA they should trust first.
+
+As an additional security step, client implementations maintainers **should**
 add the suggested trust authorities' public signature verification keys to the
 implementation's code base, so the user doesn't retrieve these keys through a
-potentially insecure network. This is an important step because these TAs
-represent the foundations of the user's trust network. In the event of an
-embedded public key getting compromised, trust authorities **must** make
-implementation maintainers aware of it, and implementation maintainers **must**
-release another version of their implementation which **must not** include the
-compromised key.
+potentially insecure network. This is an important step because these TAs are
+likely to represent the foundations of the user's trust network. In the event of
+an embedded public key getting compromised, trust authorities **must** make
+implementation maintainers aware of it, either directly or via an administrator
+of the Matrix room, in a reliable way outside of Informo, and implementation
+maintainers **must** release a new version of their implementation which **must
+not** include the compromised key.
+
+### Example
+
+```json
+{
+    "trust_authorities": [
+        "@somengo:example.com",
+        "@someotherngo:someotherngo.org"
+    ]
+}
+```
 
 ## Client implementations
 
@@ -88,6 +247,7 @@ trustworthy, some others explicitly stated that the source should not be trusted
 anymore, mentioning the reasons specified in the corresponding blacklist entry.
 
 In order to help its users assert the trustworthiness of a source, a client
-**might** include the display of a graph showing the location of the source in
-Informo's trust network. It **might** also include a view promoting sources that
-have been certified as trustworthy by several TAs that the user trusts.
+implementation **might** include the display of a graph showing the location of
+the source in Informo's trust network. It **might** also include a view
+promoting sources that have been certified as trustworthy by several TAs that
+the user trusts.
