@@ -301,7 +301,7 @@ not** include the compromised key.
 
 In the event of a source being trusted by a TA *A* and blacklisted by a TA *B*,
 given that both *A* and *B* are being trusted by the user, client
-implementations **must** display a warning to users, indicating that, although
+implementations **should** display a warning to users, indicating that, although
 some of the user's trusted TAs are still asserting the source as being
 trustworthy, some others explicitly stated that the source should not be trusted
 anymore, mentioning the reasons specified in the corresponding blacklist entry.
