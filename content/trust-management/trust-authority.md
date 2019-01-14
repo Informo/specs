@@ -219,7 +219,7 @@ explicitly blacklists for being compromised or ethical reasons. The trust
 authority **must** specify a reason for blacklisting a node, source or TA, which
 consists in a defined reason code that client implementations **should** use in
 order to warn users about a specific Matrix user (representing either a source
-or another TA), or Matrix users registered on a given node. The trust authority
+or another TA), or Matrix users belonging to a given node. The trust authority
 **can** also provide additional information to explain the addition to the
 blacklist, which, if provided, **must** take the form of a custom localised
 string. Client implementations **should** also use this string to provide the
