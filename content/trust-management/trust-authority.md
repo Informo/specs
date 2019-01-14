@@ -121,7 +121,7 @@ Where:
 
 | Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                            |
 |:------------|:------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `signature` | `string`          |      | Signature generated from a `signedNodeObject`, containing the node's server name, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here](/information-distribution/signature/#signing-json-data). |
+| `signature` | `string`          |  x   | Signature generated from a `signedNodeObject`, containing the node's server name, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here](/information-distribution/signature/#signing-json-data). |
 | `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this node.                                                                                                                                                                                                                            |
 
 * `signedNodeObject` is a map using the following structure:
