@@ -255,7 +255,12 @@ This code can have different meaning depending on the target:
 
 #### `B_ABANDONED`
 
-This code means that the target has ceased its activity and/or to publish articles through this federation, therefore the entity isn't used anymore and very unlikely to ever be used again. Blacklisting it then prevents someone else from getting their hands on the target (through its keys and access tokens if the target is a source or TA, or by taking over the node's server name if the target is a node) and impersonating affected sources and/or trust authorities.
+This code means that the target has ceased its activity and/or to publish
+articles through this federation, therefore the entity isn't used anymore and
+very unlikely to ever be used again. Blacklisting it then prevents someone else
+from getting their hands on the target (through its keys and access tokens if
+the target is a source or TA, or by taking over the node's server name if the
+target is a node) and impersonating affected sources and/or trust authorities.
 
 ## Suggested trust authorities
 
