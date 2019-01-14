@@ -311,3 +311,9 @@ implementation **might** include the display of a graph showing the location of
 the source in Informo's trust network. It **might** also include a view
 promoting sources that have been certified as trustworthy by several TAs that
 the user trusts.
+
+Client implementations **must** consider a node being blacklisted by a TA as if
+all of the entities belonging to that node were blacklisted by this TA for the
+same reason and from the same point in time. If a TA blacklists an entity
+belonging to a node that's already blacklisted, client implementations **must**
+use the entity's blacklist entry rather than the node's.
