@@ -79,24 +79,24 @@ tampered with, with no way to be 100% sure about it.
 
 ## Change of Matrix user
 
-A source or subsource might have to change the Matrix user it uses to publish
+A source or sub-source might have to change the Matrix user it uses to publish
 information at some points in its life time. This can happen for many reason:
 the homeserver it was registered on went down, or got compromised, or got
 isolated from the rest of the federation...
 
-In such an event, the source or subsource **must** publish a new registration
+In such an event, the source or sub-source **must** publish a new registration
 event from its new Matrix user with the `prev_id` key having its previous user's
 ID as its value, and the `prev_event` key having the ID of the latest event
 emitted prior to the change as its value.
 
 This key **must** be used by client implementations to link the previous user to
 the new one, considering both as the same entity. A missing `prev_id` key or an
-empty string simply means that the source or subsource didn't previously use
+empty string simply means that the source or sub-source didn't previously use
 another Matrix account to publish information. In this case, the `prev_event`
 key can be omitted as well.
 
-If the entity is a source (and not a subsource), trust authorities certifying it
-as trustworthy **must** update their list of trusted entities by removing the
+If the entity is a source (and not a sub-source), trust authorities certifying
+it as trustworthy **must** update their list of trusted entities by removing the
 previous user from it, and adding the new one to it. The signature associated
 with the new user **must** be generated from the new user's registration event.
 
@@ -106,16 +106,16 @@ certifying this source as trustworthy that updated their list of trusted sources
 to reference the new user, within the trust authorities trusted by the user. If
 a threshold is defined by a client implementation, it **should** consider the
 link between a source and its new user as valid once that percentage becomes
-higher than the threshold. Such a threshold isn't necessary for subsources,
-because a subsource is only verified by its parent source, which then **must**
-update its list of subsources by removing the subsource's previous user and
+higher than the threshold. Such a threshold isn't necessary for sub-sources,
+because a sub-source is only verified by its parent source, which then **must**
+update its list of sub-sources by removing the sub-source's previous user and
 adding the new one.
 
-Once the link between a source (or a subsource) and its new user is consider
+Once the link between a source (or a sub-source) and its new user is consider
 valid, client implementations **must** consider both the source's (or
-subsource's) new user and its previous one (and older ones if the source or
-subsource changed its user more than once) as the same entity. This means that
-articles published by the source's (or the subsource's) previous user **must**
+sub-source's) new user and its previous one (and older ones if the source or
+sub-source changed its user more than once) as the same entity. This means that
+articles published by the source's (or the sub-source's) previous user **must**
 be treated as if it was published by the new user, and a reference to the
 source's previous user in a trust authority's list of trustworthy sources
 **must** be considered as a reference to the new user (with the exception of the
@@ -123,8 +123,8 @@ cryptographic check on the source's registration, which is still done using the
 registration event published by the previous user).
 
 Client implementations **can** warn users reading articles published by a
-source's or a subsource's previous user that this user isn't active anymore, and
-might get compromised at some point. This is the only exception to the equal
+source's or a sub-source's previous user that this user isn't active anymore,
+and might get compromised at some point. This is the only exception to the equal
 treatment principle mentioned in the previous paragraph.
 
 ## Localisation
