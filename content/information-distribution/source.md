@@ -127,6 +127,13 @@ source's or a sub-source's previous user that this user isn't active anymore,
 and might get compromised at some point. This is the only exception to the equal
 treatment principle mentioned in the previous paragraph.
 
+{{% notice tip %}}
+If a trust authority certifying the source or subsource that's chaning its
+Matrix user as trustworthy deems it necessary, it can also add the source's (or
+sub-source's) previous user to its blacklist, as documented [in the related
+section]({{< ref "/trust-management/trust-authority#blacklisting" >}}).
+{{% /notice %}}
+
 ## Localisation
 
 An information website might want to publish articles in more than one language.
