@@ -36,7 +36,7 @@ This significantly hampers censorship because:
   the identification of Matrix traffic (and therefore Informo traffic) hard (but
   not impossible) to identify. On top of that, using security protocols such as
   [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) would render
-  such identification even harder
+  such identification even harder.
 
 You can learn more about Informo's approach on [this dedicated
 page](/informo/what-is-informo/).
