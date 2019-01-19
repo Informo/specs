@@ -128,7 +128,7 @@ and might get compromised at some point. This is the only exception to the equal
 treatment principle mentioned in the previous paragraph.
 
 {{% notice tip %}}
-If a trust authority certifying the source or subsource that's chaning its
+If a trust authority certifying the source or subsource that's changing its
 Matrix user as trustworthy deems it necessary, it can also add the source's (or
 sub-source's) previous user to its blacklist, as documented [in the related
 section]({{< ref "/trust-management/trust-authority#blacklisting" >}}).
