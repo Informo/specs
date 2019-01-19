@@ -111,7 +111,7 @@ because a sub-source is only verified by its parent source, which then **must**
 update its list of sub-sources by removing the sub-source's previous user and
 adding the new one.
 
-Once the link between a source (or a sub-source) and its new user is consider
+Once the link between a source (or a sub-source) and its new user is considered
 valid, client implementations **must** consider both the source's (or
 sub-source's) new user and its previous one (and older ones if the source or
 sub-source changed its user more than once) as the same entity. This means that
