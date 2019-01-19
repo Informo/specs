@@ -25,7 +25,7 @@ serving it to anyone requesting it.
 
 This significantly hampers censorship because:
 
-* every server knows about the information, the whole federation must be
+* every server knows about the information, so the whole federation must be
   blocked in order to censor it. The list of servers participating in a
   federation can continuously grow and change, which can render such a blockade
   practically very hard, if not impossible, to manage.
