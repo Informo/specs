@@ -105,28 +105,38 @@ it as trustworthy **must** update their list of trusted entities by removing the
 previous user from it, and adding the new one to it. The signature associated
 with the new user **must** be generated from the new user's registration event.
 
-Client implementations **can** define a threshold for linking a source to its
-new user. This threshold is defined by the percentage of trust authorities
-certifying this source as trustworthy that updated their list of trusted sources
-to reference the new user, within the trust authorities trusted by the user. If
-a threshold is defined by a client implementation, it **should** consider the
-link between a source and its new user as valid once that percentage becomes
-higher than the threshold. Such a threshold isn't necessary for sub-sources,
-because a sub-source is only verified by its parent source, which then **must**
-update its list of sub-sources by removing the sub-source's previous user and
-adding the new one.
+### Linking between a source and its new user
+
+Client implementations are in charge of asserting the vailidy of a link between
+a source, or sub-source, and its new user, using whatever mechanism they see
+fit.
+
+{{% notice tip %}}
+A suggested way to assert the validity of this link would be for a client
+implementation to define a threshold for linking a source to its new user. This
+threshold is defined by the percentage of trust authorities certifying this
+source as trustworthy that updated their list of trusted sources to reference
+the new user, within the trust authorities trusted by the user. If a threshold
+is defined by a client implementation, it should consider the link between a
+source and its new user as valid once that percentage becomes higher than the
+threshold. Such a threshold wouldn't be necessary for sub-sources, because a
+sub-source is only verified by its parent source, which then needs to update its
+list of sub-sources by removing the sub-source's previous user and adding the
+new one.
+{{% /notice %}}
 
 Once the link between a source (or a sub-source) and its new user is considered
 valid, client implementations **must** consider both the source's (or
 sub-source's) new user and its previous one (and older ones if the source or
-sub-source changed its user more than once) as the same entity. This means that
+sub-source changed its user more than once) as the same entity (i.e. as an
+entity defined by both its previous users' IDs and its new one). This means that
 articles published by the source's (or the sub-source's) previous user before
 the event defined in the `event_id` key **must** be treated as if it was
 published by the new user, and a reference to the source's previous user in a
 trust authority's list of trustworthy sources **must** be considered as a
 reference to the new user (with the exception of the cryptographic check on the
 source's registration, which is still done using the registration event
-published by the previous user).
+published by the previous user, and the previous user's Matrix user ID).
 
 Client implementations **can** warn users reading articles published by a
 source's or a sub-source's previous user that this user isn't active anymore,
