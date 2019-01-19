@@ -158,7 +158,7 @@ the following model:
 | `sig_algo`    | `string`   |  x   | Algorithm the sub-source will use to cryptographically sign its articles. 🔧                                                                                   |
 | `sig_keys`    | `[string]` |  x   | Public keys the sub-source will use to cryptographically sign its articles. 🔧                                                                                 |
 | `prev_id`     | `string`   |      | Matrix user ID of the Matrix user this sub-source previously used to publish information. See [above](#change-of-matrix-user).                                 |
-| `prev_id`     | `string`   |      | ID of the latest event published by the sub-source's previous user. Only valid if `prev_id` is set to a non-empty string. See [below](#change-of-matrix-user). |
+| `prev_event`     | `string`   |      | ID of the latest event published by the sub-source's previous user. Only valid if `prev_id` is set to a non-empty string. See [below](#change-of-matrix-user). |
 | `website`     | `string`   |      | URL of the source's website in this language, if there's one.                                                                                                  |
 | `description` | `string`   |      | Short localised description of the source and its publications.                                                                                                |
 | `custom`      | `object`   |      | Additional information for custom client implementations.                                                                                                      |
