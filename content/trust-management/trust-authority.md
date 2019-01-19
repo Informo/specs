@@ -247,11 +247,11 @@ This code can have different meaning depending on the target:
 
 This code can have different meaning depending on the target:
 
-| Target type         | Meaning                                                                                                                                             |
-|:--------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Source**          | The source has been publishing false or unverified information intentionnally.                                                                      |
-| **Trust authority** | The trust authority has been certifying sources publishing false or unverified information as trustworthy intentionnally.                           |
-| **Node**            | The node exists in the sole purpose of registering sources or trust authority that either post unreliable information or certify it as trustworthy. |
+| Target type         | Meaning                                                                                                                                                           |
+|:--------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Source**          | The source has been publishing false or unverified information intentionnally.                                                                                    |
+| **Trust authority** | The trust authority has been certifying sources publishing false or unverified information as trustworthy intentionnally.                                         |
+| **Node**            | The node exists in the sole purpose of hosting sources or trust authorities that either post unreliable information or certify deceptive entities as trustworthy. |
 
 #### `B_ABANDONED`
 
