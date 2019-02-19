@@ -34,6 +34,19 @@ specification](https://matrix.org/docs/spec/server_server/unstable.html) of the
 [Matrix protocol](https://matrix.org), and connected to one or more Informo
 federations.
 
+#### Entity
+
+An entity is the abstract representation of an individual or an organism
+actively interacting over Informo, and is technically represented by a finite
+set of at least one Matrix user identifier. This definition doesn't include
+client implementations' users, who interact passively with Informo (by reading
+Matrix events rather than sending them), nor nodes (which can't be represented
+by a finite set of Matrix user identifiers), therefore neither of them are
+considered as entities. An entity must register itself on the Informo
+federation(s) it whishes to interact on. The Informo specifications currently
+defines two types of entities: sources and trust authorities (which are defined
+below).
+
 #### Source, Information source
 
 An information source, sometimes referred to as just "source", refers to an
