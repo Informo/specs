@@ -45,8 +45,8 @@ The technical details for the distribution of information through the federation
 are described in [their own section](/information-distribution).
 
 On top of that, Informo also provides trust management mechanisms which are
-designed to let readers have a reliable idea of who an information source really
-is without having to rely on a potentially insecure network. This set of
+designed to let readers have a reliable idea of the origin and authenticity of a
+news item without having to rely on a potentially insecure network. This set of
 mechanisms is described in [its own section](/trust-management).
 
 ### Get involved!
