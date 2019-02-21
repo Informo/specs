@@ -11,7 +11,7 @@ order to fulfil its mission.
 
 Informo needs to be as open and collaborative as possible for people to get
 involved, thus for it to work. For this reason, this documentation is also open
-and collaborative, which means that anyone can submit changes requests by
+and collaborative, which means that anyone can submit change requests by
 following the [specifications change submission protocol](/introduction/scsp).
 
 ### What is Informo?
