@@ -8,7 +8,7 @@ with each other. Technically speaking, a node refers to a piece of software
 implementing both the [client-server
 specification](https://matrix.org/docs/spec/client_server/r0.4.0.html) and the
 [federation
-specification](https://matrix.org/docs/spec/server_server/unstable.html) of the
+specification](https://matrix.org/docs/spec/server_server/r0.1.1.html) of the
 [Matrix protocol](https://matrix.org), and connected to one or more federations
 (i.e. Matrix rooms) which states and messages implements the Informo
 specifications.
@@ -28,7 +28,7 @@ censoring any communication between `A` and `B`), `B` will never get the
 message. However, if another node `C` emits a message, and the link between `C`
 and `B` allows the latter to receive the message, `B` will notice a hole in the
 messages timeline and [request the missing message from
-`C`](https://matrix.org/docs/spec/server_server/unstable.html#post-matrix-federation-v1-get-missing-events-roomid).
+`C`](https://matrix.org/docs/spec/server_server/r0.1.1.html#post-matrix-federation-v1-get-missing-events-roomid).
 
 In order to avoid a node being left out of a federation, nodes **must** send out
 a small message, named "ping", to the Matrix room every twelve hours. This
@@ -148,7 +148,7 @@ Once both an entry node and a room alias have been selected as the one to use in
 order to join a federation, whether this selection originated from an explicit
 action by a user or, either partially or entirely, from a client
 implementation's inner mechanisms, client implementations **must** send a [join
-request](https://matrix.org/speculator/spec/HEAD/client_server/unstable.html#post-matrix-client-r0-join-roomidoralias)
+request](https://matrix.org/docs/spec/client_server/r0.4.0.html#post-matrix-client-r0-join-roomidoralias)
 to the selected node using the selected alias.
 
 ## Other types of nodes
