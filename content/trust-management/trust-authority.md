@@ -5,10 +5,10 @@ weight: 1
 
 One key party of Informo's trust management mechanisms is called "trust
 authorities", often also referred as "TA". As defined in [this documentation's
-terminology](/introduction/terminology/#trust-authority-ta), a trust authority
-is an entity that asserts the trustworthiness of another entity, whether this
-entity is an information source or another trust authority. It does so by using
-asymmetric cryptographic signatures.
+terminology]({{<ref "/introduction/terminology#trust-authority-ta">}}), a trust
+authority is an entity that asserts the trustworthiness of another entity,
+whether this entity is an information source or another trust authority. It does
+so by using asymmetric cryptographic signatures.
 
 A user **must** be able to chose which TA they want to give their absolute trust
 to, whether that TA is itself trusted by another TA or not. This model follows
@@ -26,7 +26,7 @@ If a user chooses to trust a specific TA, let's name it *SomeNGO.org* here for
 the sake of simplicity, all sources and TAs trusted by *SomeNGO.org* **must** be
 considered as trustworthy by client implementations in accordance with their
 chosen trust level (documented in [the related
-section](/trust-management/trust-level/)).
+section]({{<ref "/trust-management/trust-level">}})).
 
 A trust authority **can** specify a reason for trusting another TA or a source.
 If specified, this reason **must** consist in a custom localised string provided
@@ -102,11 +102,11 @@ Where:
 * `trustedTAs` is a map associating a Matrix user ID to a JSON object using the
   following structure:
 
-| Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                                 |
-|:------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here](/information-distribution/signature/#signing-json-data). |
-| `level`     | `integer`         |      | The trust level the TA trusts the entity with.                                                                                                                                                                                                                                              |
-| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                                                                                                                                   |
+| Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                                                                        |
+|:------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
+| `level`     | `integer`         |      | The trust level the TA trusts the entity with.                                                                                                                                                                                                                                                                                     |
+| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                                                                                                                                                                          |
 
 * `signedObject` is a map using the following structure:
 
@@ -119,10 +119,10 @@ Where:
 * `trustedNodes` is a map associating a node's server name (as a string) to a
   JSON object using the following structure:
 
-| Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                            |
-|:------------|:------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `signature` | `string`          |  x   | Signature generated from a `signedNodeObject`, containing the node's server name, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here](/information-distribution/signature/#signing-json-data). |
-| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this node.                                                                                                                                                                                                                            |
+| Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                                       |
+|:------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `signature` | `string`          |  x   | Signature generated from a `signedNodeObject`, containing the node's server name, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}). |
+| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this node.                                                                                                                                                                                                                                       |
 
 * `signedNodeObject` is a map using the following structure:
 
@@ -148,7 +148,7 @@ Where:
 
 | Parameter     | Type              | Req. | Description                                                                                                                     |
 |:--------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------|
-| `reason_code` | `string`          |  x   | One of the reason codes defined [above](#blacklist-reason-codes).                                                               |
+| `reason_code` | `string`          |  x   | One of the reason codes defined [below]({{<ref "#blacklist-reason-codes">}}).                                                   |
 | `after`       | `string`          |      | ID of the latest trustworthy event sent by the entry's target. Empty string or omit key if none (e.g. with `B_MISINFORMATION`). |
 | `reason`      | `localisedString` |      | More information on the reason the TA blacklisted the entry's target for.                                                       |
 
