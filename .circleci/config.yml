@@ -1,0 +1,46 @@
+version: 2.1
+
+executors:
+  workspace:
+    docker:
+      - image: buildpack-deps:jessie
+    working_directory: /tmp
+
+jobs:
+  build:
+    docker:
+      - image: cibuilds/hugo:0.53
+    steps:
+      - checkout
+      - run:
+          name: Submodules init
+          command: git submodule init
+      - run:
+          name: Submodule update
+          command: git submodule update --remote
+      - run: mkdir workspace
+      - run:
+          name: Build
+          command: BASE_URL="/scs/`./scripts/pr_number.sh`/"; hugo -v -b $BASE_URL -d workspace/public
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - public
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Deploy built docs
+          command: ./scripts/deploy.sh
+
+workflows:
+  version: 2.1
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
