@@ -24,6 +24,9 @@ jobs:
       - run:
           name: Build
           command: BASE_URL="/scs/`./scripts/pr_number.sh`/"; hugo -v -b $BASE_URL -d workspace/public
+      - run:
+          name: Save scripts for deploy
+          command: cp -r ./scripts /tmp/workspace/
       - persist_to_workspace:
           root: workspace
           paths:
@@ -37,7 +40,7 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Deploy built docs
-          command: bash /tmp/workspace/scripts/deploy.sh
+          command: /tmp/workspace/scripts/deploy.sh
 
 workflows:
   version: 2.1
