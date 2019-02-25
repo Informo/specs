@@ -26,6 +26,7 @@ jobs:
           root: workspace
           paths:
             - public
+            - scripts # We need to bring the deploy scripts to the workspace in order to use them on the deploy job.
   deploy:
     machine:
       enabled: true
@@ -34,7 +35,7 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Deploy built docs
-          command: ./scripts/deploy.sh
+          command: /tmp/workspace/scripts/deploy.sh
 
 workflows:
   version: 2.1
