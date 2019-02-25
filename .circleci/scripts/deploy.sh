@@ -1,8 +1,8 @@
 #!/bin/bash
 
-PR_NUMBER=`./scripts/pr_number.sh`
+PR_NUMBER=`/tmp/workspace/scripts/pr_number.sh`
 
-./scripts/check_open_scs.sh $PR_NUMBER
+/tmp/workspace/scripts/check_open_scs.sh $PR_NUMBER
 
 if [ "$?" == "0" ]; then
 	ssh http@it-01.informo.network mkdir -p /srv/http/specs-staging/public/scs/$PR_NUMBER 2>&1 > /dev/null

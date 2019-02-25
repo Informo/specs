@@ -23,10 +23,10 @@ jobs:
           command: mkdir workspace
       - run:
           name: Build
-          command: BASE_URL="/scs/`./scripts/pr_number.sh`/"; hugo -v -b $BASE_URL -d workspace/public
+          command: BASE_URL="/scs/`.circleci/scripts/pr_number.sh`/"; hugo -v -b $BASE_URL -d workspace/public
       - run:
           name: Save scripts for deploy
-          command: cp -rv scripts/ workspace/
+          command: cp -rv .circleci/scripts/ workspace/
       - persist_to_workspace:
           root: workspace
           paths:
