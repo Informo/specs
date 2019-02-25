@@ -26,7 +26,7 @@ jobs:
           command: BASE_URL="/scs/`./scripts/pr_number.sh`/"; hugo -v -b $BASE_URL -d workspace/public
       - run:
           name: Save scripts for deploy
-          command: cp -r ./scripts /tmp/workspace/
+          command: cp -rv ./scripts/ /tmp/workspace/
       - persist_to_workspace:
           root: workspace
           paths:
