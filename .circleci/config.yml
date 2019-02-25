@@ -18,7 +18,9 @@ jobs:
       - run:
           name: Submodule update
           command: git submodule update --remote
-      - run: mkdir workspace
+      - run:
+          name: Build workspace
+          command: mkdir workspace
       - run:
           name: Build
           command: BASE_URL="/scs/`./scripts/pr_number.sh`/"; hugo -v -b $BASE_URL -d workspace/public
@@ -35,7 +37,7 @@ jobs:
           at: /tmp/workspace
       - run:
           name: Deploy built docs
-          command: /tmp/workspace/scripts/deploy.sh
+          command: bash /tmp/workspace/scripts/deploy.sh
 
 workflows:
   version: 2.1
