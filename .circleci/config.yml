@@ -1,0 +1,52 @@
+version: 2.1
+
+executors:
+  workspace:
+    docker:
+      - image: buildpack-deps:jessie
+    working_directory: /tmp
+
+jobs:
+  build:
+    docker:
+      - image: cibuilds/hugo:0.53
+    steps:
+      - checkout
+      - run:
+          name: Submodules init
+          command: git submodule init
+      - run:
+          name: Submodule update
+          command: git submodule update --remote
+      - run:
+          name: Build workspace
+          command: mkdir workspace
+      - run:
+          name: Build
+          command: hugo -v -b /scs/`.circleci/scripts/pr_number.sh`/ -d workspace/public
+      - run:
+          name: Save scripts for deploy
+          command: cp -rv .circleci/scripts/ workspace/
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - public
+            - scripts # We need to bring the deploy scripts to the workspace in order to use them on the deploy job.
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Deploy built docs
+          command: /tmp/workspace/scripts/deploy.sh
+
+workflows:
+  version: 2.1
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
