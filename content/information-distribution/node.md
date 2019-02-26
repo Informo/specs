@@ -89,7 +89,7 @@ at `node.example.com` to register the alias `#example:example.com`.
 
 In order to find the effective FQDN and port to reach a node at, client
 implementations **must** implement the server discovery through `.well-known`
-URI logic [described in the Matrix
+URI logic, as [described in the Matrix
 specifications](https://matrix.org/docs/spec/client_server/r0.4.0.html#server-discovery).
 
 {{% notice note %}}
