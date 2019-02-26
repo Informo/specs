@@ -30,7 +30,7 @@ with state machines.
 A node is a piece of software implementing both the [client-server
 specification](https://matrix.org/docs/spec/client_server/r0.4.0.html) and the
 [federation
-specification](https://matrix.org/docs/spec/server_server/unstable.html) of the
+specification](https://matrix.org/docs/spec/server_server/r0.1.1.html) of the
 [Matrix protocol](https://matrix.org), and connected to one or more Informo
 federations.
 

@@ -15,6 +15,7 @@ event **must** be provided using the following model:
 
 ## Matrix event `network.informo.source`
 
+<<<<<<< HEAD
 | Parameter     | Type              | Req. | Description                                                                                                                                                                                              |
 |:--------------|:------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `name`        | `localisedString` |  x   | Name of the source.                                                                                                                                                                                      |
@@ -28,6 +29,20 @@ event **must** be provided using the following model:
 | `logo`        | `string`          |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                                                                                 |
 | `country`     | `string`          |      | Country of the source's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html).                                                                      |
 | `custom`      | `object`          |      | Additional information for custom client implementations.                                                                                                                                                |
+=======
+| Parameter     | Type              | Req. | Description                                                                                                                         |
+|:--------------|:------------------|:----:|:------------------------------------------------------------------------------------------------------------------------------------|
+| `name`        | `localisedString` |  x   | Name of the source.                                                                                                                 |
+| `owner`       | `localisedString` |  x   | The company or individual maintaining this source.                                                                                  |
+| `l10n`        | `lang`            |  x   | Languages of the source's publications.                                                                                             |
+| `sig_algo`    | `string`          |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                            |
+| `sig_keys`    | `[string]`        |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                          |
+| `website`     | `string`          |      | URL of the source's website, if there's one.                                                                                        |
+| `description` | `localisedString` |      | Short description of the source and its publications.                                                                               |
+| `logo`        | `string`          |      | Logo of the source. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
+| `country`     | `string`          |      | Country of the source's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
+| `custom`      | `object`          |      | Additional information for custom client implementations.                                                                           |
+>>>>>>> master
 
  <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
  and key management -->
@@ -48,6 +63,7 @@ Where:
   identifier to the Matrix user ID of the sub-source that handles the
   publication of articles in this language (and variant). This map **must**
   contain at least one element. More information on localised sub-sources and
+<<<<<<< HEAD
   examples are available [below](#localisation).
 * `prevUser` is a map using the following structure:
 
@@ -55,6 +71,9 @@ Where:
 |:-----------|:---------|:----:|:--------------------------------------------------------------------------------------|
 | `user_id`  | `string` |  x   | Matrix user ID of the Matrix user this source previously used to publish information. |
 | `event_id` | `string` |  x   | ID of the latest event published by the source using its previous user.               |
+=======
+  examples are available [below]({{<ref "#localisation">}}).
+>>>>>>> master
 
 Each time one of the source's properties changes, it **must** publish a new
 registration event, and every trust authority certifying the trustworthiness of
@@ -162,9 +181,10 @@ A sub-source is an entity similar to a source, with the exception that it
 Matrix user, and **must** register itself on the Matrix room through the
 publication of a `network.informo.subsource` state event, with the Matrix user's
 ID as the event's state key. The event's content **must** be embedded in a
-[signed Matrix event](/information-distribution/signature/#signed-matrix-event),
-signed by one of the parent source's public keys, with its `signed` object using
-the following model:
+[signed Matrix event]({{<ref
+"/information-distribution/signature#signed-matrix-event">}}), signed by one of
+the parent source's public keys, with its `signed` object using the following
+model:
 
 ### Matrix event `network.informo.subsource`
 
@@ -196,8 +216,9 @@ description and the website provided in the parent source's
 `network.informo.source` event.
 
 Client implementations **must** consider a sub-source as holding the same [trust
-level](/trust-management/trust-level) as its parent source, and therefore
-**must** consider it at the same location in trust networks as its parent.
+level]({{<ref "/trust-management/trust-level">}}) as its parent source, and
+therefore **must** consider it at the same location in trust networks as its
+parent.
 
 ### Example
 

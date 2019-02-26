@@ -34,9 +34,10 @@ same way for every platform, text font is converted to svg paths.
 
 A copy of the version with written text is available for each schema, with its
 name ending with `.src.svg`. After modifying one of those, text must be
-converted to paths again, by running `./svg-fonts-to-path.sh` from the root of
-the repository. The script uses [Inkscape](https://inkscape.org/), which must be
-installed on the system before generating the new versions of the schemas.
+converted to paths again, by running `./scripts/svg-fonts-to-path.sh` from the
+root of the repository. The script uses [Inkscape](https://inkscape.org/), which
+must be installed on the system before generating the new versions of the
+schemas.
 
 The schemas have been initially generated on a GNU/Linux system using the "Sans"
 system font. In order to get a similar result, it is advised to perform any

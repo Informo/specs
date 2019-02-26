@@ -15,11 +15,11 @@ trust network made of cryptographic signatures users can rely on, possibly
 starting from signing keys that are embedded into client implementations, all
 the way to the information itself. the idea is to consider the network hostile,
 therefore relying as much as possible on operations that are local and/or hard
-to interfere with. This is done by relying on [trust
-authorities](/trust-management/trust-authority), which are third-party organisms
-such as NGOs and non-profit organisations, to certify the trustworthiness of an
-[information source](/information-distribution/source), which itself certifies
-the integrity of the information it publishes.
+to interfere with. This is done by relying on [trust authorities]({{<ref
+"/trust-management/trust-authority">}}), which are third-party organisms such as
+NGOs and non-profit organisations, to certify the trustworthiness of an
+[information source]({{<ref "/information-distribution/source">}}), which itself
+certifies the integrity of the information it publishes.
 
 In order not to prevent the network to act as a censorship machine, Informo has
 to keep trust management optional, meaning it **must** let everyone publish
