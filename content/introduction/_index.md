@@ -12,7 +12,8 @@ order to fulfil its mission.
 Informo needs to be as open and collaborative as possible for people to get
 involved, thus for it to work. For this reason, this documentation is also open
 and collaborative, which means that anyone can submit change requests by
-following the [specifications change submission protocol](/introduction/scsp).
+following the [specifications change submission protocol]({{<ref
+"/introduction/scsp">}}).
 
 ### What is Informo?
 
@@ -39,15 +40,15 @@ This significantly hampers censorship because:
   such identification even harder.
 
 You can learn more about Informo's approach on [this dedicated
-page](/informo/what-is-informo/).
+page]({{<ref "/informo/what-is-informo">}}).
 
 The technical details for the distribution of information through the federation
-are described in [their own section](/information-distribution).
+are described in [their own section]({{<ref "/information-distribution">}}).
 
 On top of that, Informo also provides trust management mechanisms which are
 designed to let readers have a reliable idea of the origin and authenticity of a
 news item without having to rely on a potentially insecure network. This set of
-mechanisms is described in [its own section](/trust-management).
+mechanisms is described in [its own section]({{<ref "/trust-management">}}).
 
 ### Get involved!
 

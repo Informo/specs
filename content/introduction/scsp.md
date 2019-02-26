@@ -19,9 +19,9 @@ SCS, and a description of the issue it addresses. If the SCS addresses an issue
 that's already the target of an issue on the GitHub repository, the pull
 request's initial comment **must** also mention it.
 
-Once a pull request is open, a member of the [Informo core
-team](/informo/informo-core-team) will tag it using labels describing the type
-of the changes submitted and the current stage of the SCS (e.g. pending, merged,
+Once a pull request is open, a member of the [Informo core team]({{<ref
+"/informo/informo-core-team">}}) will tag it using labels describing the type of
+the changes submitted and the current stage of the SCS (e.g. pending, merged,
 etc.). The Informo core team members are volunteers, and most of them have an
 occupation besides working on Informo-related projects, which means your
 submission might not be tagged as soon as you send it. Please keep that in mind
