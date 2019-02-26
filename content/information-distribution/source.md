@@ -107,7 +107,7 @@ with the new user **must** be generated from the new user's registration event.
 
 ### Linking between a source and its new user
 
-Client implementations are in charge of asserting the vailidy of a link between
+Client implementations are in charge of asserting the validity of a link between
 a source, or sub-source, and its new user, using whatever mechanism they see
 fit.
 
