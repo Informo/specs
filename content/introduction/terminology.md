@@ -44,8 +44,9 @@ Matrix events rather than sending them), nor nodes (which can't be represented
 by a finite set of Matrix user identifiers), therefore neither of them are
 considered as entities. An entity must register itself on the Informo
 federation(s) it whishes to interact on. The Informo specifications currently
-defines two types of entities: sources and trust authorities (which are defined
-below).
+defines three types of entities: sources, trust authorities (both are defined
+below), and sub-sources (which are defined in [the related section]({{<ref
+"/information-distribution/source#localisation">}})).
 
 #### Source, Information source
 
