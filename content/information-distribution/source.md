@@ -51,15 +51,27 @@ Where:
   examples are available [below]({{<ref "#localisation">}}).
 * `prevUser` is a map using the following structure:
 
-| Parameter  | Type     | Req. | Description                                                                           |
-|:-----------|:---------|:----:|:--------------------------------------------------------------------------------------|
-| `user_id`  | `string` |  x   | Matrix user ID of the Matrix user this source previously used to publish information. |
-| `event_id` | `string` |  x   | ID of the latest event published by the source using its previous user.               |
+| Parameter   | Type     | Req. | Description                                                                                                                                                                                                                                                                                                            |
+|:------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `user_id`   | `string` |  x   | Matrix user ID of the Matrix user this source previously used to publish information.                                                                                                                                                                                                                                  |
+| `event_id`  | `string` |  x   | ID of the latest event published by the source's original administrator using the source's previous user.                                                                                                                                                                                                              |
+| `sig_algo`  | `string` |  x   | Algorithm used to generate `signature`.                                                                                                                                                                                                                                                                                |
+| `sig_key`   | `string` |  x   | Public key to use when verifying `signature`. **Must** be one of the source's public keys.                                                                                                                                                                                                                             |
+| `signature` | `string` |  x   | Signature generated from a `prevUserSign` map derived from the current `prevUser` map, using the key specified in `sig_key` and the algorithm specified in `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
+
+* `prevUserSign` is a map using the following structure:
+
+| Parameter       | Type     | Req. | Description                                                                                                                                                            |
+|:----------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `prev_user_id`  | `string` |  x   | Matrix user ID of the Matrix user this source previously used to publish information. **Must** match the `user_id` of the current `prevUser` map.                      |
+| `prev_event_id` | `string` |  x   | ID of the latest event published by the source's original administrator using the source's previous user. **Must** match the `event_id` of the current `prevUser` map. |
+| `new_user_id`   | `string` |  x   | Matrix user ID of the Matrix user this source currently uses to publish information. **Must** match the ID of the new user in use by the source.                       |
 
 Each time one of the source's properties changes, it **must** publish a new
 registration event, and every trust authority certifying the trustworthiness of
 this source **must** generate a new signature from the new event. This signature
-lives in a TA's registration event 📝.
+lives in a [TA's registration event]({{<ref
+"/trust-management/trust-authority#trust-authority-registration">}}).
 
 If a source doesn't provide a logo, client implementations **can** use the
 [avatar](https://matrix.org/docs/spec/client_server/r0.4.0.html#get-matrix-client-r0-profile-userid-avatar-url)
@@ -101,15 +113,24 @@ simply means that the source or sub-source didn't previously use another Matrix
 account to publish information.
 
 If the entity is a source (and not a sub-source), trust authorities certifying
-it as trustworthy **must** update their list of trusted entities by removing the
-previous user from it, and adding the new one to it. The signature associated
-with the new user **must** be generated from the new user's registration event.
+it as trustworthy **must** verify that the change comes from the source's
+original administrator (preferably using a different medium than Informo) and
+update their list of trusted entities by removing the previous user from it, and
+adding the new one to it. The signature associated with the new user **must** be
+generated from the new user's registration event.
 
 ### Linking between a source and its new user
 
-Client implementations are in charge of asserting the validity of a link between
-a source, or sub-source, and its new user, using whatever mechanism they see
-fit.
+If the new user's registration event is signed by a cryptographic key it was
+using before the If the `signature` key from the `prev_user` key in the new
+user's registration event can be verified using a public cryptographic key that
+was already in the previous user's registration event's `sig_keys` key, then
+client implementations **must** consider the link between a source (or a
+sub-source) and its new user valid.
+
+If such a condition couldn't be met, client implementations are in charge of
+asserting the validity of a link between a source, or sub-source, and its new
+user, using whatever mechanism they see fit.
 
 {{% notice tip %}}
 A suggested way to assert the validity of this link would be for a client
