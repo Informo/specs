@@ -82,7 +82,7 @@ provide for this room.
 
 ### Reaching an entry node
 
-Because processing the list of aliases only list the nodes' server names, and
+Because processing the list of aliases gives only the nodes' server names, and
 not their FQDN, a node might not be reachable at the address defined by its
 server name. As an example, the Matrix specifications would allow a node living
 at `node.example.com` to register the alias `#example:example.com`.
