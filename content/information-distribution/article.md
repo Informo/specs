@@ -58,8 +58,11 @@ Additional information:
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f1c3ab5b1",
     "signed": {
-        "title": "Lorem ipsum",
-        "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        "sender": "@acmenews:example.com",
+        "content": {
+            "title": "Lorem ipsum",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
     }
 }
 ```
