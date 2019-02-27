@@ -35,6 +35,9 @@ Where:
 | `sender`           | `string`         |  x   | The matrix user ID of the sender.      |
 | `content`          | `object`         |  x   | The content of the event to be signed. |
 
+If the value of the `signed.sender` field does not match the original matrix
+event sender, the signed event **must** be considered as badly signed.
+
 <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption and key
 management -->
 
