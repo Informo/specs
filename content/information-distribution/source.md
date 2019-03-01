@@ -304,7 +304,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "54ab6f6f18d63ef1",
     "signed": {
-        "sender": "@acmenews:example.com",
+        "signatory": "@acmenews:example.com",
         "content": {
             "parent": "@acmenews:example.com",
             "prev_user": {
@@ -334,7 +334,7 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-        "sender": "@acmenews:example.com",
+        "signatory": "@acmenews:example.com",
         "content": {
             "parent": "@acmenews:example.com",
             "prev_user" : {
@@ -410,7 +410,7 @@ sources.
     "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-        "sender": "@acmenews:example.com",
+        "signatory": "@acmenews:example.com",
         "content": {
             "parent": "@acmenews:example.com",
             "website": "https://www.example.com/fr",

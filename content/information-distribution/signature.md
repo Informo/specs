@@ -32,11 +32,11 @@ Where:
 
 | Parameter          |       Type       | Req. |              Description               |
 |:-------------------|:-----------------|:----:|:---------------------------------------|
-| `sender`           | `string`         |  x   | The matrix user ID of the sender.      |
+| `signatory`        | `string`         |  x   | The matrix user ID of the sender.      |
 | `content`          | `object`         |  x   | The content of the event to be signed. |
 
-If the value of the `signed.sender` field does not match the original matrix
-event sender, the signed event **must** be considered as badly signed.
+If the value of the `signatory` field does not match the user ID sending the
+signed Matrix event, then the signature **must** be considered as invalid.
 
 <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption and key
 management -->
@@ -50,7 +50,7 @@ Example:
         "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
         "signature": "0a1df56f1c3ab5b1",
         "signed": {
-            "sender": "@acmenews:example.com",
+            "signatory": "@acmenews:example.com",
             "content": {
                 // Event signed JSON data
             }
