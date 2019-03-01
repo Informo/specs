@@ -30,10 +30,10 @@ Where:
 
 * `SignedObject` is a map using the following structure:
 
-| Parameter          |       Type       | Req. |              Description               |
-|:-------------------|:-----------------|:----:|:---------------------------------------|
-| `signatory`        | `string`         |  x   | The matrix user ID of the sender.      |
-| `content`          | `object`         |  x   | The content of the event to be signed. |
+| Parameter          |       Type       | Req. |                                               Description                                                |
+|:-------------------|:-----------------|:----:|:---------------------------------------------------------------------------------------------------------|
+| `signatory`        | `string`         |  x   | The matrix user ID of the sender. **Must** match the Matrix ID of the user that published the signature. |
+| `content`          | `object`         |  x   | The content of the event to be signed.                                                                   |
 
 If the value of the `signatory` field does not match the user ID sending the
 signed Matrix event, then the signature **must** be considered as invalid.
