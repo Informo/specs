@@ -141,22 +141,11 @@ of display **must** come from a manual operation from a user who has been
 informed on the migration.
 
 Once the binding between a source (or a sub-source) and its new user is
-considered valid, client implementations **must** consider both the source's (or
-sub-source's) new user and its previous one (and older ones if the source or
-sub-source changed its user more than once) as the same entity (i.e. as an
-entity defined by both its previous users' IDs and its new one). This means that
-articles published by the source's (or the sub-source's) previous user before
-the event defined in the `event_id` key **must** be treated as if it was
-published by the new user, and a reference to the source's previous user in a
-trust authority's list of trustworthy sources **must** be considered as a
-reference to the new user (with the exception of the cryptographic check on the
-source's registration, which is still done using the registration event
-published by the previous user, and the previous user's Matrix user ID).
-
-Client implementations **can** warn users reading articles published by a
-source's or a sub-source's previous user that this user isn't active anymore,
-and might get compromised at some point. This is the only exception to the equal
-treatment principle mentioned in the previous paragraph.
+considered valid, client implementations **must** display, as the timeline of
+publications from this source (or subsource), the articles published by the
+source's (or sub-source's) previous user up to the event which ID matches the
+`event_id` key from the `prev_user` map, then all articles published after the
+said event by the source's (or subsource's) new user.
 
 {{% notice tip %}}
 If a trust authority certifying the source or subsource that's changing its
