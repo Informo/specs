@@ -128,10 +128,9 @@ previous user's registration event's `sig_keys` key, then client implementations
 user valid.
 
 If such a condition couldn't be met, client implementations **must** wait until
-all of the TAs that were initially trusting the source's (or subsource's)
-previous user update their list of trusted sources with one including the
-source's (or subsource's) new user, before being able to take any automated
-action regarding the validity of the binding.
+all of the TAs that were initially trusting the source's previous user update
+their list of trusted sources with one including the source's new user, before
+being able to take any automated action regarding the validity of the binding.
 
 While waiting for such an update, client implementations **can** display an
 informative message to their user explaining the nature of the ongoing
