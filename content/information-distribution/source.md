@@ -135,19 +135,19 @@ being able to take any automated action regarding the validity of the binding.
 While waiting for such an update, client implementations **can** display an
 informative message to their user explaining the nature of the ongoing
 transition, and **can** offer them the possibility to display the source's (or
-subsource's) timeline as it would be if the update was already done. This switch
-of display **must** come from a manual operation from a user who has been
+sub-source's) timeline as it would be if the update was already done. This
+switch of display **must** come from a manual operation from a user who has been
 informed on the migration.
 
 Once the binding between a source (or a sub-source) and its new user is
 considered valid, client implementations **must** display, as the timeline of
-publications from this source (or subsource), the articles published by the
+publications from this source (or sub-source), the articles published by the
 source's (or sub-source's) previous user up to the event which ID matches the
 `event_id` key from the `prev_user` map, then all articles published after the
-said event by the source's (or subsource's) new user.
+said event by the source's (or sub-source's) new user.
 
 {{% notice tip %}}
-If a trust authority certifying the source or subsource that's changing its
+If a trust authority certifying the source or sub-source that's changing its
 Matrix user as trustworthy deems it necessary, it can also add the source's (or
 sub-source's) previous user to its blacklist, as documented [in the related
 section]({{< ref "/trust-management/trust-authority#blacklisting" >}}).
