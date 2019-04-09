@@ -63,7 +63,7 @@ Where:
 
 | Parameter       | Type     | Req. | Description                                                                                                                                                            |
 |:----------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `prev_user_id`  | `string` |  x   | Matrix user ID of the Matrix user this source previously used to publish information. **Must** match the `user_id` of the current `prevUser` map.                      |
+| `prev_user_id`  | `string` |  x   | Matrix user ID this source previously used to publish information. **Must** match the `user_id` of the current `prevUser` map.                      |
 | `prev_event_id` | `string` |  x   | ID of the latest event published by the source's original administrator using the source's previous user. **Must** match the `event_id` of the current `prevUser` map. |
 | `new_user_id`   | `string` |  x   | Matrix user ID of the Matrix user this source currently uses to publish information. **Must** match the ID of the new user in use by the source.                       |
 
