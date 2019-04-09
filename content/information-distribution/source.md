@@ -127,23 +127,18 @@ previous user's registration event's `sig_keys` key, then client implementations
 **should** consider the binding between a source (or a sub-source) and its new
 user valid.
 
-If such a condition couldn't be met, client implementations are in charge of
-asserting the validity of a binding between a source, or sub-source, and its new
-user, using whatever mechanism they see fit.
+If such a condition couldn't be met, client implementations **must** wait until
+all of the TAs that were initially trusting the source's (or subsource's)
+previous user update their list of trusted sources with one including the
+source's (or subsource's) new user, before being able to take any automated
+action regarding the validity of the binding.
 
-{{% notice tip %}}
-A suggested way to assert the validity of this binding would be for a client
-implementation to define a threshold for binding a source to its new user. This
-threshold is defined by the percentage of trust authorities certifying this
-source as trustworthy that updated their list of trusted sources to reference
-the new user, within the trust authorities trusted by the user. If a threshold
-is defined by a client implementation, it should consider the binding between a
-source and its new user as valid once that percentage becomes higher than the
-threshold. Such a threshold wouldn't be necessary for sub-sources, because a
-sub-source is only verified by its parent source, which then needs to update its
-list of sub-sources by removing the sub-source's previous user and adding the
-new one.
-{{% /notice %}}
+While waiting for such an update, client implementations **can** display an
+informative message to their user explaining the nature of the ongoing
+transition, and **can** offer them the possibility to display the source's (or
+subsource's) timeline as it would be if the update was already done. This switch
+of display **must** come from a manual operation from a user who has been
+informed on the migration.
 
 Once the binding between a source (or a sub-source) and its new user is
 considered valid, client implementations **must** consider both the source's (or
