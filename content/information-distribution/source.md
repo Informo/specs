@@ -107,8 +107,8 @@ key **must** be a map in which the `user_id` key's value is the source's or
 sub-source's previous user's, and the `event_id` key's value is the ID of the
 latest event emitted prior to the change.
 
-This key **must** be used by client implementations to link the previous user to
-the new one, considering both as the same entity. A missing `prev_user` key
+This key **must** be used by client implementations to binding the previous user
+to the new one, considering both as the same entity. A missing `prev_user` key
 simply means that the source or sub-source didn't previously use another Matrix
 account to publish information.
 
@@ -119,26 +119,25 @@ update their list of trusted entities by removing the previous user from it, and
 adding the new one to it. The signature associated with the new user **must** be
 generated from the new user's registration event.
 
-### Linking between a source and its new user
+### Binding between a source and its new user
 
-If the new user's registration event is signed by a cryptographic key it was
-using before the If the `signature` key from the `prev_user` key in the new
-user's registration event can be verified using a public cryptographic key that
-was already in the previous user's registration event's `sig_keys` key, then
-client implementations **must** consider the link between a source (or a
-sub-source) and its new user valid.
+If the `signature` key from the `prev_user` key in the new user's registration
+event can be verified using a public cryptographic key that was already in the
+previous user's registration event's `sig_keys` key, then client implementations
+**must** consider the binding between a source (or a sub-source) and its new user
+valid.
 
 If such a condition couldn't be met, client implementations are in charge of
-asserting the validity of a link between a source, or sub-source, and its new
+asserting the validity of a binding between a source, or sub-source, and its new
 user, using whatever mechanism they see fit.
 
 {{% notice tip %}}
-A suggested way to assert the validity of this link would be for a client
-implementation to define a threshold for linking a source to its new user. This
+A suggested way to assert the validity of this binding would be for a client
+implementation to define a threshold for binding a source to its new user. This
 threshold is defined by the percentage of trust authorities certifying this
 source as trustworthy that updated their list of trusted sources to reference
 the new user, within the trust authorities trusted by the user. If a threshold
-is defined by a client implementation, it should consider the link between a
+is defined by a client implementation, it should consider the binding between a
 source and its new user as valid once that percentage becomes higher than the
 threshold. Such a threshold wouldn't be necessary for sub-sources, because a
 sub-source is only verified by its parent source, which then needs to update its
@@ -146,8 +145,8 @@ list of sub-sources by removing the sub-source's previous user and adding the
 new one.
 {{% /notice %}}
 
-Once the link between a source (or a sub-source) and its new user is considered
-valid, client implementations **must** consider both the source's (or
+Once the binding between a source (or a sub-source) and its new user is
+considered valid, client implementations **must** consider both the source's (or
 sub-source's) new user and its previous one (and older ones if the source or
 sub-source changed its user more than once) as the same entity (i.e. as an
 entity defined by both its previous users' IDs and its new one). This means that
