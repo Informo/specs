@@ -58,7 +58,7 @@ If a source doesn't provide a logo, client implementations **can** use the
 [avatar](https://matrix.org/docs/spec/client_server/r0.4.0.html#get-matrix-client-r0-profile-userid-avatar-url)
 of its Matrix user instead.
 
-## Compromission of cryptographic private keys
+## Cryptographic private keys getting compromised
 
 Every trust authority certifying a source's trustworthiness **must** be operated
 by an organism or individual the source trusts and is in contact with outside of
