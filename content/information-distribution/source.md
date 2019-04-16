@@ -107,7 +107,7 @@ key **must** be a map in which the `user_id` key's value is the source's or
 sub-source's previous user's, and the `event_id` key's value is the ID of the
 latest event emitted prior to the change.
 
-This key **must** be used by client implementations to binding the previous user
+This key **must** be used by client implementations to bind the previous user
 to the new one, considering both as the same entity. A missing `prev_user` key
 simply means that the source or sub-source didn't previously use another Matrix
 account to publish information.
