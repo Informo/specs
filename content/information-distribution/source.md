@@ -125,7 +125,7 @@ If the `signature` key from the `prev_user` key in the new user's registration
 event can be verified using a public cryptographic key that was already in the
 previous user's registration event's `sig_keys` key, then client implementations
 **should** consider the binding between a source (or a sub-source) and its new
-user valid.
+user to be valid.
 
 If such a condition couldn't be met, client implementations **must** wait until
 all of the TAs that were initially trusting the source's previous user update
