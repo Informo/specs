@@ -302,13 +302,13 @@ not** include the compromised key.
 }
 ```
 
-## Compromission of cryptographic private keys
+## Cryptographic private keys getting compromised
 
 In the event of a trust authority having one or more of its cryptographic
 private keys compromised, it **must** get in touch with every trust authority
 certifying it as trustworthy and follow the same instructions as if it was a
 source ([described here]({{<relref
-"/information-distribution/source#compromission-of-cryptographic-private-keys">}})).
+"/information-distribution/source/#cryptographic-private-keys-getting-compromised">}})).
 Client implementations **must** also take the same considerations regarding
 articles published by the sources the TA certifies as trustworthy (either
 directly or indirectly) as described in that same section.
