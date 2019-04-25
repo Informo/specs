@@ -30,11 +30,11 @@ Where:
 |:----------------|:-----------------|:----:|:--------------------------------------------------------------------------------------------------------------|
 | `sender`        | `string`         |  x   | User who sent the event. **Must** match the Matrix user ID of who sent the event.                             |
 | `room_id`       | `string`         |  x   | Associated room ID. **Must** match the room ID where the event has been sent.                                 |
+| `state_key`     | `string`         |  !   | State key of the event. Required if the event is a state event.                                               |
 | `signatory`     | `string`         |      | The Matrix user ID who signed this data. If not present, defaults to the value defined in the `sender` field. |
 | `signatory_key` | `string`         |  x   | The public part of the key used for signing the event.                                                        |
 | `algorithm`     | `string`         |  x   | Algorithm used for signing the content.                                                                       |
 | `content`       | `object`         |  x   | The content of the event to be signed.                                                                        |
-| `state_key`     | `string`         |  !   | State key of the event. Required if the event is a state event.                                               |
 
 If the value of the `sender` field does not match the user ID sending the signed
 Matrix event, or if the `room_id` does not match the room where the event is
