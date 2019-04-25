@@ -300,11 +300,12 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 
 ```json
 {
-    "algorithm": "ed25519",
-    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "54ab6f6f18d63ef1",
     "signed": {
-        "signatory": "@acmenews:example.com",
+        "sender": "@acmenews:example.com",
+        "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "algorithm": "ed25519",
         "content": {
             "parent": "@acmenews:example.com",
             "prev_user": {
@@ -330,11 +331,12 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 
 ```json
 {
-    "algorithm": "ed25519",
-    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-        "signatory": "@acmenews:example.com",
+        "sender": "@acmenews:example.com",
+        "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "algorithm": "ed25519",
         "content": {
             "parent": "@acmenews:example.com",
             "prev_user" : {
@@ -406,11 +408,12 @@ sources.
 
 ```json
 {
-    "algorithm": "ed25519",
-    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-        "signatory": "@acmenews:example.com",
+        "sender": "@acmenews:example.com",
+        "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "algorithm": "ed25519",
         "content": {
             "parent": "@acmenews:example.com",
             "website": "https://www.example.com/fr",

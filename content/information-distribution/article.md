@@ -54,11 +54,12 @@ Additional information:
 
 ```json
 {
-    "algorithm": "ed25519",
-    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f1c3ab5b1",
     "signed": {
-        "signatory": "@acmenews:example.com",
+        "sender": "@acmenews:example.com",
+        "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "algorithm": "ed25519",
         "content": {
             "title": "Lorem ipsum",
             "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."

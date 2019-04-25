@@ -48,7 +48,7 @@ Example:
         "signature": "0a1df56f1c3ab5b1",
         "signed": {
             "sender": "@acmenews:example.com",
-            "room_id": "!LppXGlMuWgaYNuljUr:ecxample.com",
+            "room_id": "!LppXGlMuWgaYNuljUr:example.com",
             "signatory": "@acmenews:example.com", // can be omitted
             "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
             "algorithm": "ed25519",
