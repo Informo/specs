@@ -20,8 +20,7 @@ event **must** be provided using the following model:
 | `name`        | `localisedString` |  x   | Name of the source.                                                                                                                                                                                                  |
 | `owner`       | `localisedString` |  x   | The company or individual maintaining this source.                                                                                                                                                                   |
 | `l10n`        | `lang`            |  x   | Languages of the source's publications.                                                                                                                                                                              |
-| `sig_algo`    | `string`          |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                                                                                                             |
-| `sig_keys`    | `[string]`        |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                                                                                                           |
+| `sig_keys`    | `keys`            |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                                                                                                           |
 | `prev_user`   | `prevUser`        |      | Matrix user the source previously used to publish information. See [below]({{<ref "#change-of-matrix-user">}}) for additional information on how a source can change the Matrix user it uses to publish information. |
 | `website`     | `string`          |      | URL of the source's website, if there's one.                                                                                                                                                                         |
 | `description` | `localisedString` |      | Short description of the source and its publications.                                                                                                                                                                |
@@ -35,9 +34,9 @@ event **must** be provided using the following model:
 Where:
 
 <!--
-   The definition of `localisedString` here is the same as in
-   trust-authority.md. People changing it might want to also change it there (or
-   remove this warning).
+   The definitions of `localisedString` and `keys` here are the same as in
+   trust-authority.md. People changing either (or both) might want to also
+   change it there (or remove this warning).
 -->
 * `localisedString` is a map associating a [RFC
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
@@ -49,6 +48,8 @@ Where:
   publication of articles in this language (and variant). This map **must**
   contain at least one element. More information on localised sub-sources and
   examples are available [below]({{<ref "#localisation">}}).
+* `keys` is a map associating a public key to the algorithm used in order to
+  generate a signature with this key.
 * `prevUser` is a map using the following structure:
 
 | Parameter   | Type     | Req. | Description                                                                                                                                                                                                                                                                                                            |
