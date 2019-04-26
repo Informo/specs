@@ -1,8 +1,8 @@
 #!/bin/bash
 
-.circleci/scripts/check_open_scs.sh
-
 pr_number=`.circleci/scripts/pr_number.sh`
+
+.circleci/scripts/check_open_scs.sh
 
 if [ "$?" == "1" ]; then
     path_prefix="pr"
