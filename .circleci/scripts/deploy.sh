@@ -9,9 +9,11 @@ PR_NUMBER=`/tmp/workspace/scripts/pr_number.sh`
 
 /tmp/workspace/scripts/check_open_scs.sh $PR_NUMBER
 
-if [ "$?" == "0" ]; then
+ret=$?
+
+if [ "$ret" == "0" ]; then
 	deploy "scs" $PR_NUMBER
-elif [ "$?" == "1" ]; then
+elif [ "$ret" == "1" ]; then
 	deploy "pr" $PR_NUMBER
 else
 	echo "This is not an open SCS, aborting deployment"
