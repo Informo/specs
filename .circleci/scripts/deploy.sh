@@ -11,6 +11,8 @@ PR_NUMBER=`/tmp/workspace/scripts/pr_number.sh`
 
 ret=$?
 
+echo "check_open_scs.sh exited with code $ret"
+
 if [ "$ret" == "0" ]; then
 	deploy "scs" $PR_NUMBER
 elif [ "$ret" == "1" ]; then
