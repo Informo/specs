@@ -6,7 +6,7 @@ pr_number=`.circleci/scripts/pr_number.sh`
 
 ret=$?
 
-echo "script exited with code $ret"
+echo "check_open_scs.sh exited with code $ret"
 
 if [ "$ret" == "1" ]; then
     path_prefix="pr"

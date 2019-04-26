@@ -5,6 +5,7 @@
 # Exits with code:
 #   0: the number matches one of an open SCS
 #   1: the number matches a PR with the "deploy" label
+#   252: the number doesn't match an existing PR
 #   253: the number matches the one of a closed SCS
 #   254: the number doesn't match any existing pull request
 #   255: the given parameter isn't a number
@@ -22,7 +23,7 @@ fi
 labels=`curl --silent https://api.github.com/repos/Informo/specs/pulls/$PR_NUMBER | jq -r '.labels | .[] | .name' 2> /dev/null`
 
 if [ "$?" != "0" ]; then
-	exit 254
+	exit 252
 fi
 
 scs_type=""
