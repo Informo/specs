@@ -17,10 +17,10 @@ Informo signed events are built using a common structure, inspired from [Matrix
 `m.room.encrypted`
 events](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-encrypted):
 
-|    Field     |      Type      |     Description     |
-|--------------|----------------|---------------------|
-| `signature`  | `string`       | Generated signature |
-| `signed`     | `SignedObject` | Object to be signed |
+|    Field     |      Type      |                                                                 Description                                                                 |
+|--------------|----------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `signature`  | `string`       | Signature generated from `signed` using the private key from the same pair as the public key announced in `signed`'s `signatory_key` field. |
+| `signed`     | `SignedObject` | Object to be signed.                                                                                                                        |
 
 Where:
 
@@ -30,9 +30,10 @@ Where:
 |:----------------|:-----------------|:----:|:--------------------------------------------------------------------------------------------------------------|
 | `sender`        | `string`         |  x   | User who sent the event. **Must** match the Matrix user ID of who sent the event.                             |
 | `room_id`       | `string`         |  x   | Associated room ID. **Must** match the room ID where the event has been sent.                                 |
+| `type`          | `string`         |  x   | Type of the Matrix event.                                                                                     |
 | `state_key`     | `string`         |  !   | State key of the event. Required if the event is a state event.                                               |
 | `signatory`     | `string`         |      | The Matrix user ID who signed this data. If not present, defaults to the value defined in the `sender` field. |
-| `signatory_key` | `string`         |  x   | The public part of the key used for signing the event.                                                        |
+| `signatory_key` | `string`         |  x   | The public part of the key pair used for signing the event.                                                   |
 | `algorithm`     | `string`         |  x   | Algorithm used for signing the content.                                                                       |
 | `content`       | `object`         |  x   | The content of the event to be signed.                                                                        |
 
@@ -49,6 +50,7 @@ Example:
         "signed": {
             "sender": "@acmenews:example.com",
             "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+            "type": "network.informo.article",
             "signatory": "@acmenews:example.com", // can be omitted
             "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
             "algorithm": "ed25519",

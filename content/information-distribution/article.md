@@ -58,6 +58,7 @@ Additional information:
     "signed": {
         "sender": "@acmenews:example.com",
         "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "type": "network.informo.article",
         "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
         "algorithm": "ed25519",
         "content": {

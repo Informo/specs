@@ -304,7 +304,8 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "signed": {
         "sender": "@acmenews:example.com",
         "room_id": "!LppXGlMuWgaYNuljUr:example.com",
-        "state_key": "network.informo.subsource",
+        "type": "network.informo.subsource",
+        "state_key": "@acmenews:example.com",
         "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
         "algorithm": "ed25519",
         "content": {
@@ -336,7 +337,8 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
     "signed": {
         "sender": "@acmenews:example.com",
         "room_id": "!LppXGlMuWgaYNuljUr:example.com",
-        "state_key": "network.informo.subsource",
+        "type": "network.informo.subsource",
+        "state_key": "@acmenews:example.com",
         "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
         "algorithm": "ed25519",
         "content": {
@@ -414,7 +416,8 @@ sources.
     "signed": {
         "sender": "@acmenews:example.com",
         "room_id": "!LppXGlMuWgaYNuljUr:example.com",
-        "state_key": "network.informo.subsource",
+        "type": "network.informo.subsource",
+        "state_key": "@acmenews:example.com",
         "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
         "algorithm": "ed25519",
         "content": {
