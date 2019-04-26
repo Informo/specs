@@ -23,7 +23,7 @@ jobs:
           command: mkdir workspace
       - run:
           name: Build
-          command: hugo -v -b /scs/`.circleci/scripts/pr_number.sh`/ -d workspace/public
+          command: .circleci/scripts/build.sh
       - run:
           name: Save scripts for deploy
           command: cp -rv .circleci/scripts/ workspace/
