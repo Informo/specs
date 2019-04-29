@@ -38,7 +38,7 @@ Where:
 | `content`       | `object`         |  x   | The content of the event to be signed.                                                                                     |
 
 If the value of any field referring to a field of the original Matrix event
-doesn't match, then the signature must be considered as invalid.
+doesn't match, then the signature **must** be considered as invalid.
 
 Example:
 
