@@ -282,10 +282,9 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
         "en": "ACME News is the most amazing dummy news outlet."
     },
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
-    "sig_algo": "ed25519",
-    "sig_keys": [
-        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-    ],
+    "sig_keys": {
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
     "lang": {
         "en": "@acmenewsen:example.com",
         "fr": "@acmenewsfr:example.com"
@@ -317,10 +316,9 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
             },
             "website": "https://www.example.com/en",
             "description": "This is the English source for ACME News.",
-            "sig_algo": "ed25519",
-            "sig_keys": [
-                "Noh0oot2chahTheixeuviX6seidiweewahK/8mLeMjA"
-            ]
+            "sig_keys": {
+                "Noh0oot2chahTheixeuviX6seidiweewahK/8mLeMjA": "ed25519"
+            }
         }
     }
 }
@@ -350,10 +348,9 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
             },
             "website": "https://www.example.com/fr",
             "description": "Ceci est la source française d'ACME News.",
-            "sig_algo": "ed25519",
-            "sig_keys": [
-                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
-            ]
+            "sig_keys": {
+                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA": "ed25519"
+            }
         }
     }
 }
@@ -394,10 +391,9 @@ sources.
         "en": "ACME News is the most amazing dummy news outlet. This is also its English source."
     },
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
-    "sig_algo": "ed25519",
-    "sig_keys": [
-        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-    ],
+    "sig_keys": {
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
     "lang": {
         "en": "@acmenews:example.com",
         "fr": "@acmenewsfr:example.com"
@@ -425,10 +421,9 @@ sources.
             "parent": "@acmenews:example.com",
             "website": "https://www.example.com/fr",
             "description": "Ceci est la source française d'ACME News.",
-            "sig_algo": "ed25519",
-            "sig_keys": [
-                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
-            ]   
+            "sig_keys": {
+                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA": "ed25519"
+            }
         }
     }
 }

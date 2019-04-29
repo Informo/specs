@@ -161,10 +161,9 @@ Where:
         "en": "Some NGO",
         "fr": "Une ONG"
     },
-    "sig_algo": "ed25519",
-    "sig_keys": [
-        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-    ],
+    "sig_keys": {
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
     "website": "https://www.somengo.org",
     "description": {
         "en": "We do activism for freedom of the press.",
