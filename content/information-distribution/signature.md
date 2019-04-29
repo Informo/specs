@@ -26,20 +26,19 @@ Where:
 
 * `SignedObject` is a map using the following structure:
 
-| Parameter       |       Type       | Req. |                                                  Description                                                  |
-|:----------------|:-----------------|:----:|:--------------------------------------------------------------------------------------------------------------|
-| `sender`        | `string`         |  x   | User who sent the event. **Must** match the Matrix user ID of who sent the event.                             |
-| `room_id`       | `string`         |  x   | Associated room ID. **Must** match the room ID where the event has been sent.                                 |
-| `type`          | `string`         |  x   | Type of the Matrix event.                                                                                     |
-| `state_key`     | `string`         |  !   | State key of the event. Required if the event is a state event.                                               |
-| `signatory`     | `string`         |      | The Matrix user ID who signed this data. If not present, defaults to the value defined in the `sender` field. |
-| `signatory_key` | `string`         |  x   | The public part of the key pair used for signing the event.                                                   |
-| `algorithm`     | `string`         |  x   | Algorithm used for signing the content.                                                                       |
-| `content`       | `object`         |  x   | The content of the event to be signed.                                                                        |
+| Parameter       |       Type       | Req. |                                                        Description                                                         |
+|:----------------|:-----------------|:----:|:---------------------------------------------------------------------------------------------------------------------------|
+| `sender`        | `string`         |  x   | User who sent the event. **Must** match the `sender` field of the original Matrix Event.                                   |
+| `room_id`       | `string`         |  x   | Associated room ID. **Must** match the `room_id` field of the original Matrix Event.                                       |
+| `type`          | `string`         |  x   | Type of the Matrix event. **Must** match `type` field of the original Matrix Event.                                        |
+| `state_key`     | `string`         |  !   | State key of the event. **Must** match the `state_key` field of the original Matrix Event. Only required for state events. |
+| `signatory`     | `string`         |      | The Matrix user ID who signed this data. If not present, defaults to the value defined in the `sender` field.              |
+| `signatory_key` | `string`         |  x   | The public part of the key pair used for signing the event.                                                                |
+| `algorithm`     | `string`         |  x   | Algorithm used for signing the content.                                                                                    |
+| `content`       | `object`         |  x   | The content of the event to be signed.                                                                                     |
 
-If the value of the `sender` field does not match the user ID sending the signed
-Matrix event, or if the `room_id` does not match the room where the event is
-sent, then the signature **must** be considered as invalid.
+If the value of any field referring to a field of the original Matrix event
+doesn't match, then the signature must be considered as invalid.
 
 Example:
 
