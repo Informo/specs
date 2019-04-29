@@ -301,21 +301,27 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 
 ```json
 {
-    "algorithm": "ed25519",
-    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "54ab6f6f18d63ef1",
     "signed": {
-        "parent": "@acmenews:example.com",
-        "prev_user": {
-            "user_id": "@acmenewsen:badserver.com",
-            "event_id": "!someEnglishArticle:badserver.com",
-        },
-        "website": "https://www.example.com/en",
-        "description": "This is the English source for ACME News.",
-        "sig_algo": "ed25519",
-        "sig_keys": [
-            "Noh0oot2chahTheixeuviX6seidiweewahK/8mLeMjA"
-        ]
+        "sender": "@acmenews:example.com",
+        "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "type": "network.informo.subsource",
+        "state_key": "@acmenews:example.com",
+        "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "algorithm": "ed25519",
+        "content": {
+            "parent": "@acmenews:example.com",
+            "prev_user": {
+                "user_id": "@acmenewsen:badserver.com",
+                "event_id": "!someEnglishArticle:badserver.com",
+            },
+            "website": "https://www.example.com/en",
+            "description": "This is the English source for ACME News.",
+            "sig_algo": "ed25519",
+            "sig_keys": [
+                "Noh0oot2chahTheixeuviX6seidiweewahK/8mLeMjA"
+            ]
+        }
     }
 }
 ```
@@ -328,21 +334,27 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
 
 ```json
 {
-    "algorithm": "ed25519",
-    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-        "parent": "@acmenews:example.com",
-        "prev_user" : {
-            "user_id": "@acmenewsfr:badserver.com",
-            "event_id": "!someFrenchArticle:badserver.com",
-        },
-        "website": "https://www.example.com/fr",
-        "description": "Ceci est la source française d'ACME News.",
-        "sig_algo": "ed25519",
-        "sig_keys": [
-            "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
-        ]
+        "sender": "@acmenews:example.com",
+        "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "type": "network.informo.subsource",
+        "state_key": "@acmenews:example.com",
+        "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "algorithm": "ed25519",
+        "content": {
+            "parent": "@acmenews:example.com",
+            "prev_user" : {
+                "user_id": "@acmenewsfr:badserver.com",
+                "event_id": "!someFrenchArticle:badserver.com",
+            },
+            "website": "https://www.example.com/fr",
+            "description": "Ceci est la source française d'ACME News.",
+            "sig_algo": "ed25519",
+            "sig_keys": [
+                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
+            ]
+        }
     }
 }
 ```
@@ -401,17 +413,23 @@ sources.
 
 ```json
 {
-    "algorithm": "ed25519",
-    "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
     "signature": "0a1df56f18d63ef1",
     "signed": {
-        "parent": "@acmenews:example.com",
-        "website": "https://www.example.com/fr",
-        "description": "Ceci est la source française d'ACME News.",
-        "sig_algo": "ed25519",
-        "sig_keys": [
-            "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
-        ]
+        "sender": "@acmenews:example.com",
+        "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+        "type": "network.informo.subsource",
+        "state_key": "@acmenews:example.com",
+        "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+        "algorithm": "ed25519",
+        "content": {
+            "parent": "@acmenews:example.com",
+            "website": "https://www.example.com/fr",
+            "description": "Ceci est la source française d'ACME News.",
+            "sig_algo": "ed25519",
+            "sig_keys": [
+                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
+            ]   
+        }
     }
 }
 ```
