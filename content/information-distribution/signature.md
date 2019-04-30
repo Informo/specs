@@ -17,28 +17,45 @@ Informo signed events are built using a common structure, inspired from [Matrix
 `m.room.encrypted`
 events](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-encrypted):
 
-|    Field     |   Type   |                                    Description                                    |
-| ------------ | -------- | --------------------------------------------------------------------------------- |
-| `algorithm`  | `string` | Algorithm used for signing the content. 🔧 Define allowed algorithms               |
-| `sender_key` | `string` | The public part of the key used for signing the event                             |
-| `device_id`  | `string` | 🔧 Optional, ID of the sending device, may be used for Megolm                      |
-| `session_id` | `string` | 🔧 Optional, ID of the session used to encrypt the message, may be used for Megolm |
-| `signature`  | `string` | Generated signature                                                               |
-| `signed`     | `object` | Content that has been signed                                                      |
+|    Field     |      Type      |                                                                 Description                                                                 |
+|--------------|----------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `signature`  | `string`       | Signature generated from `signed` using the private key from the same pair as the public key announced in `signed`'s `signatory_key` field. |
+| `signed`     | `SignedObject` | Object to be signed.                                                                                                                        |
 
-<!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption and key
-management -->
+Where:
+
+* `SignedObject` is a map using the following structure:
+
+| Parameter       |       Type       | Req. |                                                        Description                                                         |
+|:----------------|:-----------------|:----:|:---------------------------------------------------------------------------------------------------------------------------|
+| `sender`        | `string`         |  x   | User who sent the event. **Must** match the `sender` field of the original Matrix Event.                                   |
+| `room_id`       | `string`         |  x   | Associated room ID. **Must** match the `room_id` field of the original Matrix Event.                                       |
+| `type`          | `string`         |  x   | Type of the Matrix event. **Must** match `type` field of the original Matrix Event.                                        |
+| `state_key`     | `string`         |  !   | State key of the event. **Must** match the `state_key` field of the original Matrix Event. Only required for state events. |
+| `signatory`     | `string`         |      | The Matrix user ID who signed this data. If not present, defaults to the value defined in the `sender` field.              |
+| `signatory_key` | `string`         |  x   | The public part of the key pair used for signing the event.                                                                |
+| `algorithm`     | `string`         |  x   | Algorithm used for signing the content.                                                                                    |
+| `content`       | `object`         |  x   | The content of the event to be signed.                                                                                     |
+
+If the value of any field referring to a field of the original Matrix event
+doesn't match, then the signature **must** be considered as invalid.
 
 Example:
 
 ```json
 {
     "content": {
-        "algorithm": "ed25519",
-        "sender_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
         "signature": "0a1df56f1c3ab5b1",
         "signed": {
-            // Event signed JSON data
+            "sender": "@acmenews:example.com",
+            "room_id": "!LppXGlMuWgaYNuljUr:example.com",
+            "type": "network.informo.article",
+            "signatory": "@acmenews:example.com", // can be omitted
+            "signatory_key": "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA",
+            "algorithm": "ed25519",
+            "content": {
+                // Event signed JSON data
+            }
         }
     }
 }
