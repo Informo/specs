@@ -13,6 +13,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: .circleci/scripts/install_deps.sh
+      - run:
           name: Submodules init
           command: git submodule init
       - run:
@@ -23,7 +26,7 @@ jobs:
           command: mkdir workspace
       - run:
           name: Build
-          command: hugo -v -b /scs/`.circleci/scripts/pr_number.sh`/ -d workspace/public
+          command: .circleci/scripts/build.sh
       - run:
           name: Save scripts for deploy
           command: cp -rv .circleci/scripts/ workspace/
