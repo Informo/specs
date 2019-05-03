@@ -20,8 +20,7 @@ event **must** be provided using the following model:
 | `name`        | `localisedString` |  x   | Name of the source.                                                                                                                                                                                                  |
 | `owner`       | `localisedString` |  x   | The company or individual maintaining this source.                                                                                                                                                                   |
 | `l10n`        | `lang`            |  x   | Languages of the source's publications.                                                                                                                                                                              |
-| `sig_algo`    | `string`          |  x   | Algorithm the source will use to cryptographically sign its articles. 🔧                                                                                                                                             |
-| `sig_keys`    | `[string]`        |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                                                                                                           |
+| `sig_keys`    | `keys`            |  x   | Public keys the source will use to cryptographically sign its articles. 🔧                                                                                                                                           |
 | `prev_user`   | `prevUser`        |      | Matrix user the source previously used to publish information. See [below]({{<ref "#change-of-matrix-user">}}) for additional information on how a source can change the Matrix user it uses to publish information. |
 | `website`     | `string`          |      | URL of the source's website, if there's one.                                                                                                                                                                         |
 | `description` | `localisedString` |      | Short description of the source and its publications.                                                                                                                                                                |
@@ -35,9 +34,9 @@ event **must** be provided using the following model:
 Where:
 
 <!--
-   The definition of `localisedString` here is the same as in
-   trust-authority.md. People changing it might want to also change it there (or
-   remove this warning).
+   The definitions of `localisedString` and `keys` here are the same as in
+   trust-authority.md. People changing either (or both) might want to also
+   change it there (or remove this warning).
 -->
 * `localisedString` is a map associating a [RFC
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
@@ -49,6 +48,8 @@ Where:
   publication of articles in this language (and variant). This map **must**
   contain at least one element. More information on localised sub-sources and
   examples are available [below]({{<ref "#localisation">}}).
+* `keys` is a map associating a public key to the algorithm used in order to
+  generate a signature with this key.
 * `prevUser` is a map using the following structure:
 
 | Parameter   | Type     | Req. | Description                                                                                                                                                                                                                                                                                                            |
@@ -176,7 +177,7 @@ model:
 |:--------------|:-----------|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `parent`      | `string`   |  x   | Matrix user ID of the sub-source's parent.                                                                                                                                                                               |
 | `sig_algo`    | `string`   |  x   | Algorithm the sub-source will use to cryptographically sign its articles. 🔧                                                                                                                                             |
-| `sig_keys`    | `[string]` |  x   | Public keys the sub-source will use to cryptographically sign its articles. 🔧                                                                                                                                           |
+| `sig_keys`    | `keys`     |  x   | Public keys the sub-source will use to cryptographically sign its articles. 🔧                                                                                                                                           |
 | `prev_user`   | `prevUser` |      | Matrix user the sub-source previously used to publish information. See [above]({{<ref "#change-of-matrix-user">}}) for additional information on how a source can change the Matrix user it uses to publish information. |
 | `website`     | `string`   |      | URL of the source's website in this language, if there's one.                                                                                                                                                            |
 | `description` | `string`   |      | Short localised description of the source and its publications.                                                                                                                                                          |
@@ -281,10 +282,9 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
         "en": "ACME News is the most amazing dummy news outlet."
     },
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
-    "sig_algo": "ed25519",
-    "sig_keys": [
-        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-    ],
+    "sig_keys": {
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
     "lang": {
         "en": "@acmenewsen:example.com",
         "fr": "@acmenewsfr:example.com"
@@ -316,10 +316,9 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
             },
             "website": "https://www.example.com/en",
             "description": "This is the English source for ACME News.",
-            "sig_algo": "ed25519",
-            "sig_keys": [
-                "Noh0oot2chahTheixeuviX6seidiweewahK/8mLeMjA"
-            ]
+            "sig_keys": {
+                "Noh0oot2chahTheixeuviX6seidiweewahK/8mLeMjA": "ed25519"
+            }
         }
     }
 }
@@ -349,10 +348,9 @@ Matrix](https://matrix.org/docs/projects/try-matrix-now.html#client-sdks).
             },
             "website": "https://www.example.com/fr",
             "description": "Ceci est la source française d'ACME News.",
-            "sig_algo": "ed25519",
-            "sig_keys": [
-                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
-            ]
+            "sig_keys": {
+                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA": "ed25519"
+            }
         }
     }
 }
@@ -393,10 +391,9 @@ sources.
         "en": "ACME News is the most amazing dummy news outlet. This is also its English source."
     },
     "logo": "mxc://weu.informo.network/AtEuTuVSeIlZQgjEzjGyMDtG",
-    "sig_algo": "ed25519",
-    "sig_keys": [
-        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-    ],
+    "sig_keys": {
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
     "lang": {
         "en": "@acmenews:example.com",
         "fr": "@acmenewsfr:example.com"
@@ -424,10 +421,9 @@ sources.
             "parent": "@acmenews:example.com",
             "website": "https://www.example.com/fr",
             "description": "Ceci est la source française d'ACME News.",
-            "sig_algo": "ed25519",
-            "sig_keys": [
-                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA"
-            ]   
+            "sig_keys": {
+                "xee1PahM1jutohz2jiec1keeshoW0GooVei/8mLeMjA": "ed25519"
+            }
         }
     }
 }

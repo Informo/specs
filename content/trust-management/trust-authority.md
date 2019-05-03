@@ -59,8 +59,7 @@ the updated list of keys into account.
 | Parameter     | Type               | Req. | Description                                                                                                                                  |
 |:--------------|:-------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------|
 | `name`        | `localisedString`  |  x   | Name of the trust authority.                                                                                                                 |
-| `sig_algo`    | `string`           |  x   | Algorithm the trust authority will use to generate cryptographic signatures. 🔧                                                              |
-| `sig_keys`    | `[string]`         |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                            |
+| `sig_keys`    | `keys`             |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                            |
 | `website`     | `string`           |      | URL of the trust authority's website, if there's one.                                                                                        |
 | `description` | `localisedString`  |      | Short description of the trust authority and its publications.                                                                               |
 | `logo`        | `string`           |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
@@ -75,14 +74,16 @@ and key management -->
 Where:
 
 <!--
-   The definition of `localisedString` here is the same as in source.md.
-   People changing it might want to also change it there (or remove this
-   warning).
+   The definitions of `localisedString` and `keys` here are the same as in
+   trust-authority.md. People changing either (or both) might want to also
+   change it there (or remove this warning).
 -->
 * `localisedString` is a map associating a [RFC
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
   identifier to a localisation of the string in the language the identifier
   refers to.
+* `keys` is a map associating a public key to the algorithm used in order to
+  generate a signature with this key.
 * `trustedEntities` is a map using the following structure:
 
 | Parameter           | Type             | Req. | Description                     |
@@ -160,10 +161,9 @@ Where:
         "en": "Some NGO",
         "fr": "Une ONG"
     },
-    "sig_algo": "ed25519",
-    "sig_keys": [
-        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA"
-    ],
+    "sig_keys": {
+        "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
     "website": "https://www.somengo.org",
     "description": {
         "en": "We do activism for freedom of the press.",
