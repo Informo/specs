@@ -4,9 +4,7 @@ weight: 2
 ---
 
 A source is an entity holding the responsibility of publishing information
-through the Matrix room. Each source **must** be a registered Matrix user, and a
-Matrix user **must not** register more than one source, which means there is a
-one to one correspondence between a source and its Matrix user.
+through the Matrix room.
 
 A source **must** register itself as such on the room. This **must** be done
 through the publication of a `network.informo.source` state event. The event's

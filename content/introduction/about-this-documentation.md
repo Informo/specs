@@ -11,13 +11,12 @@ License](https://www.gnu.org/licenses/fdl-1.3.html).
 {{% notice info %}}
 Please note that, because Informo is built around [Matrix](https://matrix.org),
 it relies on some of its core features, such as rooms, room state, events, etc..
-However, even though this documentation includes a few Matrix-specific
-examples and references to Matrix-specific features for the sake of clarity, it
-does not include enough information on how Matrix actually works to offer a
-complete technical overview of the whole system. It is therefore recommended to
-consider it as a plug-in to the existing [Matrix
-specifications](https://matrix.org/docs/spec/) rather than an independent
-document.
+However, even though this documentation includes a few Matrix-specific examples
+and references to Matrix features for the sake of clarity, it does not include
+enough information on how Matrix actually works to offer a complete technical
+overview of the whole system. It is therefore recommended to consider it as a
+plug-in to the existing [Matrix specifications](https://matrix.org/docs/spec/)
+rather than an independent documentation.
 {{% /notice %}}
 
 ## Key words
@@ -35,43 +34,22 @@ font style (e.g. "**must**"), and are listed below along with their meaning:
 
 ## Emoji markers
 
-Some parts of this documentation are marked with an emoji, indicating a special
-status that will require the attention of an Informo core team member or
+Some parts of this documentation may be marked with an emoji, indicating a
+special status that will require the attention of an Informo core team member or
 specifications contributor in the future. They are mostly there to remind the
 relevant people of works in progress, and informing readers that the said people
 know there's work to do here (so there's no need to open a ticket about it).
-These are:
+There shouldn't be any of these markers in a stable release of this
+documentation. These markers are:
 
 * 🔧 (`:wrench:`) This part of the documentation is incomplete and must be
-completed before a milestone can be reached.
+  completed before a milestone can be reached.
 * 📝 (`:memo:`) This is a reference to a non existing resource that must be
-added in the future.
+  added in the future.
 * 👀 (`:eyes:`) The author of this part of the documentation is aware that,
-although they believe the information given here to be correct, they might not
-get the full picture, therefore give incomplete or incorrect information, and
-wishes to encourage discussions around this point (TL;DR: "imho, please
-correct if wrong").
-* 🕐 (`:clock1:`) This part of the documentation is only here temporarily for
-clarity purposes, and will be removed in a fixed point in the future.
-* 2️⃣ (`:two:`) This part of the documentation is incomplete, however the rest
-of it is to be added only during phase 2 of the specifications' development.
-
-## Specifications development 🕐
-
-This part will be removed once a complete version of this documentation has been
-reached.
-
-The Informo specifications' development takes place in two phases:
-
-* **phase 1** is building the overall documentation architecture. It focuses on
-getting the general outlines of the project written down, with the aim of
-getting it out as soon as possible so people can have a less vague idea of
-what Informo is about. This phase is now complete.
-* **phase 2** is adding in-depth documentation about Informo's inner mechanisms.
-It focuses on writing down the technical details of Informo, with the aim of
-enabling a future client implementation built from it.
-
-While phase 1 was done by the Informo core team, everyone is welcome to get
-involved in phase 2 and further, either by submitting changes or taking part in
-the discussions taking place in the discussion channels mentioned at the top of
-this page.
+  although they believe the information given here to be correct, they might not
+  get the full picture, therefore give incomplete or incorrect information, and
+  wishes to encourage discussions around this point.
+* 🕐 (`:clock1:`) This part of the documentation is only here temporarily to
+  provide some clarity on the state of the whole documentation, and will be
+  removed in a fixed point in the future.

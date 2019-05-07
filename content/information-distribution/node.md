@@ -10,14 +10,13 @@ specification](https://matrix.org/docs/spec/client_server/r0.4.0.html) and the
 [federation
 specification](https://matrix.org/docs/spec/server_server/r0.1.1.html) of the
 [Matrix protocol](https://matrix.org), and connected to one or more federations
-(i.e. Matrix rooms) which states and messages implements the Informo
+(i.e. Matrix rooms) which states and messages implement the Informo
 specifications.
 
 This page describes the behaviour nodes **must** implement in addition to the
 Matrix protocol specifications. From a technical point of view, this behaviour
-can be implemented either by embedding it in the piece of software implementing
-the Matrix specifications, or by using external tools that interact with the
-said piece of software.
+can be implemented either by embedding it in the Matrix server implementation,
+or by using external tools that interact with the said implementation.
 
 ## Ping
 
@@ -44,7 +43,8 @@ This ping **must** take the form of a Matrix timeline event of the
 
 An entry node is a node that allows client implementations to connect to the
 federations this node is in, and retrieve information from them. An entry node
-**must** allow guest access, and **must** define at least one
+**must** allow guest access, **must** have at least one user in each federation
+it's in, and **must** define at least one
 [alias](https://matrix.org/docs/spec/client_server/r0.4.0.html#room-aliases) to
 the Matrix room.
 
