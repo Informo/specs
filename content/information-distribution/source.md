@@ -218,7 +218,7 @@ would look like this:
 
 {{% notice tip %}}
 In this example, `en-US`, `en-GB`, etc. can be used instead of `en` if the
-source wants to explicitely specify language variants.
+source wants to explicitly specify language variants.
 {{% /notice %}}
 
 ## Client implementations behaviours regarding sources
