@@ -44,8 +44,7 @@ This ping **must** take the form of a Matrix timeline event of the
 
 An entry node is a node that allows client implementations to connect to the
 federations this node is in, and retrieve information from them. An entry node
-**must** allow guest access and **must** have at least one user in every
-federation they want to give users access to.
+**must** allow guest access.
 
 On top of that, an entry node **must** expose a file at the address
 `https://SERVER_NAME/.well-known/informo/info` which content is a map in the
