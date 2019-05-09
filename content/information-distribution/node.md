@@ -97,7 +97,7 @@ Matrix users belonging to a given node in a federation. The thinking behind this
 is that a node with many users in a federation is more likely to be an entry
 node for this federation than a node with only a few users in it.
 
-Client implementations **should** also weight this list accordint to the number
+Client implementations **should** also weight this list according to the number
 of trusted [TAs]({{<ref "/trust-management/trust-authority">}}) that trust a
 given node. A node that's trusted by a TA **should** weight more than a node
 trusted by no TA but has many users. Since TAs are expected to keep their
