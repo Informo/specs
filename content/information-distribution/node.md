@@ -105,7 +105,7 @@ registration state event up to date, the former's administrators are less likely
 to have changed their minds and not act as an entry node anymore than the
 latter.
 
-Client implementations **must not** try to fetch the `.well-known/informo/info`
+Client implementations **must not** try to fetch the `/.well-known/informo/info`
 file of each node once it has computed this list, because this would be harmful
 to its users' privacy.
 
