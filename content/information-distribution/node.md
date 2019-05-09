@@ -156,9 +156,15 @@ request](https://matrix.org/docs/spec/client_server/r0.4.0.html#post-matrix-clie
 to the selected node using the federation's room ID.
 
 In order to optimise the likelihood of success of the join request, client
-implementations **should** provide at least 3 nodes to join the federation
-through using `server_name` query parameters. Client implementations don't need
-to make sure that these nodes are entry nodes in this case.
+implementations **should** provide server names for at least additional 3 nodes
+when performing the join request using `server_name` query parameters. This will
+ensure that, if the node doesn't already have at least one user in the
+federation, it can fall back by asking another node (either of the 3 or more
+provided) which does to [help it
+join](https://matrix.org/docs/spec/server_server/r0.1.1.html#get-matrix-federation-v1-make-join-roomid-userid).
+These nodes are used only by the entry node, and only during this interaction,
+therefore client implementations don't need to make sure that these nodes are
+entry nodes in this case.
 
 While connected to a node, client implementations **should** keep track of
 received pings in order to better filter out inactive nodes when the entry node
