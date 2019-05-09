@@ -145,7 +145,8 @@ that the node can be used as an entry node for the given federation, then client
 implementations **must** give up and try another node.
 
 Client implementations **should** store the result of the attempt at retrieving
-the `/.well-kown/informo/info` file of a node in a cache.
+the `/.well-kown/informo/info` file of a node in a cache with a time-based
+invalidation policy.
 
 Once both an entry node and a room ID have been selected as the one to use in
 order to join a federation, whether this selection originated from an explicit
