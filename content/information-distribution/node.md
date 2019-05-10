@@ -93,17 +93,8 @@ implementations **must** save this list in case the node they're currently using
 becomes unreachable.
 
 Client implementations **should** weight this list according to the number of
-Matrix users belonging to a given node in a federation. The thinking behind this
-is that a node with many users in a federation is more likely to be an entry
-node for this federation than a node with only a few users in it.
-
-Client implementations **should** also weight this list according to the number
-of trusted [TAs]({{<ref "/trust-management/trust-authority">}}) that trust a
-given node. A node that's trusted by a TA **should** weight more than a node
-trusted by no TA but has many users. Since TAs are expected to keep their
-registration state event up to date, the former's administrators are less likely
-to have changed their minds and not act as an entry node anymore than the
-latter.
+trusted [TAs]({{<ref "/trust-management/trust-authority">}}) that trust a given
+node.
 
 Client implementations **must not** try to fetch the `/.well-known/informo/info`
 file of each node once it has computed this list, because this would be harmful
