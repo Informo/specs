@@ -55,7 +55,11 @@ following structure:
 |:-------------|:-------|:----:|:--------------------------------------------------------------|
 | `entry_node` | `bool` |  x   | Whether the node is an entry node for this federation (room). |
 
-### Example
+One entry of this map **can** be the wildcard value "`*`" instead of a Matrix
+room ID, in which case it means its content apply to every federation with the
+exception of any federation mentioned as a key in the map.
+
+### Simple example
 
 Let's consider a node that has `example.com` as its server name, and wants to
 act as an entry node for the federation which Matrix room ID is
@@ -68,6 +72,26 @@ This node **must** serve a file at the address
 {
     "!Nei7aeg5aefub:informo.network": {
         "entry_node": true
+    }
+}
+```
+
+### Blacklist example
+
+Let's consider the a node that has `example.com` as its server name and wants to
+act as an entry node to any federation except for the one which Matrix room ID
+is `!Nei7aeg5aefub:informo.network`.
+
+This node **must** serve a file at the address
+`https://example.com/.well-known/informo/info` with the following content:
+
+```
+{
+    "*": {
+        "entry_node": true
+    },
+    "!Nei7aeg5aefub:informo.network": {
+        "entry_node": false
     }
 }
 ```
