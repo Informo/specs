@@ -126,12 +126,12 @@ to its users' privacy.
 
 #### Reaching an entry node
 
-Because a list of entry nodes only contains the nodes' server names, and not
-their host names, a node might not be reachable at the address defined by its
-server name. As an example, the Matrix specifications would allow a node living
-at `node.example.com` to use Matrix identifiers ending with `:example.com`.
+A list of entry nodes only contains the nodes' server names, and not their
+address and port, which can differ. As an example, the Matrix specifications
+would allow a node living at `node.example.com` to use Matrix identifiers ending
+with `:example.com`.
 
-In order to find the effective host name and port to reach a node at, client
+In order to find the effective address and port to reach a node at, client
 implementations **must** implement the server discovery through `.well-known`
 URI logic, as [described in the Matrix
 specifications](https://matrix.org/docs/spec/client_server/r0.4.0.html#server-discovery).
@@ -139,7 +139,8 @@ specifications](https://matrix.org/docs/spec/client_server/r0.4.0.html#server-di
 {{% notice note %}}
 If the server discovery leads to a final `IGNORE` instruction (as specified in
 the link above), then client implementations **must** use the node's server name
-as the host name the node can be reached at.
+as the address and port the node can be reached at, using the `443` port as a
+default value.
 {{% /notice %}}
 
 In the event of an entry node that's currently being used becoming unreachable,
