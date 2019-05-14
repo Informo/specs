@@ -155,9 +155,13 @@ federation to join.
 
 When reaching a node in order to join a federation, client implementations
 **must** try to retrieve the `/.well-kown/informo/info` file of the node (while
-following 30x redirects). If the file doesn't exist, or doesn't explicitly state
-that the node can be used as an entry node for the given federation, then client
-implementations **must** give up and try another node.
+following 30x redirects). If the file doesn't exist, or doesn't state that the
+node can be used as an entry node for the given federation, then client
+implementations **must** give up and try another node. While trying to use this
+node as an entry node anyway can be technically working, this rule exists in
+order to avoid node administrators possible legal issues resulting from people
+using a node to access specific types of contents against its administrator's
+will.
 
 Client implementations **should** store the result of the attempt at retrieving
 the `/.well-kown/informo/info` file of a node in a cache with a time-based
