@@ -55,15 +55,20 @@ following structure:
 |:-------------|:-------|:----:|:--------------------------------------------------------------|
 | `entry_node` | `bool` |  x   | Whether the node is an entry node for this federation (room). |
 
-One entry of this map **can** be the wildcard value "`*`" instead of a Matrix room ID, in which case it means its content defines default values for the parameters it contains.
+One entry of this map **can** be the wildcard value "`*`" instead of a Matrix
+room ID, in which case it means its content defines default values for the
+parameters it contains.
 
-If the file lacks a wildcard entry, or the wildcard entry's content lacks one or more parameter(s), the following default values **must** be used for the missing parameter(s):
+If the file lacks a wildcard entry, or the wildcard entry's content lacks one or
+more parameter(s), the following default values **must** be used for the missing
+parameter(s):
 
 | Parameter    | Default value |
 |:-------------|:--------------|
 | `entry_node` | `false`       |
 
-If an entry exists for a federation and its content define different values for any parameters, these values **must** be used for this federation.
+If an entry exists for a federation and its content define different values for
+any parameters, these values **must** be used for this federation.
 
 ### Simple example
 
