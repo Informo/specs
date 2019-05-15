@@ -43,8 +43,7 @@ This ping **must** take the form of a Matrix timeline event of the
 
 An entry node is a node that allows client implementations to connect to the
 federations this node is in, and retrieve information from them. An entry node
-**must** allow guest access, **must** have at least one user in each federation
-it's in, and **must** define at least one
+**must** allow guest access, and **must** define at least one
 [alias](https://matrix.org/docs/spec/client_server/r0.4.0.html#room-aliases) to
 the Matrix room.
 
