@@ -21,9 +21,9 @@ and retrieve information from it.
 #### Federation
 
 A federation is a set of nodes that are able to communicate with each other,
-similar to a mesh network. In this specifications, Matrix rooms are most of the
-time referred to as federations, as they can be broadly considered as
-federations with state machines.
+similar to a mesh network. In this specifications, Matrix rooms are considered
+federations, as they can be broadly considered as federations with state
+machines. A federation is identified by a Matrix room ID.
 
 #### Node
 

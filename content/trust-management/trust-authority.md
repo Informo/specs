@@ -58,10 +58,10 @@ the updated list of keys into account.
 
 | Parameter     | Type               | Req. | Description                                                                                                                                  |
 |:--------------|:-------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`        | `localisedString`  |  x   | Name of the trust authority.                                                                                                                 |
-| `sig_keys`    | `keys`             |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                            |
+| `name`        | `LocalisedString`  |  x   | Name of the trust authority.                                                                                                                 |
+| `sig_keys`    | `Keys`             |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                            |
 | `website`     | `string`           |      | URL of the trust authority's website, if there's one.                                                                                        |
-| `description` | `localisedString`  |      | Short description of the trust authority and its publications.                                                                               |
+| `description` | `LocalisedString`  |      | Short description of the trust authority and its publications.                                                                               |
 | `logo`        | `string`           |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
 | `country`     | `string`           |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
 | `trusted`     | `trustedEntities`  |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                               |
@@ -74,15 +74,15 @@ and key management -->
 Where:
 
 <!--
-   The definitions of `localisedString` and `keys` here are the same as in
+   The definitions of `LocalisedString` and `Keys` here are the same as in
    trust-authority.md. People changing either (or both) might want to also
    change it there (or remove this warning).
 -->
-* `localisedString` is a map associating a [RFC
+* `LocalisedString` is a map associating a [RFC
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
   identifier to a localisation of the string in the language the identifier
   refers to.
-* `keys` is a map associating a public key to the algorithm used in order to
+* `Keys` is a map associating a public key to the algorithm used in order to
   generate a signature with this key.
 * `trustedEntities` is a map using the following structure:
 
@@ -98,7 +98,7 @@ Where:
 | Parameter   | Type              | Req. | Description                                                                                                                                                                        |
 |:------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`. |
-| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                          |
+| `reason`    | `LocalisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                          |
 
 * `trustedTAs` is a map associating a Matrix user ID to a JSON object using the
   following structure:
@@ -107,7 +107,7 @@ Where:
 |:------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
 | `level`     | `integer`         |      | The trust level the TA trusts the entity with.                                                                                                                                                                                                                                                                                     |
-| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                                                                                                                                                                          |
+| `reason`    | `LocalisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                                                                                                                                                                          |
 
 * `signedObject` is a map using the following structure:
 
@@ -115,7 +115,7 @@ Where:
 |:---------------|:------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `registration` | `object`          |  x   | The content of latest version of the entity's registration event.                                                                                        |
 | `level`        | `integer`         |      | The level the TA trusts the entity with. This value **must** match the level provided alongside the signature. Only valid when the entity is another TA. |
-| `reason`       | `localisedString` |      | Reason given by the TA explaining why they trust this entity. This value **must** match the reason provided alongside the signature.                     |
+| `reason`       | `LocalisedString` |      | Reason given by the TA explaining why they trust this entity. This value **must** match the reason provided alongside the signature.                     |
 
 * `trustedNodes` is a map associating a node's server name (as a string) to a
   JSON object using the following structure:
@@ -123,14 +123,14 @@ Where:
 | Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                                       |
 |:------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `signature` | `string`          |  x   | Signature generated from a `signedNodeObject`, containing the node's server name, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}). |
-| `reason`    | `localisedString` |      | Reason given by the TA explaining why they trust this node.                                                                                                                                                                                                                                       |
+| `reason`    | `LocalisedString` |      | Reason given by the TA explaining why they trust this node.                                                                                                                                                                                                                                       |
 
 * `signedNodeObject` is a map using the following structure:
 
 | Parameter    | Type              | Req. | Description                                                                                                                        |
 |:-------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------|
 | `serverName` | `string`          |  x   | The node's server name.                                                                                                            |
-| `reason`     | `localisedString` |      | Reason given by the TA explaining why they trust this node. This value **must** match the reason provided alongside the signature. |
+| `reason`     | `LocalisedString` |      | Reason given by the TA explaining why they trust this node. This value **must** match the reason provided alongside the signature. |
 
 * `blacklistEntries` is a map using the following structure:
 
@@ -151,7 +151,7 @@ Where:
 |:--------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------|
 | `reason_code` | `string`          |  x   | One of the reason codes defined [below]({{<ref "#blacklist-reason-codes">}}).                                                   |
 | `after`       | `string`          |      | ID of the latest trustworthy event sent by the entry's target. Empty string or omit key if none (e.g. with `B_MISINFORMATION`). |
-| `reason`      | `localisedString` |      | More information on the reason the TA blacklisted the entry's target for.                                                       |
+| `reason`      | `LocalisedString` |      | More information on the reason the TA blacklisted the entry's target for.                                                       |
 
 #### Example
 

@@ -9,44 +9,39 @@ the item's content and title. The article **can** also include optional
 properties, such as the item's author, date (in milliseconds since epoch),
 original URL, description, read duration, NSFW marker, etc..
 
-The article JSON object **must** be encapsulated in a [signed Matrix
-event]({{<ref "/information-distribution/signature">}}), with its signature
-generated with one of the source's keys.
-
 If the original news item contains media, these media **should** be uploaded to
 the node using [Matrix's content repository
-module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
+feature](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
 🔧: Media signature
 
 ## Matrix event `network.informo.article`
 
-This message event **must** be sent and signed by a source Matrix user. See the
-[signed Matrix event]({{<ref
+This message event **must** be sent and signed by a source (or a sub-source).
+See the [signed Matrix event]({{<ref
 "/information-distribution/signature#signed-matrix-event">}}) page for more
 information.
 
-If the sender is not a source user, the article **should** be ignored. If the
-source registers itself afterwards, its previously sent articles **should**
-become visible.
-
+If the sender is not a source or a sub-source, the article **should** be
+ignored. If the source or sub-source registers itself afterwards, its previously
+sent articles **should** become visible.
 
 ### Event data
 
 | Parameter           | Type     | Req. | Description                                                                                                                                |
 |:--------------------|:---------|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------|
 | `title`             | `string` |  x   | Article's headline.                                                                                                                        |
-| `href`              | `string` |      | URL of the article's original post (in case the article was sent to Informo from an existing website).                                     |
+| `href`              | `string` |      | URL of the article's original post (in case the article was published on an existing website before being sent over Informo).              |
 | `short_description` | `string` |      | Short description or introduction to the article.                                                                                          |
-| `author`            | `string` |      | Full name of the article's author (when a single Informo source aggregates multiple writers).                                              |
+| `author`            | `string` |      | Full name of the article's author (in the case of the source not being a single individual).                                               |
 | `thumbnail`         | `string` |      | Preview image for the article. Must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                     |
 | `date`              | `int`    |      | Timestamp in milliseconds of the article's publication. If not provided clients should fall back to the Matrix event's creation timestamp. |
-| `content`           | `string` |  x   | Article HTML content. The HTML **must** be sanitized before being displayed in a client.                                                   |
+| `content`           | `string` |  x   | Article HTML content. The HTML **must** be sanitized before being displayed by a client implementation.                                    |
 | `custom`            | `object` |      | Additional information for custom client implementations.                                                                                  |
 
 Additional information:
 
-- Articles having a `date` field in the future **should** be ignored.
-- The `date` field uses the same timestamps as in the Matrix protocol, i.e.
+- Articles having a `date` property in the future **should** be ignored.
+- The `date` property uses the same timestamps as in the Matrix protocol, i.e.
   milliseconds since epoch.
 
 
