@@ -44,50 +44,105 @@ This ping **must** take the form of a Matrix timeline event of the
 
 An entry node is a node that allows client implementations to connect to the
 federations this node is in, and retrieve information from them. An entry node
-**must** allow guest access, and **must** define at least one
-[alias](https://matrix.org/docs/spec/client_server/r0.4.0.html#room-aliases) to
-the Matrix room.
+**must** allow guest access.
 
-Client implementations **must** provide users with an updated list of entry
-nodes with their addresses and the aliases to use to join the federation the
-node is in. Clients implementations **must** also provide users with a way to
-input custom values for the address of the entry node to use and the alias of
-the Matrix room to join.
+On top of that, an entry node **must** expose a file at the address
+`https://SERVER_NAME/.well-known/informo/info` which content is a map in the
+JSON format, which associates Matrix room IDs with a map implementing the
+following structure:
 
-Once a Matrix room is joined, client implementations **must** retrieve and save
-the [list of
-aliases](https://matrix.org/docs/spec/client_server/r0.4.0.html#m-room-aliases)
-for this Matrix room. This can be done by processing all of the `m.room.aliases`
-events in the state of the Matrix room, each of them containing the list of
-aliases defined for a given node. The content for such an event looks like this:
+| Parameter    | Type   | Req. | Description                                                   |
+|:-------------|:-------|:----:|:--------------------------------------------------------------|
+| `entry_node` | `bool` |  x   | Whether the node is an entry node for this federation (room). |
+
+One entry of this map **can** be the wildcard value "`*`" instead of a Matrix
+room ID, in which case it means its content defines default values for the
+parameters it contains.
+
+If the file lacks a wildcard entry, or the wildcard entry's content lacks one or
+more parameter(s), the following default values **must** be used for the missing
+parameter(s):
+
+| Parameter    | Default value |
+|:-------------|:--------------|
+| `entry_node` | `false`       |
+
+If an entry exists for a federation and its content define different values for
+any parameters, these values **must** be used for this federation.
+
+### Simple example
+
+Let's consider a node that has `example.com` as its server name, and wants to
+act as an entry node for the federation which Matrix room ID is
+`!Nei7aeg5aefub:informo.network`.
+
+This node **must** serve a file at the address
+`https://example.com/.well-known/informo/info` with the following content:
 
 ```
-"aliases": [
-    "#alias1:example.com",
-    "#alias2:example.com"
-]
+{
+    "!Nei7aeg5aefub:informo.network": {
+        "entry_node": true
+    }
+}
 ```
 
-The example above shows the content of the `m.room.aliases` state event for the
-node which uses `example.com` as its server name. Please note that an instance
-of a `m.room.aliases` state event only lists the aliases created by a single
-node (hence both aliases using the same server name in the example), which means
-that the complete list of aliases for the Matrix room can only be retrieved by
-processing every `m.room.aliases` state event that hasn't been made obsolete by
-a more recent `m.room.aliases` state event for the same node.
+### Blacklist example
 
-Client implementations **must** process these lists of aliases to generate a map
-associating all of the entry nodes for this Matrix room with the aliases they
-provide for this room.
+Let's consider the a node that has `example.com` as its server name and wants to
+act as an entry node to any federation except for the one which Matrix room ID
+is `!Nei7aeg5aefub:informo.network`.
 
-### Reaching an entry node
+This node **must** serve a file at the address
+`https://example.com/.well-known/informo/info` with the following content:
 
-Because processing the list of aliases gives only the nodes' server names, and
-not their FQDN, a node might not be reachable at the address defined by its
-server name. As an example, the Matrix specifications would allow a node living
-at `node.example.com` to register the alias `#example:example.com`.
+```
+{
+    "*": {
+        "entry_node": true
+    },
+    "!Nei7aeg5aefub:informo.network": {
+        "entry_node": false
+    }
+}
+```
 
-In order to find the effective FQDN and port to reach a node at, client
+### Client implementations behaviour
+
+#### Computing a list of entry nodes
+
+Client implementations **must** provide user with a list of known entry nodes,
+for at least one federation, that's up to date at the time of the
+implementation's release. Client implementations **must** also allow users to
+use an unknown node as an entry node (provided that this node implements the
+requirements to be an entry node).
+
+Once a federation is joined (see the section [below]({{<relref
+"#joining-a-federation">}})), client implementations **must** retrieve and save
+the list of joined nodes in the federation. This can be done by retrieving the
+list of [joined
+users](https://matrix.org/docs/spec/client_server/r0.4.0.html#get-matrix-client-r0-rooms-roomid-joined-members)
+for the federation, then processing this list in order to only keep the server
+part of the Matrix user IDs (i.e. what's after the colon (`:`)). Client
+implementations **must** save this list in case the node they're currently using
+becomes unreachable.
+
+Client implementations **should** weight this list according to the number of
+trusted [TAs]({{<ref "/trust-management/trust-authority">}}) that trust a given
+node.
+
+Client implementations **must not** try to fetch the `/.well-known/informo/info`
+file of each node once it has computed this list, because this would be harmful
+to its users' privacy.
+
+#### Reaching an entry node
+
+A list of entry nodes only contains the nodes' server names, and not their
+address and port, which can differ. As an example, the Matrix specifications
+would allow a node living at `node.example.com` to use Matrix identifiers ending
+with `:example.com`.
+
+In order to find the effective address and port to reach a node at, client
 implementations **must** implement the server discovery through `.well-known`
 URI logic, as [described in the Matrix
 specifications](https://matrix.org/docs/spec/client_server/r0.4.0.html#server-discovery).
@@ -95,30 +150,63 @@ specifications](https://matrix.org/docs/spec/client_server/r0.4.0.html#server-di
 {{% notice note %}}
 If the server discovery leads to a final `IGNORE` instruction (as specified in
 the link above), then client implementations **must** use the node's server name
-as the FQDN the node can be reached at.
+as the address and port the node can be reached at, using the `443` port as a
+default value.
 {{% /notice %}}
 
 In the event of an entry node that's currently being used becoming unreachable,
-clients implementations **should** use the map generated from the room aliases
-list to provide its user(s) with alternative entry nodes and aliases to use.
-Client implementations **can** use received pings in order to filter out the
-inactive nodes from this list.
+clients implementations **should** use their list of nodes (either hardcoded by
+the implementor or computed from the list of users in the federation) to provide
+its user(s) with alternative entry nodes to use.
 
-### Joining a federation
+#### Joining a federation
 
-Once both an entry node and a room alias have been selected as the one to use in
+Client implementations **must** provide users with the room ID of at least one
+federation, and allow users to input custom values for the room ID of the
+federation to join.
+
+When reaching a node in order to join a federation, client implementations
+**must** try to retrieve the `/.well-kown/informo/info` file of the node (while
+following 30x redirects). If the file doesn't exist, or doesn't state that the
+node can be used as an entry node for the given federation, then client
+implementations **must** give up and try another node. While trying to use this
+node as an entry node anyway can be technically working, this rule exists in
+order to avoid node administrators possible legal issues resulting from people
+using a node to access specific types of contents against its administrator's
+will.
+
+Client implementations **should** store the result of the attempt at retrieving
+the `/.well-kown/informo/info` file of a node in a cache with a time-based
+invalidation policy.
+
+Once both an entry node and a room ID have been selected as the one to use in
 order to join a federation, whether this selection originated from an explicit
 action by a user or, either partially or entirely, from a client
 implementation's inner mechanisms, client implementations **must** send a [join
 request](https://matrix.org/docs/spec/client_server/r0.4.0.html#post-matrix-client-r0-join-roomidoralias)
-to the selected node using the selected alias.
+to the selected node using the federation's room ID.
+
+In order to optimise the likelihood of success of the join request, client
+implementations **should** provide server names for at least additional 3 nodes
+when performing the join request using `server_name` query parameters. This will
+ensure that, if the node doesn't already have at least one user in the
+federation, it can fall back by asking another node (either of the 3 or more
+provided) which does to [help it
+join](https://matrix.org/docs/spec/server_server/r0.1.1.html#get-matrix-federation-v1-make-join-roomid-userid).
+These nodes are used only by the entry node, and only during this interaction,
+therefore client implementations don't need to make sure that these nodes are
+entry nodes in this case.
+
+While connected to a node, client implementations **should** keep track of
+received pings in order to better filter out inactive nodes when the entry node
+they're currently using becomes unreachable.
 
 ## Other types of nodes
 
-Nodes that aren't entry nodes (e.g. a node with no guest access or no alias
-pointing towards the Matrix room) are named "relay nodes". Although they cannot
-be used by client implementations in order to retrieve articles from the Matrix
-room, they are still useful as they can relay articles to other nodes that are
-out of reach from the articles' emitter(s). For example, if a node `A` can't
-reach a node `B` but can reach a node `C`, even if `C` isn't an entry node,
-`A`'s information will eventually manage to reach `B` via `C` thanks to pings.
+Nodes that aren't entry nodes (e.g. a node with no guest access) are named
+"relay nodes". Although they cannot be used by client implementations in order
+to retrieve articles from the Matrix room, they are still useful as they can
+relay articles to other nodes that are out of reach from the articles'
+emitter(s). For example, if a node `A` can't reach a node `B` but can reach a
+node `C`, even if `C` isn't an entry node, `A`'s information will eventually
+manage to reach `B` via `C` thanks to pings.
