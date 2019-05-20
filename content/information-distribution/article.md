@@ -15,8 +15,8 @@ generated with one of the source's keys.
 
 If the original news item contains media, these media **should** be uploaded to
 the node using [Matrix's content repository
-module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).
-🔧: Media signature
+module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112) and their
+cryptographic signatures **should** be appended to the article's event.
 
 ## Matrix event `network.informo.article`
 
@@ -29,26 +29,37 @@ If the sender is not a source user, the article **should** be ignored. If the
 source registers itself afterwards, its previously sent articles **should**
 become visible.
 
-
 ### Event data
 
-| Parameter           | Type     | Req. | Description                                                                                                                                |
-|:--------------------|:---------|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------|
-| `title`             | `string` |  x   | Article's headline.                                                                                                                        |
-| `href`              | `string` |      | URL of the article's original post (in case the article was sent to Informo from an existing website).                                     |
-| `short_description` | `string` |      | Short description or introduction to the article.                                                                                          |
-| `author`            | `string` |      | Full name of the article's author (when a single Informo source aggregates multiple writers).                                              |
-| `thumbnail`         | `string` |      | Preview image for the article. Must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                     |
-| `date`              | `int`    |      | Timestamp in milliseconds of the article's publication. If not provided clients should fall back to the Matrix event's creation timestamp. |
-| `content`           | `string` |  x   | Article HTML content. The HTML **must** be sanitized before being displayed in a client.                                                   |
-| `custom`            | `object` |      | Additional information for custom client implementations.                                                                                  |
+| Parameter           | Type              | Req. | Description                                                                                                                                |
+|:--------------------|:------------------|:----:|:-------------------------------------------------------------------------------------------------------------------------------------------|
+| `title`             | `string`          |  x   | Article's headline.                                                                                                                        |
+| `href`              | `string`          |      | URL of the article's original post (in case the article was sent to Informo from an existing website).                                     |
+| `short_description` | `string`          |      | Short description or introduction to the article.                                                                                          |
+| `author`            | `string`          |      | Full name of the article's author (when a single Informo source aggregates multiple writers).                                              |
+| `thumbnail`         | `string`          |      | Preview image for the article. Must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                     |
+| `date`              | `int`             |      | Timestamp in milliseconds of the article's publication. If not provided clients should fall back to the Matrix event's creation timestamp. |
+| `content`           | `string`          |  x   | Article HTML content. The HTML **must** be sanitized before being displayed in a client.                                                   |
+| `media_sigs`        | `MediaSignatures` |      | Cryptographic signatures of the media embedded in the article.                                                                             |
+| `custom`            | `object`          |      | Additional information for custom client implementations.                                                                                  |
+
+Where:
+
+* `MediaSignatures` is a map associating a [`mxc://`
+  URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112) with the
+  signature of the media that's been uploaded at this URL. This signature
+  **must** be generated using the same algorithm and public key that were used
+  to sign the article's event. If this is not the case, or the signature can't
+  be verified, client implementations **must not** display the media to their
+  users. The `mxc://` URL **can** refer to any media included either in the
+  article's content or in any other property in the event's data (such as its
+  thumbnail).
 
 Additional information:
 
 - Articles having a `date` field in the future **should** be ignored.
 - The `date` field uses the same timestamps as in the Matrix protocol, i.e.
   milliseconds since epoch.
-
 
 ### Example
 
@@ -63,7 +74,11 @@ Additional information:
         "algorithm": "ed25519",
         "content": {
             "title": "Lorem ipsum",
-            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+            "thumbnail": "mxc://example.com/loremipsum",
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "media_sigs": {
+                "mxc://example.com/loremipsum": "Easojae4oogahluwah2o"
+            }
         }
     }
 }
