@@ -34,9 +34,9 @@ event **must** be provided using the following model:
 Where:
 
 <!--
-   The definitions of `localisedString` and `keys` here are the same as in
-   trust-authority.md. People changing either (or both) might want to also
-   change it there (or remove this warning).
+   The definitions of `localisedString`, `keys` and `prevUser` here are the same
+   as in trust-authority.md. People changing any (or all of them) might want to
+   also change it there (or remove this warning).
 -->
 * `localisedString` is a map associating a [RFC
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
