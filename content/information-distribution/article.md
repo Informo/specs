@@ -52,8 +52,8 @@ Where:
   signature of the media that's been uploaded at this URL. This signature
   **must** be generated using the same algorithm and public key that were used
   to sign the article's event. If this is not the case, or the signature can't
-  be verified, client implementations **must not** display the media to their
-  users. The `mxc://` URL **can** refer to any media included either in the
+  be verified, client implementations **must not** display the medium to their
+  users. The `mxc://` URL **can** refer to any medium included either in the
   article's content or in any other property in the event's data (such as its
   thumbnail).
 
