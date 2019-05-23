@@ -16,7 +16,9 @@ generated with one of the source's keys.
 If the original news item contains media, these media **must** be uploaded to
 the node using [Matrix's content repository
 module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112) and their
-cryptographic signatures **should** be appended to the article's event.
+cryptographic signatures **must** be appended to the article's event. Client
+implementations **must not** display media that aren't served by a node's
+content repository endpoint.
 
 ## Matrix event `network.informo.article`
 
@@ -40,7 +42,7 @@ become visible.
 | `thumbnail`         | `string`          |      | Preview image for the article. Must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                     |
 | `date`              | `int`             |      | Timestamp in milliseconds of the article's publication. If not provided clients should fall back to the Matrix event's creation timestamp. |
 | `content`           | `string`          |  x   | Article HTML content. The HTML **must** be sanitized before being displayed in a client.                                                   |
-| `media_sigs`        | `MediaSignatures` |      | Cryptographic signatures of the media embedded in the article.                                                                             |
+| `media_sigs`        | `MediaSignatures` |  !   | Cryptographic signatures of the media embedded in the article. Required if the article contains at least one medium.                       |
 | `custom`            | `object`          |      | Additional information for custom client implementations.                                                                                  |
 
 Where:
@@ -54,8 +56,6 @@ Where:
   users. The `mxc://` URL **can** refer to any media included either in the
   article's content or in any other property in the event's data (such as its
   thumbnail).
-
-
 
 Additional information:
 
