@@ -13,7 +13,7 @@ The article JSON object **must** be encapsulated in a [signed Matrix
 event]({{<ref "/information-distribution/signature">}}), with its signature
 generated with one of the source's keys.
 
-If the original news item contains media, these media **should** be uploaded to
+If the original news item contains media, these media **must** be uploaded to
 the node using [Matrix's content repository
 module](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112) and their
 cryptographic signatures **should** be appended to the article's event.
@@ -54,6 +54,8 @@ Where:
   users. The `mxc://` URL **can** refer to any media included either in the
   article's content or in any other property in the event's data (such as its
   thumbnail).
+
+
 
 Additional information:
 
