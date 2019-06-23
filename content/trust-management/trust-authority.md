@@ -56,17 +56,18 @@ the updated list of keys into account.
 
 #### Matrix event `network.informo.trust_authority`
 
-| Parameter     | Type               | Req. | Description                                                                                                                                  |
-|:--------------|:-------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`        | `localisedString`  |  x   | Name of the trust authority.                                                                                                                 |
-| `sig_keys`    | `keys`             |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                            |
-| `website`     | `string`           |      | URL of the trust authority's website, if there's one.                                                                                        |
-| `description` | `localisedString`  |      | Short description of the trust authority and its publications.                                                                               |
-| `logo`        | `string`           |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
-| `country`     | `string`           |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
-| `trusted`     | `trustedEntities`  |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                               |
-| `blacklist`   | `blacklistEntries` |      | Entities (sources and other trust authorities) and nodes blacklisted by the trust authority.                                                 |
-| `custom`      | `object`           |      | Additional information for custom client implementations.                                                                                    |
+| Parameter     | Type               | Req. | Description                                                                                                                                                                                                                                              |
+|:--------------|:-------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `name`        | `localisedString`  |  x   | Name of the trust authority.                                                                                                                                                                                                                             |
+| `sig_keys`    | `keys`             |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                                                                                                                                        |
+| `prev_user`   | `prevUser`         |      | Matrix user the trust authority previously used to verify or blacklist entities. See [below]({{<ref "#change-of-matrix-user">}}) for additional information on how a trust authority can change the Matrix user it uses to verify or blacklist entities. |
+| `website`     | `string`           |      | URL of the trust authority's website, if there's one.                                                                                                                                                                                                    |
+| `description` | `localisedString`  |      | Short description of the trust authority and its publications.                                                                                                                                                                                           |
+| `logo`        | `string`           |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                                                                                                                        |
+| `country`     | `string`           |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html).                                                                                                             |
+| `trusted`     | `trustedEntities`  |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                                                                                                                                           |
+| `blacklist`   | `blacklistEntries` |      | Entities (sources and other trust authorities) and nodes blacklisted by the trust authority.                                                                                                                                                             |
+| `custom`      | `object`           |      | Additional information for custom client implementations.                                                                                                                                                                                                |
 
 <!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
 and key management -->
@@ -74,8 +75,8 @@ and key management -->
 Where:
 
 <!--
-   The definitions of `localisedString` and `keys` here are the same as in
-   trust-authority.md. People changing either (or both) might want to also
+   The definitions of `localisedString`, `keys` and `prevUser` here are the same
+   as in source.md. People changing any (or all of them) might want to also
    change it there (or remove this warning).
 -->
 * `localisedString` is a map associating a [RFC
@@ -84,6 +85,24 @@ Where:
   refers to.
 * `keys` is a map associating a public key to the algorithm used in order to
   generate a signature with this key.
+* `prevUser` is a map using the following structure:
+
+| Parameter   | Type     | Req. | Description                                                                                                                                                                                                                                                                                                            |
+|:------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `user_id`   | `string` |  x   | Matrix user ID of the Matrix user this trust authority previously used to verify or blacklist entities.                                                                                                                                                                                                                |
+| `event_id`  | `string` |  x   | ID of the latest event published by the trust authority's original administrator using the trust authority's previous user.                                                                                                                                                                                            |
+| `sig_algo`  | `string` |      | Algorithm used to generate `signature`.                                                                                                                                                                                                                                                                                |
+| `sig_key`   | `string` |      | Public key to use when verifying `signature`. **Must** be one of the trust authority's previous user's public keys.                                                                                                                                                                                                    |
+| `signature` | `string` |      | Signature generated from a `prevUserSign` map derived from the current `prevUser` map, using the key specified in `sig_key` and the algorithm specified in `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
+
+* `prevUserSign` is a map using the following structure:
+
+| Parameter       | Type     | Req. | Description                                                                                                                                                                              |
+|:----------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `prev_user_id`  | `string` |  x   | Matrix user ID this trust authority previously used to verify or blacklist entities. **Must** match the `user_id` of the current `prevUser` map.                                         |
+| `prev_event_id` | `string` |  x   | ID of the latest event published by the trust authority's original administrator using the trust authority's previous user. **Must** match the `event_id` of the current `prevUser` map. |
+| `new_user_id`   | `string` |  x   | Matrix user ID of the Matrix user this trust authority currently uses to verify or blacklist entities. **Must** match the ID of the new user in use by the trust authority.              |
+
 * `trustedEntities` is a map using the following structure:
 
 | Parameter           | Type             | Req. | Description                     |
@@ -163,6 +182,10 @@ Where:
     },
     "sig_keys": {
         "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
+    "prev_user": {
+        "user_id": "@somengo:badserver.com",
+        "event_id": "!someEnglishArticle:badserver.com",
     },
     "website": "https://www.somengo.org",
     "description": {
@@ -301,6 +324,19 @@ not** include the compromised key.
     ]
 }
 ```
+
+## Change of Matrix user
+
+A trust authority might have to change the Matrix user it uses to verify or
+blacklist entities at some points in its life time. This can happen for many
+reason: the homeserver it was registered on went down, or got compromised, or
+got isolated from the rest of the federation...
+
+In such an event, a trust authority **can** follow the same procedure as with
+sources and sub-sources specified [here]({{< ref
+"/information-distribution/source#change-of-matrix-user" >}}). Client
+implementations **must** then follow the same procedure as they would with a
+source or a sub-source in a similar situation.
 
 ## Cryptographic private keys getting compromised
 
