@@ -56,27 +56,25 @@ the updated list of keys into account.
 
 #### Matrix event `network.informo.trust_authority`
 
-| Parameter     | Type               | Req. | Description                                                                                                                                  |
-|:--------------|:-------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------|
-| `name`        | `LocalisedString`  |  x   | Name of the trust authority.                                                                                                                 |
-| `sig_keys`    | `Keys`             |  x   | Public keys the trust authority will use to generate cryptographic signatures. 🔧                                                            |
-| `website`     | `string`           |      | URL of the trust authority's website, if there's one.                                                                                        |
-| `description` | `LocalisedString`  |      | Short description of the trust authority and its publications.                                                                               |
-| `logo`        | `string`           |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).            |
-| `country`     | `string`           |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html). |
-| `trusted`     | `trustedEntities`  |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                               |
-| `blacklist`   | `blacklistEntries` |      | Entities (sources and other trust authorities) and nodes blacklisted by the trust authority.                                                 |
-| `custom`      | `object`           |      | Additional information for custom client implementations.                                                                                    |
-
-<!-- 🔧: Need to do some research on Megolm and Matrix APIs around encryption
-and key management -->
+| Parameter     | Type               | Req. | Description                                                                                                                                                                                                                                              |
+|:--------------|:-------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `name`        | `LocalisedString`  |  x   | Name of the trust authority.                                                                                                                                                                                                                             |
+| `sig_keys`    | `Keys`             |  x   | Public keys the trust authority will use to generate cryptographic signatures.                                                                                                                                                                           |
+| `prev_user`   | `PrevUser`         |      | Matrix user the trust authority previously used to verify or blacklist entities. See [below]({{<ref "#change-of-matrix-user">}}) for additional information on how a trust authority can change the Matrix user it uses to verify or blacklist entities. |
+| `website`     | `string`           |      | URL of the trust authority's website, if there's one.                                                                                                                                                                                                    |
+| `description` | `LocalisedString`  |      | Short description of the trust authority and its publications.                                                                                                                                                                                           |
+| `logo`        | `string`           |      | Logo of the trust authority. If provided, must be a [`mxc://` URL](https://matrix.org/docs/spec/client_server/r0.4.0.html#id112).                                                                                                                        |
+| `country`     | `string`           |      | Country of the trust authority's owner. If provided, **must** be compliant with [ISO 3166](https://www.iso.org/iso-3166-country-codes.html).                                                                                                             |
+| `trusted`     | `TrustedEntities`  |      | Entities (sources and other trust authorities) trusted by the trust authority.                                                                                                                                                                           |
+| `blacklist`   | `BlacklistEntries` |      | Entities (sources and other trust authorities) and nodes blacklisted by the trust authority.                                                                                                                                                             |
+| `custom`      | `object`           |      | Additional information for custom client implementations.                                                                                                                                                                                                |
 
 Where:
 
 <!--
-   The definitions of `LocalisedString` and `Keys` here are the same as in
-   trust-authority.md. People changing either (or both) might want to also
-   change it there (or remove this warning).
+    The definitions of `LocalisedString`, `Keys` and `PrevUser` here are the
+    same as in source.nd.md. People changing any (or all of them) might want to
+    also change it there (or remove this warning).
 -->
 * `LocalisedString` is a map associating a [RFC
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
@@ -84,32 +82,50 @@ Where:
   refers to.
 * `Keys` is a map associating a public key to the algorithm used in order to
   generate a signature with this key.
-* `trustedEntities` is a map using the following structure:
+* `PrevUser` is a map using the following structure:
+
+| Parameter   | Type     | Req. | Description                                                                                                                                                                                                                                                                                                            |
+|:------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `user_id`   | `string` |  x   | Matrix user ID of the Matrix user this trust authority previously used to verify or blacklist entities.                                                                                                                                                                                                                |
+| `event_id`  | `string` |  x   | ID of the latest event published by the trust authority's original administrator using the trust authority's previous user.                                                                                                                                                                                            |
+| `sig_algo`  | `string` |      | Algorithm used to generate `signature`.                                                                                                                                                                                                                                                                                |
+| `sig_key`   | `string` |      | Public key to use when verifying `signature`. **Must** be one of the trust authority's previous user's public keys.                                                                                                                                                                                                    |
+| `signature` | `string` |      | Signature generated from a `PrevUserSign` map derived from the current `PrevUser` map, using the key specified in `sig_key` and the algorithm specified in `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
+
+* `PrevUserSign` is a map using the following structure:
+
+| Parameter       | Type     | Req. | Description                                                                                                                                                                              |
+|:----------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `prev_user_id`  | `string` |  x   | Matrix user ID this trust authority previously used to verify or blacklist entities. **Must** match the `user_id` of the current `prevUser` map.                                         |
+| `prev_event_id` | `string` |  x   | ID of the latest event published by the trust authority's original administrator using the trust authority's previous user. **Must** match the `event_id` of the current `prevUser` map. |
+| `new_user_id`   | `string` |  x   | Matrix user ID of the Matrix user this trust authority currently uses to verify or blacklist entities. **Must** match the ID of the new user in use by the trust authority.              |
+
+* `TrustedEntities` is a map using the following structure:
 
 | Parameter           | Type             | Req. | Description                     |
 |:--------------------|:-----------------|:----:|:--------------------------------|
-| `sources`           | `trustedSources` |      | The sources trusted by this TA. |
-| `trust_authorities` | `trustedTAs`     |      | The TAs trusted by this TA.     |
-| `nodes`             | `trustedNodes`   |      | The nodes trusted by this TA.   |
+| `sources`           | `TrustedSources` |      | The sources trusted by this TA. |
+| `trust_authorities` | `TrustedTAs`     |      | The TAs trusted by this TA.     |
+| `nodes`             | `TrustedNodes`   |      | The nodes trusted by this TA.   |
 
-* `trustedSources` is a map associating a Matrix user ID to a JSON object using
+* `TrustedSources` is a map associating a Matrix user ID to a JSON object using
   the following structure:
 
 | Parameter   | Type              | Req. | Description                                                                                                                                                                        |
 |:------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`. |
+| `signature` | `string`          |  x   | Signature generated from a `SignedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`. |
 | `reason`    | `LocalisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                          |
 
-* `trustedTAs` is a map associating a Matrix user ID to a JSON object using the
+* `TrustedTAs` is a map associating a Matrix user ID to a JSON object using the
   following structure:
 
 | Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                                                                        |
 |:------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `signature` | `string`          |  x   | Signature generated from a `signedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
+| `signature` | `string`          |  x   | Signature generated from a `SignedObject`, containing the entity's registration event, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
 | `level`     | `integer`         |      | The trust level the TA trusts the entity with.                                                                                                                                                                                                                                                                                     |
 | `reason`    | `LocalisedString` |      | Reason given by the TA explaining why they trust this source or other TA.                                                                                                                                                                                                                                                          |
 
-* `signedObject` is a map using the following structure:
+* `SignedObject` is a map using the following structure:
 
 | Parameter      | Type              | Req. | Description                                                                                                                                              |
 |:---------------|:------------------|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -117,35 +133,35 @@ Where:
 | `level`        | `integer`         |      | The level the TA trusts the entity with. This value **must** match the level provided alongside the signature. Only valid when the entity is another TA. |
 | `reason`       | `LocalisedString` |      | Reason given by the TA explaining why they trust this entity. This value **must** match the reason provided alongside the signature.                     |
 
-* `trustedNodes` is a map associating a node's server name (as a string) to a
+* `TrustedNodes` is a map associating a node's server name (as a string) to a
   JSON object using the following structure:
 
 | Parameter   | Type              | Req. | Description                                                                                                                                                                                                                                                                                       |
 |:------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `signature` | `string`          |  x   | Signature generated from a `signedNodeObject`, containing the node's server name, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}). |
+| `signature` | `string`          |  x   | Signature generated from a `SignedNodeObject`, containing the node's server name, using one of the trust authority's public keys and the algorithm provided under `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}). |
 | `reason`    | `LocalisedString` |      | Reason given by the TA explaining why they trust this node.                                                                                                                                                                                                                                       |
 
-* `signedNodeObject` is a map using the following structure:
+* `SignedNodeObject` is a map using the following structure:
 
 | Parameter    | Type              | Req. | Description                                                                                                                        |
 |:-------------|:------------------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------|
 | `serverName` | `string`          |  x   | The node's server name.                                                                                                            |
 | `reason`     | `LocalisedString` |      | Reason given by the TA explaining why they trust this node. This value **must** match the reason provided alongside the signature. |
 
-* `blacklistEntries` is a map using the following structure:
+* `BlacklistEntries` is a map using the following structure:
 
 | Parameter  | Type                  | Req. | Description                                                                        |
 |:-----------|:----------------------|:-----|:-----------------------------------------------------------------------------------|
-| `entities` | `blacklistedEntities` |      | Entities (sources and other trust authorities) blacklisted by the trust authority. |
-| `nodes`    | `blacklistedNodes`    |      | Nodes blacklisted by the trust authority.                                          |
+| `entities` | `BlacklistedEntities` |      | Entities (sources and other trust authorities) blacklisted by the trust authority. |
+| `nodes`    | `BlacklistedNodes`    |      | Nodes blacklisted by the trust authority.                                          |
 
-* `blacklistedEntities` is a map associating a Matrix user ID to a
-  `blacklistEntry`.
+* `BlacklistedEntities` is a map associating a Matrix user ID to a
+  `BlacklistEntry`.
 
-* `blacklistedNodes` is a map associating a node's server name (as a string) to
-  a `blacklistEntry`.
+* `BlacklistedNodes` is a map associating a node's server name (as a string) to
+  a `BlacklistEntry`.
 
-* `blacklistEntry` is a map using the following structure:
+* `BlacklistEntry` is a map using the following structure:
 
 | Parameter     | Type              | Req. | Description                                                                                                                     |
 |:--------------|:------------------|:----:|:--------------------------------------------------------------------------------------------------------------------------------|
@@ -163,6 +179,10 @@ Where:
     },
     "sig_keys": {
         "IlRMeOPX2e0MurIyfWEucYBRVOEEUMrOHqn/8mLqMjA": "ed25519"
+    },
+    "prev_user": {
+        "user_id": "@somengo:badserver.com",
+        "event_id": "!someEnglishArticle:badserver.com",
     },
     "website": "https://www.somengo.org",
     "description": {
@@ -236,18 +256,18 @@ a reason code, which **must** be one of the following:
 
 This code can have different meaning depending on the target:
 
-| Target type                       | Meaning                                                                                                                                                                                           |
+| Target's type                     | Meaning                                                                                                                                                                                           |
 |:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Source** or **trust authority** | One of the public keys or the Matrix user of the source or trust authority has been compromised.                                                                                                  |
 | **Node**                          | The node is managed or has been taken over by people trying to harm the federation, impersonate other news sources or taking over Matrix accounts that were previously considered as trustworthy. |
 
 
 
-#### `B_MISINFORMATION`
+#### `B_DISINFORMATION`
 
 This code can have different meaning depending on the target:
 
-| Target type         | Meaning                                                                                                                                                           |
+| Target's type       | Meaning                                                                                                                                                           |
 |:--------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Source**          | The source has been publishing false or unverified information intentionnally.                                                                                    |
 | **Trust authority** | The trust authority has been certifying sources publishing false or unverified information as trustworthy intentionnally.                                         |
@@ -301,6 +321,19 @@ not** include the compromised key.
     ]
 }
 ```
+
+## Change of Matrix user
+
+A trust authority might have to change the Matrix user it uses to verify or
+blacklist entities at some points in its life time. This can happen for many
+reason: the homeserver it was registered on went down, or got compromised, or
+got isolated from the rest of the federation...
+
+In such an event, a trust authority **can** follow the same procedure as with
+sources and sub-sources specified [here]({{< ref
+"/information-distribution/source#change-of-matrix-user" >}}). Client
+implementations **must** then follow the same procedure as they would with a
+source or a sub-source in a similar situation.
 
 ## Cryptographic private keys getting compromised
 

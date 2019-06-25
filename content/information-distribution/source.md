@@ -29,9 +29,9 @@ content of this event **must** be provided using the following structure:
 Where:
 
 <!--
-   The definitions of `LocalisedString` and `Keys` here are the same as in
-   trust-authority.md. People changing either (or both) might want to also
-   change it there (or remove this warning).
+    The definitions of `LocalisedString`, `Keys` and `PrevUser` here are the
+    same as in trust-authority.md. People changing any (or all of them) might
+    want to also change it there (or remove this warning).
 -->
 * `LocalisedString` is a map associating a [RFC
   5646](https://tools.ietf.org/html/rfc5646)-compliant language (and variant)
