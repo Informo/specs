@@ -1,0 +1,5 @@
+{{ if .Get "width" }}
+<img src="{{ .Site.BaseURL }}/images/{{ .Get "src" }}?width={{ .Get "width" }}%" alt="{{ .Get "alt" }}" />
+{{ else }}
+<img src="{{ .Site.BaseURL }}/images/{{ .Get "src" }}" alt="{{ .Get "alt" }}" />
+{{ end }}

@@ -49,19 +49,19 @@ Where:
 
 | Parameter   | Type     | Req. | Description                                                                                                                                                                                                                                                                                                            |
 |:------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `user_id`   | `string` |  x   | Previous Matrix user ID of the Matrix user this source used to publish information.                                                                                                                                                                                                                                    |
+| `user_id`   | `string` |  x   | ID of the Matrix user this source previously used to publish information.                                                                                                                                                                                                                                              |
 | `event_id`  | `string` |  x   | ID of the latest event published by the source's original administrator using the source's previous user.                                                                                                                                                                                                              |
 | `sig_algo`  | `string` |      | Algorithm used to generate `signature`.                                                                                                                                                                                                                                                                                |
-| `sig_key`   | `string` |      | Public key to use when verifying `signature`. **Must** be one of the source's previous user's public keys.                                                                                                                                                                                                             |
+| `sig_key`   | `string` |      | Public key to use when verifying `signature`. **Should** be one of the source's previous user's public keys.                                                                                                                                                                                                           |
 | `signature` | `string` |      | Signature generated from a `PrevUserSign` map derived from the current `PrevUser` map, using the key specified in `sig_key` and the algorithm specified in `sig_algo`, and following the instructions described [here]({{<ref "/information-distribution/signature#signing-json-data">}}) (under "Signing JSON data"). |
 
 * `PrevUserSign` is a map using the following structure:
 
 | Parameter       | Type     | Req. | Description                                                                                                                                                            |
 |:----------------|:---------|:----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `prev_user_id`  | `string` |  x   | Matrix user ID this source previously used to publish information. **Must** match the `user_id` of the current `PrevUser` map.                                         |
+| `prev_user_id`  | `string` |  x   | ID of the Matrix user this source previously used to publish information. **Must** match the `user_id` of the current `PrevUser` map.                                  |
 | `prev_event_id` | `string` |  x   | ID of the latest event published by the source's original administrator using the source's previous user. **Must** match the `event_id` of the current `PrevUser` map. |
-| `new_user_id`   | `string` |  x   | Matrix user ID of the Matrix user this source currently uses to publish information. **Must** match the ID of the new user in use by the source.                       |
+| `new_user_id`   | `string` |  x   | ID of the Matrix user this source currently uses to publish information. **Must** match the ID of the new user in use by the source.                                   |
 
 Each time one of the source's properties changes, it **must** publish a new
 registration event, and every trust authority certifying the trustworthiness of
@@ -76,13 +76,13 @@ of its Matrix user instead.
 ## Cryptographic private keys getting compromised
 
 Every trust authority certifying a source's trustworthiness **must** be operated
-by an organism or individual the source trusts and is in contact with outside of
-Informo. If at least one of a source's private keys gets compromised, the source
-**must** update its list of public signature verification keys by publishing a
-new registration event containing the updated list, and every trust authority
-trusting the source **must** compute and issue a new signature taking the
-updated list of keys into account. The reason behind this is to encourage trust
-authorities to communicate with their trusted sources, estimate how much
+by an organisation or individual the source trusts and is in contact with
+outside of Informo. If at least one of a source's private keys gets compromised,
+the source **must** update its list of public signature verification keys by
+publishing a new registration event containing the updated list, and every trust
+authority trusting the source **must** compute and issue a new signature taking
+the updated list of keys into account. The reason behind this is to encourage
+trust authorities to communicate with their trusted sources, estimate how much
 compromised the source is (i.e. one key vs all of the keys vs the source's
 entire Matrix account), and take the actions it deems necessary.
 

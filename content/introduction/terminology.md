@@ -36,7 +36,7 @@ federations.
 
 #### Entity
 
-An entity is the abstract representation of an individual or an organism
+An entity is the abstract representation of an individual or an organisation
 actively interacting over Informo, and is technically represented by a finite
 set of at least one Matrix user identifier. This definition doesn't include
 client implementations' users, who interact passively with Informo (by reading
