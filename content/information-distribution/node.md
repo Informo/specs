@@ -10,14 +10,13 @@ specification](https://matrix.org/docs/spec/client_server/r0.4.0.html) and the
 [federation
 specification](https://matrix.org/docs/spec/server_server/r0.1.1.html) of the
 [Matrix protocol](https://matrix.org), and connected to one or more federations
-(i.e. Matrix rooms) which states and messages implements the Informo
+(i.e. Matrix rooms) which states and messages implement the Informo
 specifications.
 
 This page describes the behaviour nodes **must** implement in addition to the
 Matrix protocol specifications. From a technical point of view, this behaviour
-can be implemented either by embedding it in the piece of software implementing
-the Matrix specifications, or by using external tools that interact with the
-said piece of software.
+can be implemented either by embedding it in the Matrix server implementation,
+or by using external tools that interact with the said implementation.
 
 ## Ping
 

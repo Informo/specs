@@ -3,10 +3,10 @@ title: "Specifications Change Submission Protocol"
 weight: 2
 ---
 
-This page describes the protocol followed regarding the submission of any change
-of this documentation (also named "Specifications Changes Submission", shortened
-as "SCS"). This protocol is named "Specifications Change Submission Protocol"
-(which can be shortened to "SCSP").
+This page describes the protocol to follow regarding the submission of any
+change of this documentation (also named "Specifications Changes Submission",
+shortened as "SCS"). This protocol is named "Specifications Change Submission
+Protocol" (which can be shortened to "SCSP").
 
 Any SCS **must** be done by opening a [pull
 request](https://help.github.com/articles/about-pull-requests/) against the

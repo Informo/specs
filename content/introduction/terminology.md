@@ -9,7 +9,7 @@ used over this documentation.
 #### Article
 
 An article refers to any news item that is sent over the Informo network. It is
-defined by its content, which, right now, is limited to text and images, and
+defined by its content, which is currently is limited to text and images, and
 various metadata such as its title, its author(s), its publication date, etc..
 
 #### Client implementation
@@ -21,9 +21,9 @@ and retrieve information from it.
 #### Federation
 
 A federation is a set of nodes that are able to communicate with each other,
-similar to a mesh network. In this specifications, Matrix rooms are sometimes
-referred to as federations, as they can be broadly considered as federations
-with state machines.
+similar to a mesh network. In this specifications, Matrix rooms are considered
+federations, as they can be broadly considered as federations with state
+machines. A federation is identified by a Matrix room ID.
 
 #### Node
 
@@ -36,7 +36,7 @@ federations.
 
 #### Entity
 
-An entity is the abstract representation of an individual or an organism
+An entity is the abstract representation of an individual or an organisation
 actively interacting over Informo, and is technically represented by a finite
 set of at least one Matrix user identifier. This definition doesn't include
 client implementations' users, who interact passively with Informo (by reading
@@ -50,27 +50,28 @@ below), and sub-sources (which are defined in [the related section]({{<ref
 
 #### Source, Information source
 
-An information source, sometimes referred to as just "source", refers to an
-individual or group of people that send articles over the Informo network. A
-source itself is defined by a name, a cryptographic key, and some metadata such
-as a description or an avatar. If supported by the Informo client in use, a user
-can subscribe to a source to add its latest articles to their feed.
+An information source, sometimes referred to as simply "source", refers to an
+entity, whether it is an individual or group of people, that send articles over
+the Informo network. A source itself is defined by a name, a set of
+cryptographic keys, and some metadata such as a description or an avatar. If
+supported by the Informo client implementation in use, a user can subscribe to a
+source to add its latest articles to their feed.
 
 #### Trust Authority (TA)
 
 A trust authority refers to an entity, whether it is an individual or a group of
 people, which role is to build up a list of sources it certifies as legit and
 worthy of trust. This list can also include trust authorities the TA certifies
-as qualified to state on the trust worthiness of other sources.
+as qualified to state on the trustworthiness of other sources.
 
 #### Trust Level
 
 The trust level is an indication on how much a client implementation trusts a
 trust authority. It is a relative integer representing the maximum depth in the
 user's trust network that can be reached from the said trust authority. It can
-be either defined by the user (to control what its client must trust as
-precisely as possible) or by a trust authority for another trust authority (to
-delegate the certification of trustworthiness).
+be either defined by the user (to control what the client implementation it uses
+must trust as precisely as possible) or by a trust authority for another trust
+authority (to delegate the certification of trustworthiness).
 
 #### Trust Link
 

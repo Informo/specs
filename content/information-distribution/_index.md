@@ -16,9 +16,3 @@ however any external party is free to create its own room as long as information
 is distributed through it accordingly with the current specifications. Client
 implementations **should** allow users to retrieve information from several
 rooms.
-
-{{% notice info %}}
-Because of the nature of this section, its pages as of phase
-1 are much lighter than in other sections, and will be completed once phase 2
-begins.
-{{% /notice %}}

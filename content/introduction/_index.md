@@ -52,9 +52,9 @@ mechanisms is described in [its own section]({{<ref "/trust-management">}}).
 
 ### Get involved!
 
-Any people wishing to get involved in any part of Informo, whether it is working
-on the specifications, contributing to the software we build, translations, or
-any other possible form of contribution (including taking part in the ongoing
+Anyone wishing to get involved in any part of Informo, whether it is working on
+the specifications, contributing to the software we build, translations, or any
+other possible form of contribution (including taking part in the ongoing
 chatter about how to improve Informo) is more than welcome to join our [Matrix
 discussion room](https://matrix.to/#/!LppXGlMuWgaYNuljUr:weu.informo.network) or
 our [IRC channel](https://webchat.freenode.net/?channels=%23informo).
